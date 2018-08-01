@@ -15,4 +15,9 @@ public class LittleEnemy : BaseEnemy
     {
 		
 	}
+
+	void OnTriggerEnter2D(Collider2D col)
+	{
+		HealthBar.health -= 10.0f;
+	}
 }

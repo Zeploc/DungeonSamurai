@@ -26,29 +26,29 @@ public class QTEInstance : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update ()
-    {
-        CurrentTime += Time.deltaTime;
-        if (CurrentTime > Timer)
-        {
-            // Failed QTE
-            // damage player [PlayerRef]
-            QTEManagerRef.RemoveQTE(gameObject);
-        }
-        // QTE button pressed
-        if (Input.GetButtonDown(QTEkey))
-        {
-            QTEComplete();
-        }
-    }
-
-    void QTEComplete()
-    {
-        // QTE effect
-        // QTE deal damage to [DamageEnemy]
-        // Damage frame/anim player [PlayerRef] 
-
-        // Remove QTE from manager:
-        QTEManagerRef.RemoveQTE(gameObject);
-    }
+//	void Update ()
+//    {
+//        CurrentTime += Time.deltaTime;
+//        if (CurrentTime > Timer)
+//        {
+//            // Failed QTE
+//            // damage player [PlayerRef]
+//            QTEManagerRef.RemoveQTE(gameObject);
+//        }
+//        // QTE button pressed
+//        if (Input.GetButtonDown(QTEkey))
+//        {
+//            QTEComplete();
+//        }
+//    }
+//
+//    void QTEComplete()
+//    {
+//        // QTE effect
+//        // QTE deal damage to [DamageEnemy]
+//        // Damage frame/anim player [PlayerRef] 
+//
+//        // Remove QTE from manager:
+//        QTEManagerRef.RemoveQTE(gameObject);
+//    }
 }

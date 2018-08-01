@@ -6,13 +6,14 @@ public class BaseEnemy : MonoBehaviour {
 
     public float InitialHealth = 100.0f;
     protected float Health = 100.0f;
-    // attacks?
+	// attacks?
+	GameController GameControllerRef;
 
 	// Use this for initialization
 	void Start ()
     {
-        Health = InitialHealth;
-
+		Health = InitialHealth;
+		GameControllerRef = FindObjectOfType<GameController> ();
     }
 	
 	// Update is called once per frame
@@ -23,6 +24,9 @@ public class BaseEnemy : MonoBehaviour {
     public void TakeDamage(float Damage)
     {
         Health -= Damage;
+		if (Health <= 0) {
+			GameControllerRef.PlayerRef.MoveToDoor ();
+		}
         // Damage Effect
         // Damage frame/anim
     }
