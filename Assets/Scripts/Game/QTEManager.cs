@@ -15,7 +15,7 @@ public class QTEManager : MonoBehaviour {
 	void Start ()
     {
         CurrentQTEs = new List<GameObject>();
-        PlayerRef = FindObjectOfType<GameController>().GetPlayer();
+        PlayerRef = FindObjectOfType<GameController>().PlayerRef;
     }
 	
 	// Update is called once per frame
@@ -26,9 +26,12 @@ public class QTEManager : MonoBehaviour {
 
     public void CreateQTE(string Button, float damage, Vector3 Position)
     {
-        Transform NewTransform = transform;
-        NewTransform.position = FindObjectOfType<Camera>().WorldToScreenPoint(PlayerRef.transform.position);
-        GameObject NewQTE = Instantiate(QTEInstancePrefab, NewTransform);
+        if (!PlayerRef) Debug.Log("Can't find player");
+        Position = new Vector3(0, 0, 0);// Camera.main.WorldToScreenPoint(PlayerRef.transform.position);
+        //Position = Vector3.zero;
+        Debug.Log("Position " + Position.ToString());
+        GameObject NewQTE = Instantiate(QTEInstancePrefab, Position, Quaternion.identity);
+        NewQTE.transform.SetParent(gameObject.transform, false);
         NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, damage);
         CurrentQTEs.Add(NewQTE);
     }

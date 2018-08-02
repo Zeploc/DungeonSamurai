@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4475377955829364}
   - component: {fileID: 212767891314310518}
-  - component: {fileID: 114209927765689396}
+  - component: {fileID: 114146287622724336}
   m_Layer: 0
   m_Name: LittleEnemy
   m_TagString: Untagged
@@ -41,7 +41,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &114209927765689396
+--- !u!114 &114146287622724336
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -49,10 +49,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1450569701153166}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e45114f41a579c647a37697b6b7bef50, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d00c15c2b6dc714cb79ea72fda5b5b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialHealth: 50
+  InitialHealth: 100
 --- !u!212 &212767891314310518
 SpriteRenderer:
   m_ObjectHideFlags: 1

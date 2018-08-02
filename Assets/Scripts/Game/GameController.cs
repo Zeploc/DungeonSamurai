@@ -6,11 +6,13 @@ public class GameController : MonoBehaviour {
 
     public Player PlayerRef;
 	public GameObject CurrentEnemy;
+    public Camera CamereRef;
 
 	// Use this for initialization
 	void Start ()
     {
         //PlayerRef = FindObjectOfType<Player>();
+        if (PlayerRef) Debug.Log("Set player");
     }
 	
 	// Update is called once per frame

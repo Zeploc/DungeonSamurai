@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-
-	//game object for door
-	GameObject Door;
+    
+    //game object for door
+    GameObject Door;
 	private bool bMoveToDoor = false;
 	[SerializeField] float speed = 4.0f;
 	// Use this for initialization
@@ -23,7 +23,11 @@ public class Player : MonoBehaviour {
 				bMoveToDoor = false;
 			}
 		}
-	}
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            FindObjectOfType<QTEManager>().CreateQTE("Jump",1, new Vector3());
+        }
+    }
 	public void MoveToDoor()
 	{
 		bMoveToDoor = true;
