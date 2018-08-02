@@ -24,10 +24,10 @@ public class QTEManager : MonoBehaviour {
 		
 	}
 
-    public void CreateQTE(string Button, float damage)
+    public void CreateQTE(string Button, float damage, Vector3 Position)
     {
         Transform NewTransform = transform;
-        NewTransform.position = PlayerRef.transform.position;
+        NewTransform.position = FindObjectOfType<Camera>().WorldToScreenPoint(PlayerRef.transform.position);
         GameObject NewQTE = Instantiate(QTEInstancePrefab, NewTransform);
         NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, damage);
         CurrentQTEs.Add(NewQTE);

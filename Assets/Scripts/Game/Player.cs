@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
+
 	//game object for door
 	GameObject Door;
 	private bool bMoveToDoor = false;

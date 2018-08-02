@@ -5,9 +5,9 @@ using UnityEngine;
 public class QTEInstance : MonoBehaviour {
 
     float CurrentTime = 0.0f;
-    float Timer = 1.0f;
+    public float Timer = 1.0f;
 
-    string QTEkey;
+    string QTEkey = "Jump";
 
     QTEManager QTEManagerRef;
     GameObject DamageEnemy;
@@ -24,31 +24,33 @@ public class QTEInstance : MonoBehaviour {
     {
         QTEkey = button;
     }
-	
-	// Update is called once per frame
-//	void Update ()
-//    {
-//        CurrentTime += Time.deltaTime;
-//        if (CurrentTime > Timer)
-//        {
-//            // Failed QTE
-//            // damage player [PlayerRef]
-//            QTEManagerRef.RemoveQTE(gameObject);
-//        }
-//        // QTE button pressed
-//        if (Input.GetButtonDown(QTEkey))
-//        {
-//            QTEComplete();
-//        }
-//    }
-//
-//    void QTEComplete()
-//    {
-//        // QTE effect
-//        // QTE deal damage to [DamageEnemy]
-//        // Damage frame/anim player [PlayerRef] 
-//
-//        // Remove QTE from manager:
-//        QTEManagerRef.RemoveQTE(gameObject);
-//    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        CurrentTime += Time.deltaTime;
+        if (CurrentTime > Timer)
+        {
+            // Failed QTE
+            // damage player [PlayerRef]
+            QTEManagerRef.RemoveQTE(gameObject);
+            Destroy(gameObject);
+        }
+        // QTE button pressed
+        if (Input.GetButtonDown(QTEkey))
+        {
+            QTEComplete();
+        }
+    }
+
+    void QTEComplete()
+    {
+        // QTE effect
+        // QTE deal damage to [DamageEnemy]
+        // Damage frame/anim player [PlayerRef] 
+
+        // Remove QTE from manager:
+        QTEManagerRef.RemoveQTE(gameObject);
+        Destroy(gameObject);
+    }
 }
