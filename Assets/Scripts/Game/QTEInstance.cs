@@ -15,18 +15,24 @@ public class QTEInstance : MonoBehaviour {
     Player PlayerRef;
     Text TextObject;
 
-	// Use this for initialization
-	void Start ()
+    int iPlayerAnimVal = 0;
+    int iEnemyAnimVal = 0;
+
+
+    // Use this for initialization
+    void Start ()
     {
         QTEManagerRef = FindObjectOfType<QTEManager>();
         PlayerRef = FindObjectOfType<GameController>().GetPlayer();
         
     }
 
-    public void SetQTEInit(string button, float damage, string Text)
+    public void SetQTEInit(string button, float damage, string Text, int PlayerAnimVal, int EnemyAnimVal)
     {
         QTEkey = button;
         gameObject.GetComponentInChildren<Text>().text = Text;
+        iPlayerAnimVal = PlayerAnimVal;
+        iEnemyAnimVal = EnemyAnimVal;
     }
 
     // Update is called once per frame
@@ -52,6 +58,7 @@ public class QTEInstance : MonoBehaviour {
         // QTE effect
         // QTE deal damage to [DamageEnemy]
         // Damage frame/anim player [PlayerRef] 
+        PlayerRef.SetAttackPose(iPlayerAnimVal);
 
         // Remove QTE from manager:
         QTEManagerRef.RemoveQTE(gameObject);
