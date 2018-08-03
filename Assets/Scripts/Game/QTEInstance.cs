@@ -1,28 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class QTEInstance : MonoBehaviour {
 
     float CurrentTime = 0.0f;
     public float Timer = 1.0f;
 
-    string QTEkey = "Jump";
+    string QTEkey = "Fire1"; //Overridden
 
     QTEManager QTEManagerRef;
     GameObject DamageEnemy;
     Player PlayerRef;
+    Text TextObject;
 
 	// Use this for initialization
 	void Start ()
     {
         QTEManagerRef = FindObjectOfType<QTEManager>();
         PlayerRef = FindObjectOfType<GameController>().GetPlayer();
+        
     }
 
-    public void SetQTEInit(string button, float damage)
+    public void SetQTEInit(string button, float damage, string Text)
     {
         QTEkey = button;
+        gameObject.GetComponentInChildren<Text>().text = Text;
     }
 
     // Update is called once per frame
