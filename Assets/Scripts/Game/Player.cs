@@ -30,11 +30,11 @@ public class Player : MonoBehaviour {
 		}
         if (Input.GetKeyDown(KeyCode.R))
         {
-            FindObjectOfType<QTEManager>().CreateQTE("Fire1",1, new Vector3(),"right");
+            FindObjectOfType<QTEManager>().CreateQTE("Fire1",1, new Vector3(),"right",0,0);
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            FindObjectOfType<QTEManager>().CreateQTE("Fire2", 1, new Vector3(), "left");
+            FindObjectOfType<QTEManager>().CreateQTE("Fire2", 1, new Vector3(), "left",0,0);
         }
         if (ActionTimer <= FullActionTimer)
         {

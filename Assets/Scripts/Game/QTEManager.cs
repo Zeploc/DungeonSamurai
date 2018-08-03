@@ -24,7 +24,7 @@ public class QTEManager : MonoBehaviour {
 		
 	}
 
-    public void CreateQTE(string Button, float damage, Vector3 Position,string Text)
+    public void CreateQTE(string Button, float damage, Vector3 Position,string Text, int PlayerPose, int EnemyPose)
     {
         if (!PlayerRef) Debug.Log("Can't find player");
         Position = new Vector3(0, 0, 0);// Camera.main.WorldToScreenPoint(PlayerRef.transform.position);
@@ -32,7 +32,7 @@ public class QTEManager : MonoBehaviour {
         Debug.Log("Position " + Position.ToString());
         GameObject NewQTE = Instantiate(QTEInstancePrefab, Position, Quaternion.identity);
         NewQTE.transform.SetParent(gameObject.transform, false);
-        NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, damage,Text);
+        NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, damage,Text,PlayerPose, EnemyPose);
         CurrentQTEs.Add(NewQTE);
     }
     

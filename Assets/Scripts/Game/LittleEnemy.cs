@@ -27,22 +27,22 @@ public class LittleEnemy : BaseEnemy
         {
             if(QTEType == 0)
             {
-                QTEManagerRef.CreateQTE("Fire2", 1, new Vector3(50,50,0), "Left");
+                QTEManagerRef.CreateQTE("Fire2", 1, new Vector3(50,50,0), "Left",1,0);
                 QTETimer = 2.1f;
             }
            if(QTEType == 1)
             {
-                QTEManagerRef.CreateQTE("Fire1", 1, new Vector3(50, 50, 0), "Right");
+                QTEManagerRef.CreateQTE("Fire1", 1, new Vector3(50, 50, 0), "Right",2,0);
                 QTETimer = 2.1f;
             }
             if (QTEType == 2)
             {
-                QTEManagerRef.CreateQTE("Fire1", 1, new Vector3(50, 50, 0), "Right");
+                QTEManagerRef.CreateQTE("Fire1", 1, new Vector3(50, 50, 0), "Right",3,0);
                 QTETimer = 2.1f;
             }
             if (QTEType == 3)
             {
-                QTEManagerRef.CreateQTE("Fire2", 1, LeftParry.position, "Left");
+                QTEManagerRef.CreateQTE("Fire2", 1, LeftParry.position, "Left",2,0);
                 QTETimer = 2.1f;
             }
         }
