@@ -9,8 +9,13 @@ public class Player : MonoBehaviour {
     GameObject Door;
 	private bool bMoveToDoor = false;
 	[SerializeField] float speed = 4.0f;
-	// Use this for initialization
-	void Start () {
+    
+    public float FullActionTimer = 0.5f;
+    float ActionTimer = 0.0f;
+    bool bActionPose = false;
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -25,11 +30,34 @@ public class Player : MonoBehaviour {
 		}
         if (Input.GetKeyDown(KeyCode.R))
         {
-            FindObjectOfType<QTEManager>().CreateQTE("Jump",1, new Vector3());
+            FindObjectOfType<QTEManager>().CreateQTE("Fire1",1, new Vector3(),"right",0,0);
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            FindObjectOfType<QTEManager>().CreateQTE("Fire2", 1, new Vector3(), "left",0,0);
+        }
+        if (ActionTimer <= FullActionTimer)
+        {
+            ActionTimer += Time.deltaTime;
+        }
+        else if (bActionPose)
+        {
+            SetAttackPose(0);
+            bActionPose = false;
         }
     }
 	public void MoveToDoor()
 	{
 		bMoveToDoor = true;
 	}
+
+    public void SetAttackPose(int NewAttackPos)
+    {
+        GetComponent<Animator>().SetInteger("AttackPose", NewAttackPos);
+        if (NewAttackPos != 0)
+        {
+            ActionTimer = 0.0f;
+            bActionPose = true;
+        }
+    }
 }
