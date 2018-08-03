@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212767891314310518}
   - component: {fileID: 114146287622724336}
   m_Layer: 0
-  m_Name: LittleEnemy
+  m_Name: LittleEnemy 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
