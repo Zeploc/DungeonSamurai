@@ -6,6 +6,9 @@ public class LittleEnemy : BaseEnemy
 {
     public float QTETimer;
     public Transform LeftDodge;
+    public Transform RightDodge;
+    public Transform LeftParry;
+    public Transform RightParry;
     QTEManager QTEManagerRef;
 
     // Use this for initialization
@@ -18,17 +21,27 @@ public class LittleEnemy : BaseEnemy
 	void Update ()
     {
         QTETimer -= Time.deltaTime;
-        int QTEType = Random.Range(0, 2);
+        int QTEType = Random.Range(0, 5);
 		if(QTETimer <= 0)
         {
             if(QTEType == 0)
             {
-                QTEManagerRef.CreateQTE("Fire2", 1, new Vector3(), "Left");
+                QTEManagerRef.CreateQTE("Fire2", 1, LeftDodge.position, "Left");
                 QTETimer = 2.1f;
             }
            if(QTEType == 1)
             {
-                QTEManagerRef.CreateQTE("Fire1", 1, new Vector3(), "Right");
+                QTEManagerRef.CreateQTE("Fire1", 1, RightDodge.position, "Right");
+                QTETimer = 2.1f;
+            }
+            if (QTEType == 1)
+            {
+                QTEManagerRef.CreateQTE("Fire1", 1, RightParry.position, "Right");
+                QTETimer = 2.1f;
+            }
+            if (QTEType == 1)
+            {
+                QTEManagerRef.CreateQTE("Fire2", 1, LeftParry.position, "Left");
                 QTETimer = 2.1f;
             }
         }
