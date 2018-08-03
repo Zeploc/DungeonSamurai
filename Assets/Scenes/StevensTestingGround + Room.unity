@@ -662,11 +662,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4280611071776504, guid: 6b369b395bd9b544f932ba622a5086a6, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.41
+      value: -5.87
       objectReference: {fileID: 0}
     - target: {fileID: 4280611071776504, guid: 6b369b395bd9b544f932ba622a5086a6, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -4.16
+      value: -2.11
       objectReference: {fileID: 0}
     - target: {fileID: 4280611071776504, guid: 6b369b395bd9b544f932ba622a5086a6, type: 2}
       propertyPath: m_LocalPosition.z
@@ -691,10 +691,6 @@ Prefab:
     - target: {fileID: 4280611071776504, guid: 6b369b395bd9b544f932ba622a5086a6, type: 2}
       propertyPath: m_RootOrder
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4280611071776504, guid: 6b369b395bd9b544f932ba622a5086a6, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6b369b395bd9b544f932ba622a5086a6, type: 2}
@@ -752,7 +748,8 @@ Prefab:
       propertyPath: m_FlipX
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114146287622724336, guid: 32146eaa4c8fc184f81415c64528598c, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 32146eaa4c8fc184f81415c64528598c, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &2056592304 stripped
@@ -760,6 +757,19 @@ GameObject:
   m_PrefabParentObject: {fileID: 1450569701153166, guid: 32146eaa4c8fc184f81415c64528598c,
     type: 2}
   m_PrefabInternal: {fileID: 1903723915}
+--- !u!114 &2056592305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2056592304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e45114f41a579c647a37697b6b7bef50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialHealth: 100
+  QTETimer: 1.5
 --- !u!61 &2056592308
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -25,7 +25,11 @@ public class Player : MonoBehaviour {
 		}
         if (Input.GetKeyDown(KeyCode.R))
         {
-            FindObjectOfType<QTEManager>().CreateQTE("Jump",1, new Vector3());
+            FindObjectOfType<QTEManager>().CreateQTE("Fire1",1, new Vector3(),"right");
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            FindObjectOfType<QTEManager>().CreateQTE("Fire2", 1, new Vector3(), "left");
         }
     }
 	public void MoveToDoor()
