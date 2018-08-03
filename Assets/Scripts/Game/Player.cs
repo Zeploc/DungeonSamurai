@@ -56,7 +56,7 @@ public class Player : MonoBehaviour {
         GetComponent<Animator>().SetInteger("AttackPose", NewAttackPos);
         if (NewAttackPos != 0)
         {
-            ActionTimer = FullActionTimer;
+            ActionTimer = 0.0f;
             bActionPose = true;
         }
     }
