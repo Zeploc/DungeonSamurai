@@ -5,6 +5,7 @@ using UnityEngine;
 public class LittleEnemy : BaseEnemy
 {
     public float QTETimer;
+    public Transform LeftDodge;
     QTEManager QTEManagerRef;
 
     // Use this for initialization
