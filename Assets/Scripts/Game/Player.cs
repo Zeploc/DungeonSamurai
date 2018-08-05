@@ -18,10 +18,11 @@ public class Player : MonoBehaviour {
 
     QTEManager QTEManagerRef;
 
-    public Transform LeftSlap;
-    public Transform RightSlap;
-    public Transform LeftAttack;
-    public Transform RightAttack;
+    public Transform LeftDodge;
+    public Transform RightDodge;
+    public Transform LeftParry;
+    public Transform RightParry;
+
     // Use this for initialization
     void Start ()
     {
@@ -76,19 +77,19 @@ public class Player : MonoBehaviour {
             QTEType = Random.Range(0, 4);
             if (QTEType == 0)
             {
-                QTEManagerRef.AddQTEToQueue("Fire2", 1, "SLAP", 1, 1, true, LeftSlap.position);
+                QTEManagerRef.AddQTEToQueue("Fire2", 1, "SLAP", 1, 1, true, LeftDodge.position);
             }
             if (QTEType == 1)
             {
-                QTEManagerRef.AddQTEToQueue("Fire1", 1, "SLAP", 2, 0, true, RightSlap.position);
+                QTEManagerRef.AddQTEToQueue("Fire1", 1, "SLAP", 2, 0, true, RightDodge.position);
             }
             if (QTEType == 2)
             {
-                QTEManagerRef.AddQTEToQueue("Fire2", 1, "ATT", 3, 0, true, LeftAttack.position);
+                QTEManagerRef.AddQTEToQueue("Fire2", 1, "ATT", 3, 0, true, LeftParry.position);
             }
             if (QTEType == 3)
             {
-                QTEManagerRef.AddQTEToQueue("Fire1", 1, "ATT", 2, 0, true, RightAttack.position);
+                QTEManagerRef.AddQTEToQueue("Fire1", 1, "ATT", 2, 0, true, RightParry.position);
             }
         }
     }

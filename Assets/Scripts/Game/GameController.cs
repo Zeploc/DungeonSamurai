@@ -7,12 +7,12 @@ public class GameController : MonoBehaviour {
     public Player PlayerRef;
 	public LittleEnemy CurrentEnemy; // This should be base enemy //
     public Camera CamereRef;
+    public QTEManager QTEManagerRef;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         //PlayerRef = FindObjectOfType<Player>();
-        if (PlayerRef) Debug.Log("Set player");
     }
 	
 	// Update is called once per frame
@@ -21,7 +21,8 @@ public class GameController : MonoBehaviour {
 		{
 			CurrentEnemy.GetComponent<BaseEnemy> ().TakeDamage (10);
 		}
-	}
+
+    }
 
     public Player GetPlayer()
     {

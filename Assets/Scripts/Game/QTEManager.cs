@@ -9,7 +9,7 @@ public class QTEManager : MonoBehaviour {
    [SerializeField]
     GameObject QTEInstancePrefab;
     bool EnemyTurn = false;
-    LittleEnemy CurrentEnemyRef; //Im not sure how to make this dynamic
+    BaseEnemy CurrentEnemyRef; // I'm not sure how to make this dynamic
 
     Player PlayerRef;
 
@@ -19,32 +19,33 @@ public class QTEManager : MonoBehaviour {
         CurrentEnemyRef = FindObjectOfType<GameController>().CurrentEnemy;
         CurrentQTEs = new Queue<GameObject>();
         PlayerRef = FindObjectOfType<GameController>().PlayerRef;
-        
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        Debug.Log(CurrentQTEs.Count);
+        //Debug.Log(CurrentQTEs.Count);
         timer -= Time.deltaTime;
-        if (CurrentQTEs.Count == 0 && EnemyTurn == true)
+        if (CurrentQTEs.Count == 0)
         {         
-            Debug.Log("Spawned enemy attacks");
-            
-            CurrentEnemyRef.GenerateQTEAttacks();
-            EnemyTurn = false;
-        }
-    
-        if (CurrentQTEs.Count == 0 && EnemyTurn == false)
-        {
-            Debug.Log("Spawned Player attacks");           
-            PlayerRef.GeneratePlayerQTEAttacks();
-            EnemyTurn = true;
-        }
+            if (EnemyTurn)
+            {
+                Debug.Log("Spawned enemy attacks");
+
+                CurrentEnemyRef.GenerateQTEAttacks();
+                EnemyTurn = false;
+            }
+            else if (EnemyTurn == false)
+            {
+                Debug.Log("Spawned Player attacks");
+                PlayerRef.GeneratePlayerQTEAttacks();
+                EnemyTurn = true;
+            }
+        }       
 
         if (timer <= 0)
         {
-            ActivateQTE();
+            if (CurrentQTEs.Count > 0) ActivateQTE();
             timer = 1.5f;
         }
 
@@ -65,12 +66,12 @@ public class QTEManager : MonoBehaviour {
     public void AddQTEToQueue(string Button, float damage, string Text, int PlayerPose, int EnemyPose, bool EnemyAttack, Vector3 Position)
     {
         Position = Camera.main.WorldToScreenPoint(Position + (PlayerRef.transform.position * 2));
-        Debug.Log(Position);
+        //Debug.Log(Position);
         GameObject NewQTE = Instantiate(QTEInstancePrefab, Position, Quaternion.identity);       
         NewQTE.transform.SetParent(gameObject.transform, false);
         NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, damage, Text, PlayerPose, EnemyPose, EnemyAttack, Position);
         CurrentQTEs.Enqueue(NewQTE);
-        Debug.Log("Added");
+        //Debug.Log("Added");
     }
     public void RemoveQTE(GameObject QTERef)
     {
@@ -81,6 +82,4 @@ public class QTEManager : MonoBehaviour {
     {
         CurrentQTEs.Peek().SetActive(true);
     }
-
-
 }
