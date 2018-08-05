@@ -13,10 +13,13 @@ public class QTEInstance : MonoBehaviour {
     QTEManager QTEManagerRef;
     GameObject DamageEnemy;
     Player PlayerRef;
-    Text TextObject;
+    
 
     int iPlayerAnimVal = 0;
     int iEnemyAnimVal = 0;
+    bool bEnemyAttack = false;
+    
+    Vector3 QTEPostition;
 
 
     // Use this for initialization
@@ -24,15 +27,18 @@ public class QTEInstance : MonoBehaviour {
     {
         QTEManagerRef = FindObjectOfType<QTEManager>();
         PlayerRef = FindObjectOfType<GameController>().GetPlayer();
+        gameObject.SetActive(false);
         
     }
 
-    public void SetQTEInit(string button, float damage, string Text, int PlayerAnimVal, int EnemyAnimVal)
+    public void SetQTEInit(string button, float damage, string Text, int PlayerAnimVal, int EnemyAnimVal, bool EnemyAttack, Vector3 Position)
     {
         QTEkey = button;
         gameObject.GetComponentInChildren<Text>().text = Text;
         iPlayerAnimVal = PlayerAnimVal;
         iEnemyAnimVal = EnemyAnimVal;
+        bEnemyAttack = EnemyAttack;
+        QTEPostition = Position;
     }
 
     // Update is called once per frame
@@ -50,6 +56,7 @@ public class QTEInstance : MonoBehaviour {
         if (Input.GetButtonDown(QTEkey))
         {
             QTEComplete();
+            QTEManagerRef.timer = 0.0f;
         }
     }
 
@@ -63,5 +70,9 @@ public class QTEInstance : MonoBehaviour {
         // Remove QTE from manager:
         QTEManagerRef.RemoveQTE(gameObject);
         Destroy(gameObject);
+    }
+    public void ActivateQTE()
+    {
+        gameObject.SetActive(true);
     }
 }

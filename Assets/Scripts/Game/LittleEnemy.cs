@@ -11,6 +11,7 @@ public class LittleEnemy : BaseEnemy
     public Transform RightParry;
     public int QTEType;
     QTEManager QTEManagerRef;
+    public int iAttackCount;
 
     // Use this for initialization
     void Start ()
@@ -21,33 +22,34 @@ public class LittleEnemy : BaseEnemy
 	// Update is called once per frame
 	void Update ()
     {
-        QTETimer -= Time.deltaTime;
-        QTEType = Random.Range(0, 4);
-		if(QTETimer <= 0)
+       
+		
+	}
+
+    public void GenerateQTEAttacks()
+    {
+        for (int i = 0; i < iAttackCount; i++)
         {
-            if(QTEType == 0)
+            QTEType = Random.Range(0, 4);
+            if (QTEType == 0)
             {
-                QTEManagerRef.CreateQTE("Fire2", 1, LeftDodge.position, "Left",1,0);
-                QTETimer = 1.1f;
+                QTEManagerRef.AddQTEToQueue("Fire2", 1, "Left", 1, 1, true, LeftDodge.position);
             }
-           if(QTEType == 1)
+            if (QTEType == 1)
             {
-                QTEManagerRef.CreateQTE("Fire1", 1, RightDodge.position, "Right", 2,0);
-                QTETimer = 1.1f;
+                QTEManagerRef.AddQTEToQueue("Fire1", 1, "Right", 2, 0, true, RightDodge.position);
             }
             if (QTEType == 2)
             {
-                QTEManagerRef.CreateQTE("Fire2", 1, LeftParry.position, "Left", 3,0);
-                QTETimer = 1.1f;
+                QTEManagerRef.AddQTEToQueue("Fire2", 1, "Left", 3, 0, true, LeftParry.position);
             }
             if (QTEType == 3)
             {
-                QTEManagerRef.CreateQTE("Fire1", 1, RightParry.position, "Right", 2,0);
-                QTETimer = 1.1f;
+                QTEManagerRef.AddQTEToQueue("Fire1", 1, "Right", 2, 0, true, RightParry.position);
             }
         }
-	}
-
+        
+    }
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		HealthBar.health -= 10.0f;

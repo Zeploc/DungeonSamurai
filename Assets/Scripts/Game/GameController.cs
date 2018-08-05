@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
     public Player PlayerRef;
-	public GameObject CurrentEnemy;
+	public LittleEnemy CurrentEnemy; // This should be base enemy //
     public Camera CamereRef;
 
 	// Use this for initialization

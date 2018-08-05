@@ -8,16 +8,25 @@ public class Player : MonoBehaviour {
     //game object for door
     GameObject Door;
 	private bool bMoveToDoor = false;
-	[SerializeField] float speed = 4.0f;
+    private int QTEType;
+    [SerializeField] float speed = 4.0f;
     
     public float FullActionTimer = 0.5f;
+    public int iAttackCount;
     float ActionTimer = 0.0f;
     bool bActionPose = false;
 
+    QTEManager QTEManagerRef;
+
+    public Transform LeftSlap;
+    public Transform RightSlap;
+    public Transform LeftAttack;
+    public Transform RightAttack;
     // Use this for initialization
-    void Start () {
-		
-	}
+    void Start ()
+    {
+        QTEManagerRef = FindObjectOfType<QTEManager>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -30,11 +39,11 @@ public class Player : MonoBehaviour {
 		}
         if (Input.GetKeyDown(KeyCode.R))
         {
-            FindObjectOfType<QTEManager>().CreateQTE("Fire1",1, new Vector3(),"right",0,0);
+           //FindObjectOfType<QTEManager>().CreateQTE("Fire1",1, new Vector3(),"right",0,0);
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            FindObjectOfType<QTEManager>().CreateQTE("Fire2", 1, new Vector3(), "left",0,0);
+            //FindObjectOfType<QTEManager>().CreateQTE("Fire2", 1, new Vector3(), "left",0,0);
         }
         if (ActionTimer <= FullActionTimer)
         {
@@ -58,6 +67,29 @@ public class Player : MonoBehaviour {
         {
             ActionTimer = 0.0f;
             bActionPose = true;
+        }
+    }
+    public void GeneratePlayerQTEAttacks()
+    {
+        for (int i = 0; i < iAttackCount; i++)
+        {
+            QTEType = Random.Range(0, 4);
+            if (QTEType == 0)
+            {
+                QTEManagerRef.AddQTEToQueue("Fire2", 1, "SLAP", 1, 1, true, LeftSlap.position);
+            }
+            if (QTEType == 1)
+            {
+                QTEManagerRef.AddQTEToQueue("Fire1", 1, "SLAP", 2, 0, true, RightSlap.position);
+            }
+            if (QTEType == 2)
+            {
+                QTEManagerRef.AddQTEToQueue("Fire2", 1, "ATT", 3, 0, true, LeftAttack.position);
+            }
+            if (QTEType == 3)
+            {
+                QTEManagerRef.AddQTEToQueue("Fire1", 1, "ATT", 2, 0, true, RightAttack.position);
+            }
         }
     }
 }
