@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
@@ -8,6 +9,7 @@ public class GameController : MonoBehaviour {
 	public BaseEnemy InitialEnemey; // This should be base enemy //
     public Camera CamereRef;
     public QTEManager QTEManagerRef;
+    public Image EnemyHealthbar;
 
     // Use this for initialization
     void Start ()

@@ -70,6 +70,7 @@ public class QTEManager : MonoBehaviour {
         CurrentQTEs.Enqueue(NewQTE);
         //Debug.Log("Added");
     }
+
     public void RemoveQTE(GameObject QTERef)
     {
         CurrentQTEs.Dequeue();

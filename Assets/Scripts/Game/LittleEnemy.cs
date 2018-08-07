@@ -15,15 +15,11 @@ public class LittleEnemy : BaseEnemy
 	void Update ()
     {
         base.Update();
-
-        CheckRef();
+        
     }
 
     public override void GenerateQTEAttacks()
     {
-        CheckRef();
-        Debug.Log("Derived Attacks");
-        if (!QTEManagerRef) Debug.Log("Bad qtemang");
         for (int i = 0; i < iAttackCount; i++)
         {
             QTEType = Random.Range(0, 4);

@@ -1,31 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
-
+    // Health
     [SerializeField] float maxHealth = 100.0f;
-    static float health;
+    float health;
+    [SerializeField] Image Healthbar;
 
-    //game object for door
+    // Door
     GameObject Door;
 	private bool bMoveToDoor = false;
     private int QTEType;
     [SerializeField] float speed = 4.0f;
     
+    // Animation
     public float FullActionTimer = 0.5f;
-    public int iAttackCount;
     float ActionTimer = 0.0f;
     bool bActionPose = false;
 
-    QTEManager QTEManagerRef;
-
+    // Attack
+    public int iAttackCount;
     public GameObject LeftDodge;
     public GameObject RightDodge;
     public GameObject LeftParray;
     public GameObject RightParray;
 
+    QTEManager QTEManagerRef;
     BaseEnemy Enemy;
 
     bool bMoveBack = false;
@@ -37,6 +40,9 @@ public class Player : MonoBehaviour {
     {
         QTEManagerRef = FindObjectOfType<QTEManager>();
         InitialPosition = transform.position;
+        health = maxHealth;
+        SetHealthBar();
+
     }
 	
 	// Update is called once per frame
@@ -138,10 +144,11 @@ public class Player : MonoBehaviour {
     public void ReloadPlayer()
     {
         health = maxHealth;
+        SetHealthBar();
     }
 
-    public float GetHealthPercentage()
+    public void SetHealthBar()
     {
-        return health / maxHealth;
+        Healthbar.fillAmount = health / maxHealth;
     }
 }

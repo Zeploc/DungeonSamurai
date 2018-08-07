@@ -52,6 +52,7 @@ GameObject:
   - component: {fileID: 212767891314310518}
   - component: {fileID: 61367615983802422}
   - component: {fileID: 114802707869406978}
+  - component: {fileID: 95454452935583612}
   m_Layer: 0
   m_Name: LittleEnemy
   m_TagString: Untagged
@@ -183,6 +184,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.28, y: 0.31}
   m_EdgeRadius: 0
+--- !u!95 &95454452935583612
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1450569701153166}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8e1203282df3b1948bc422876147255a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114802707869406978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -198,6 +216,7 @@ MonoBehaviour:
   QTETimer: 1.5
   QTEType: 1
   iAttackCount: 10
+  FullActionTimer: 0.5
   LeftSlap: {fileID: 1706400654667580}
   RightSlap: {fileID: 1984697926764114}
   LeftAttack: {fileID: 1023044072105066}

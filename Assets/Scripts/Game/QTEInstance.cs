@@ -58,29 +58,46 @@ public class QTEInstance : MonoBehaviour {
         if (CurrentTime > Timer)
         {
             // Failed QTE
-            // damage player [PlayerRef]
-            QTEManagerRef.RemoveQTE(gameObject);
-            Destroy(gameObject);
+            QTEMissed();
+            
         }
         bool QTEPressed = false;
+        float LeftJoystickAxis = Input.GetAxis("LeftJoystickHorizontal");
+        float RightJoystickAxis = Input.GetAxis("RightJoystickHorizontal");
         if (JoystickInput)
         {
-            // QTE stick moved
-            if ((QTEkey == "LeftJoystickLeft" && Input.GetAxis("LeftJoystickHorizontal") < -0.5f) ||
-                (QTEkey == "LeftJoystickRight" && Input.GetAxis("LeftJoystickHorizontal") > 0.5f) ||
-                (QTEkey == "RightJoystickLeft" && Input.GetAxis("RightJoystickHorizontal") < -0.5f) ||
-                (QTEkey == "RightJoystickRight" && Input.GetAxis("RightJoystickHorizontal") > 0.5f))
+            if (LeftJoystickAxis > 0.5 || LeftJoystickAxis < -0.5 || RightJoystickAxis > 0.5 || RightJoystickAxis < -0.5)
             {
-                QTEPressed = true;
+                // QTE stick moved
+                if ((QTEkey == "LeftJoystickLeft" && LeftJoystickAxis < -0.5f) ||
+                    (QTEkey == "LeftJoystickRight" && LeftJoystickAxis > 0.5f) ||
+                    (QTEkey == "RightJoystickLeft" && RightJoystickAxis < -0.5f) ||
+                    (QTEkey == "RightJoystickRight" && RightJoystickAxis > 0.5f))
+                {
+                    QTEPressed = true;
+                }
+                else
+                {
+                    QTEFailed();
+                }
             }
+            
         }
         else
         {
-            // QTE button pressed
-            if (Input.GetButtonDown(QTEkey))
+            if (Input.anyKeyDown)
             {
-                QTEPressed = true;
+                // QTE button pressed
+                if (Input.GetButtonDown(QTEkey))
+                {
+                    QTEPressed = true;
+                }
+                else
+                {
+                    QTEFailed();
+                }
             }
+            
         }
 
         if (QTEPressed)
@@ -90,14 +107,40 @@ public class QTEInstance : MonoBehaviour {
         }
     }
 
+    void QTEFailed()
+    {
+        // Loose time
+
+        PlayerRef.SetAttackPose(iPlayerAnimVal);
+        DamageEnemy.SetDeffensePose(iPlayerAnimVal);
+
+        QTEManagerRef.RemoveQTE(gameObject);
+        Destroy(gameObject);
+    }
+
+    void QTEMissed()
+    {
+        // Missed particle effect
+        QTEManagerRef.RemoveQTE(gameObject);
+        Destroy(gameObject);
+    }
+
     void QTEComplete()
     {
         // QTE effect
         // QTE deal damage to [DamageEnemy]
         DamageEnemy.TakeDamage(5);
         // Damage frame/anim player [PlayerRef] 
-        if (bEnemyAttack) PlayerRef.SetDeffensePose(iPlayerAnimVal);
-        else PlayerRef.SetAttackPose(iPlayerAnimVal);
+        if (bEnemyAttack)
+        {
+            PlayerRef.SetDeffensePose(iPlayerAnimVal);
+            DamageEnemy.SetAttackPose(iPlayerAnimVal);
+        }
+        else
+        {
+            PlayerRef.SetAttackPose(iPlayerAnimVal);
+            DamageEnemy.SetDamagedPose(iPlayerAnimVal);
+        }
 
         // Remove QTE from manager:
         QTEManagerRef.RemoveQTE(gameObject);
