@@ -488,6 +488,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9096d188f0eb2a444b8dcea6c1f1a7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Healthbar: {fileID: 0}
+  PlayerRef: {fileID: 0}
 --- !u!114 &858224249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,6 +674,8 @@ MonoBehaviour:
   InitialEnemey: {fileID: 2056592305}
   CamereRef: {fileID: 1417065186}
   QTEManagerRef: {fileID: 1570619311}
+  EnemyHealthbar: {fileID: 858224249}
+  TimeTillBombu: 1000
 --- !u!4 &1285961141
 Transform:
   m_ObjectHideFlags: 0
@@ -991,6 +995,11 @@ Prefab:
       propertyPath: RightParray
       value: 
       objectReference: {fileID: 1971683299}
+    - target: {fileID: 114909630600697434, guid: 6b369b395bd9b544f932ba622a5086a6,
+        type: 2}
+      propertyPath: Healthbar
+      value: 
+      objectReference: {fileID: 2084906245}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6b369b395bd9b544f932ba622a5086a6, type: 2}
   m_IsPrefabParent: 0
@@ -1249,3 +1258,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9096d188f0eb2a444b8dcea6c1f1a7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Healthbar: {fileID: 0}
+  PlayerRef: {fileID: 0}

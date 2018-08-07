@@ -60,7 +60,8 @@ public class QTEInstance : MonoBehaviour {
         if (CurrentTime > Timer)
         {
             // Failed QTE
-            QTEMissed();
+            if (bEnemyAttack) QTEFailed();
+            else QTEMissed();
         }
         bool QTEPressed = false;
         float LeftJoystickAxis = Input.GetAxis("LeftJoystickHorizontal");
@@ -112,8 +113,16 @@ public class QTEInstance : MonoBehaviour {
     {
         // Loose time
 
-        PlayerRef.SetAttackPose(iPlayerAnimVal);
-        DamageEnemy.SetDeffensePose(iPlayerAnimVal);
+        if (bEnemyAttack)
+        {
+            PlayerRef.SetDamagedPose(iPlayerAnimVal);
+            DamageEnemy.SetAttackPose(iPlayerAnimVal);
+        }
+        else
+        {
+            PlayerRef.SetAttackPose(iPlayerAnimVal);
+            DamageEnemy.SetDeffensePose(iPlayerAnimVal);
+        }
 
         QTEManagerRef.RemoveQTE(gameObject);
         Destroy(gameObject);
