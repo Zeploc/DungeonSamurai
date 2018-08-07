@@ -30,10 +30,6 @@ public class GameController : MonoBehaviour {
 
     public Player GetPlayer()
     {
-		if (PlayerRef)
-			Debug.Log ("Returning player");
-		else
-			Debug.Log ("Not valid");
         return PlayerRef;
     }
 

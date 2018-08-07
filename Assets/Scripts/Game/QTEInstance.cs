@@ -60,13 +60,6 @@ public class QTEInstance : MonoBehaviour {
         iEnemyAnimVal = EnemyAnimVal;
         bEnemyAttack = EnemyAttack;
         QTEObjectPostition = ObjectPosition;
-        if (QTEkey == "LeftJoystickLeft" ||
-            QTEkey == "LeftJoystickRight" ||
-            QTEkey == "RightJoystickLeft" ||
-            QTEkey == "RightJoystickRight")
-        {
-            JoystickInput = true;
-        }
         SetImage();
     }
 
@@ -84,6 +77,8 @@ public class QTEInstance : MonoBehaviour {
         bool QTEPressed = false;
         float LeftJoystickAxis = Input.GetAxis("LeftJoystickHorizontal");
         float RightJoystickAxis = Input.GetAxis("RightJoystickHorizontal");
+        float LeftTriggerAxis = Input.GetAxis("LeftTrigger");
+        float RightTriggerAxis = Input.GetAxis("RightTrigger");
         if (JoystickInput)
         {
             if ((LeftJoystickAxis > 0.9f || LeftJoystickAxis < -0.9f || RightJoystickAxis > 0.9f || RightJoystickAxis < -0.9f) && JoystickReset)
@@ -102,9 +97,17 @@ public class QTEInstance : MonoBehaviour {
                     QTEFailed();
                 }
             }
-            else if (LeftJoystickAxis == 0.0f && RightJoystickAxis == 0.0f)
+            else if (LeftJoystickAxis == 0.0f && RightJoystickAxis == 0.0f && LeftTriggerAxis == 0.0f && RightTriggerAxis == 0.0f)
             {
                 JoystickReset = true;
+            }
+            else if (QTEkey == "LeftTrigger" || QTEkey == "RightTrigger")
+            {
+                if (Mathf.Abs(Input.GetAxis(QTEkey)) >= 0.9f)
+                {
+                    QTEPressed = true;
+                    JoystickReset = false;
+                }
             }
             Vector2 NewPosition = StickCircleEndPosition.position;
             if (QTEkey == "LeftJoystickLeft")
@@ -148,9 +151,9 @@ public class QTEInstance : MonoBehaviour {
 
         if (bEnemyAttack)
         {
-            PlayerRef.SetDamagedPose(iPlayerAnimVal);
+            PlayerRef.SetDamagedPose(1);
             DamageEnemy.SetAttackPose(iEnemyAnimVal);
-            Debug.Log("Hurt");
+            //Debug.Log("Hurt");
             PlayerRef.DamagePlayer(5);
         }
         else
@@ -171,7 +174,7 @@ public class QTEInstance : MonoBehaviour {
             Debug.Log("Hurt");
             PlayerRef.DamagePlayer(5);
 
-            PlayerRef.SetDamagedPose(iPlayerAnimVal);
+            PlayerRef.SetDamagedPose(1);
             DamageEnemy.SetAttackPose(iEnemyAnimVal);
         }
         else
@@ -186,8 +189,6 @@ public class QTEInstance : MonoBehaviour {
     {        
         StickCircle.transform.position = StickCircleEndPosition.position;
         // QTE effect
-        // QTE deal damage to [DamageEnemy]
-        // Damage frame/anim player [PlayerRef] 
         if (bEnemyAttack)
         {
             PlayerRef.SetDeffensePose(iPlayerAnimVal);
@@ -227,7 +228,7 @@ public class QTEInstance : MonoBehaviour {
             }
             GetComponent<Image>().sprite = StickSlider;
             StickCircle.gameObject.SetActive(true);
-
+            JoystickInput = true;
         }
         else if (QTEkey == "LeftBumper" || QTEkey == "RightBumper")
         {
@@ -236,6 +237,10 @@ public class QTEInstance : MonoBehaviour {
         else if (QTEkey == "LeftTrigger" || QTEkey == "RightTrigger")
         {
             GetComponent<Image>().sprite = TriggerImage;
+            JoystickInput = true;
+            GetComponent<RectTransform>().sizeDelta = new Vector2(50, 200);
+            return;
+            //GetComponent<RectTransform>() = NewRect;
         }
         else
         {
