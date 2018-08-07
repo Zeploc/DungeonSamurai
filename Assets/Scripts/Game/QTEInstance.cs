@@ -107,10 +107,15 @@ public class QTEInstance : MonoBehaviour {
                 JoystickReset = true;
             }
             Vector2 NewPosition = StickCircleEndPosition.position;
-            if (QTEkey == "LeftJoystickLeft" || QTEkey == "LeftJoystickRight")
-                NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(LeftJoystickAxis));
+            if (QTEkey == "LeftJoystickLeft")
+                NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(LeftJoystickAxis, -1, 0)));
+            else if (QTEkey == "LeftJoystickRight")
+                NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(LeftJoystickAxis, 0, 1)));
+            else if (QTEkey == "RightJoystickLeft")
+                NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(RightJoystickAxis, -1, 0)));
             else
-                NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(RightJoystickAxis));
+                NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(RightJoystickAxis, 0, 1)));
+
             StickCircle.transform.position = NewPosition;
         }
         else
