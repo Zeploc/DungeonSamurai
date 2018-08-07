@@ -9,7 +9,7 @@ public class QTEManager : MonoBehaviour {
    [SerializeField]
     GameObject QTEInstancePrefab;
     bool EnemyTurn = false;
-    BaseEnemy CurrentEnemyRef; // I'm not sure how to make this dynamic
+    public BaseEnemy CurrentEnemyRef; // I'm not sure how to make this dynamic
 
     Player PlayerRef;
 

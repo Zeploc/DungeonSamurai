@@ -43,8 +43,10 @@ public class BaseEnemy : MonoBehaviour {
     public void TakeDamage(float Damage)
     {
         Health -= Damage;
-		if (Health <= 0) {
-			GameControllerRef.PlayerRef.MoveToDoor ();
+		if (Health <= 0)
+        {
+            Destroy(gameObject);
+            GameControllerRef.PlayerRef.MoveToDoor ();
 		}
         // Damage Effect
         // Damage frame/anim

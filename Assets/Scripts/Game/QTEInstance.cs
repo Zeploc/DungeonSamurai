@@ -12,7 +12,7 @@ public class QTEInstance : MonoBehaviour {
     bool JoystickInput = false;
 
     QTEManager QTEManagerRef;
-    GameObject DamageEnemy;
+    BaseEnemy DamageEnemy;
     Player PlayerRef;
     
 
@@ -28,6 +28,7 @@ public class QTEInstance : MonoBehaviour {
     {
         QTEManagerRef = FindObjectOfType<QTEManager>();
         PlayerRef = FindObjectOfType<GameController>().GetPlayer();
+        DamageEnemy = QTEManagerRef.CurrentEnemyRef;
         gameObject.SetActive(false);
         
     }
@@ -92,6 +93,7 @@ public class QTEInstance : MonoBehaviour {
     {
         // QTE effect
         // QTE deal damage to [DamageEnemy]
+        DamageEnemy.TakeDamage(5);
         // Damage frame/anim player [PlayerRef] 
         PlayerRef.SetAttackPose(iPlayerAnimVal);
 
