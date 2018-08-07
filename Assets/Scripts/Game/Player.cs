@@ -18,11 +18,10 @@ public class Player : MonoBehaviour {
 
     QTEManager QTEManagerRef;
 
-    public Transform LeftDodge;
-    public Transform RightDodge;
-    public Transform LeftParry;
-    public Transform RightParry;
-
+    public Transform LeftSlap;
+    public Transform RightSlap;
+    public Transform LeftAttack;
+    public Transform RightAttack;
     // Use this for initialization
     void Start ()
     {
@@ -31,7 +30,8 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (bMoveToDoor == true) {
+
+        if (bMoveToDoor == true) {
 			transform.position = Vector2.MoveTowards (transform.position, Door.transform.position, speed * Time.deltaTime);
 			if (Vector2.Distance (transform.position, Door.transform.position) <= 2.0f) {
 				Door.GetComponent<NextLevel> ().AdvanceLevel ();
@@ -77,19 +77,19 @@ public class Player : MonoBehaviour {
             QTEType = Random.Range(0, 4);
             if (QTEType == 0)
             {
-                QTEManagerRef.AddQTEToQueue("Fire2", 1, "SLAP", 1, 1, true, LeftDodge.position);
+                QTEManagerRef.AddQTEToQueue("LeftBumper", 1, "SLAP", 1, 1, true, LeftSlap.position);
             }
             if (QTEType == 1)
             {
-                QTEManagerRef.AddQTEToQueue("Fire1", 1, "SLAP", 2, 0, true, RightDodge.position);
+                QTEManagerRef.AddQTEToQueue("RightBumper", 1, "SLAP", 2, 0, true, RightSlap.position);
             }
             if (QTEType == 2)
             {
-                QTEManagerRef.AddQTEToQueue("Fire2", 1, "ATT", 3, 0, true, LeftParry.position);
+                QTEManagerRef.AddQTEToQueue("LeftBumper", 1, "ATT", 3, 0, true, LeftAttack.position);
             }
             if (QTEType == 3)
             {
-                QTEManagerRef.AddQTEToQueue("Fire1", 1, "ATT", 2, 0, true, RightParry.position);
+                QTEManagerRef.AddQTEToQueue("RightBumper", 1, "ATT", 2, 0, true, RightAttack.position);
             }
         }
     }
