@@ -18,8 +18,11 @@ public class QTEInstance : MonoBehaviour {
     QTEManager QTEManagerRef;
     BaseEnemy DamageEnemy;
     Player PlayerRef;
-    
+    GameController GameControllerRef;
+
+
     // Animation values
+
     int iPlayerAnimVal = 0;
     int iEnemyAnimVal = 0;
     bool bEnemyAttack = false;
@@ -43,7 +46,10 @@ public class QTEInstance : MonoBehaviour {
         PlayerRef = FindObjectOfType<GameController>().GetPlayer();
         DamageEnemy = QTEManagerRef.CurrentEnemyRef;
         gameObject.SetActive(false);
+
+        GameControllerRef = FindObjectOfType<GameController>();
         XStickCircleDistance = StickCircleEndPosition.position.x - StickCircle.transform.position.x;
+
     }
 
     public void SetQTEInit(string button, float damage, string Text, int PlayerAnimVal, int EnemyAnimVal, bool EnemyAttack, GameObject ObjectPosition)
@@ -162,6 +168,10 @@ public class QTEInstance : MonoBehaviour {
 
             PlayerRef.SetDamagedPose(iPlayerAnimVal);
             DamageEnemy.SetAttackPose(iEnemyAnimVal);
+        }
+        else
+        {
+            GameControllerRef.TimeTillBombu -= 5.0f;
         }
         QTEManagerRef.RemoveQTE(gameObject);
         Destroy(gameObject);
