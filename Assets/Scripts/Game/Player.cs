@@ -35,23 +35,18 @@ public class Player : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
-
-        if (bMoveToDoor == true) {
+	void Update ()
+    {
+        if (bMoveToDoor == true)
+        {
 			transform.position = Vector2.MoveTowards (transform.position, Door.transform.position, speed * Time.deltaTime);
-			if (Vector2.Distance (transform.position, Door.transform.position) <= 2.0f) {
+			if (Vector2.Distance (transform.position, Door.transform.position) <= 2.0f)
+            {
 				Door.GetComponent<NextLevel> ().AdvanceLevel ();
 				bMoveToDoor = false;
 			}
 		}
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-           //FindObjectOfType<QTEManager>().CreateQTE("Fire1",1, new Vector3(),"right",0,0);
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            //FindObjectOfType<QTEManager>().CreateQTE("Fire2", 1, new Vector3(), "left",0,0);
-        }
+
         if (ActionTimer <= FullActionTimer)
         {
             ActionTimer += Time.deltaTime;
@@ -59,6 +54,7 @@ public class Player : MonoBehaviour {
         else if (bActionPose)
         {
             SetAttackPose(0);
+            SetDeffensePose(0);
             bActionPose = false;
         }
     }
@@ -73,15 +69,25 @@ public class Player : MonoBehaviour {
         Enemy = NewEnemy.GetComponent<BaseEnemy>();
     }
 
-    public void SetAttackPose(int NewAttackPos)
+    public void SetAttackPose(int NewAttackPose)
     {
-        GetComponent<Animator>().SetInteger("AttackPose", NewAttackPos);
-        if (NewAttackPos != 0)
+        GetComponent<Animator>().SetInteger("AttackPose", NewAttackPose);
+        if (NewAttackPose != 0)
         {
             ActionTimer = 0.0f;
             bActionPose = true;
         }
     }
+    public void SetDeffensePose(int NewDefensePose)
+    {
+        GetComponent<Animator>().SetInteger("DefensePose", NewDefensePose);
+        if (NewDefensePose != 0)
+        {
+            ActionTimer = 0.0f;
+            bActionPose = true;
+        }
+    }
+
     public void GeneratePlayerQTEAttacks()
     {
         for (int i = 0; i < iAttackCount; i++)
