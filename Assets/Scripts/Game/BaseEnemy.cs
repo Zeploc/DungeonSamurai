@@ -116,6 +116,7 @@ public class BaseEnemy : MonoBehaviour {
         Health -= Damage;
 		if (Health <= 0)
         {
+			
             Destroy(gameObject);
             GameControllerRef.PlayerRef.MoveToDoor ();
 		}

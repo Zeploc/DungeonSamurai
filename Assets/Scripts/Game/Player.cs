@@ -11,8 +11,12 @@ public class Player : MonoBehaviour {
     [SerializeField] Image Healthbar;
 
     // Door
-    GameObject Door;
-	private bool bMoveToDoor = false;
+    [SerializeField] GameObject Door;
+	public bool bMoveTowardsObject = false;
+	[SerializeField] GameObject OutSidePos;
+	[SerializeField] GameObject StartPos;
+	GameObject MoveTowardsGameObject;
+
     private int QTEType;
     [SerializeField] float speed = 4.0f;
     
@@ -42,19 +46,26 @@ public class Player : MonoBehaviour {
         InitialPosition = transform.position;
         health = maxHealth;
         SetHealthBar();
-
+		MoveTowardsGameObject = Door;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (bMoveToDoor == true)
+        if (bMoveTowardsObject == true)
         {
-			transform.position = Vector2.MoveTowards (transform.position, Door.transform.position, speed * Time.deltaTime);
-			if (Vector2.Distance (transform.position, Door.transform.position) <= 0.2f)
+			transform.position = Vector2.MoveTowards (transform.position, MoveTowardsGameObject.transform.position, speed * Time.deltaTime);
+			if (Vector2.Distance (transform.position, MoveTowardsGameObject.transform.position) <= 0.2f)
             {
-				Door.GetComponent<NextLevel> ().AdvanceLevel ();
-				bMoveToDoor = false;
+				if (MoveTowardsGameObject.GetComponent<NextLevel> ()) {
+					Door.GetComponent<NextLevel> ().AdvanceLevel ();
+				}
+				else
+				{
+					bMoveTowardsObject = false;
+					MoveTowardsGameObject = Door;
+				}
+				transform.position = Vector2.MoveTowards(transform.position,  StartPos.transform.position, speed * Time.deltaTime);
 			}
 		}
         else if (bMoveBack)
@@ -62,6 +73,7 @@ public class Player : MonoBehaviour {
             transform.position = Vector2.MoveTowards(transform.position, InitialPosition, MoveBackSpeed * Time.deltaTime);
             if (Vector2.Distance(transform.position, InitialPosition) <= 0.2f)
             {
+				Debug.Log ("Next Level");
                 bMoveBack = false;
             }
         }
@@ -81,7 +93,7 @@ public class Player : MonoBehaviour {
 
 	public void MoveToDoor()
 	{
-		bMoveToDoor = true;
+		bMoveTowardsObject = true;
 	}
 
     public void SetEnemy(GameObject NewEnemy)
@@ -158,6 +170,9 @@ public class Player : MonoBehaviour {
     {
         health = maxHealth;
         SetHealthBar();
+		transform.position = OutSidePos.transform.position;
+		MoveTowardsGameObject = StartPos;
+		bMoveBack = false;
     }
 
     public void SetHealthBar()

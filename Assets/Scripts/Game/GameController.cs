@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour {
     public Image EnemyHealthbar;
 
     public float TimeTillBombu = 1000.0f;
+	[SerializeField]public Image CountdownBar; 
 
     // Use this for initialization
     void Start ()
@@ -23,6 +24,7 @@ public class GameController : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.G))
 		{
+			//if(InitialEnemey != null)
             InitialEnemey.GetComponent<BaseEnemy> ().TakeDamage (10);
 		}
         TimeTillBombu -= Time.deltaTime;
