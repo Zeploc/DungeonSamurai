@@ -15,36 +15,35 @@ public class LittleEnemy : BaseEnemy
 	void Update ()
     {
         base.Update();
-		
-	}
+
+        CheckRef();
+    }
 
     public override void GenerateQTEAttacks()
     {
+        CheckRef();
         Debug.Log("Derived Attacks");
+        if (!QTEManagerRef) Debug.Log("Bad qtemang");
         for (int i = 0; i < iAttackCount; i++)
         {
             QTEType = Random.Range(0, 4);
             if (QTEType == 0)
             {
-                QTEManagerRef.AddQTEToQueue("LeftJoystickLeft", 1, "LLeft", 1, 1, true, LeftSlap.position);
+                QTEManagerRef.AddQTEToQueue("LeftJoystickLeft", 1, "LLeft", 1, 1, true, PlayerRef.LeftDodge.position);
             }
             if (QTEType == 1)
             {
-                QTEManagerRef.AddQTEToQueue("LeftJoystickRight", 1, "LRight", 2, 0, true, RightSlap.position);
+                QTEManagerRef.AddQTEToQueue("LeftJoystickRight", 1, "LRight", 2, 0, true, PlayerRef.RightDodge.position);
             }
             if (QTEType == 2)
             {
-                QTEManagerRef.AddQTEToQueue("RightJoystickLeft", 1, "RLeft", 3, 0, true, LeftAttack.position);
+                QTEManagerRef.AddQTEToQueue("RightJoystickLeft", 1, "RLeft", 3, 0, true, PlayerRef.LeftParray.position);
             }
             if (QTEType == 3)
             {
-                QTEManagerRef.AddQTEToQueue("RightJoystickRight", 1, "RRight", 2, 0, true, RightAttack.position);
+                QTEManagerRef.AddQTEToQueue("RightJoystickRight", 1, "RRight", 2, 0, true, PlayerRef.RightParray.position);
             }
         }
         
     }
-	void OnTriggerEnter2D(Collider2D col)
-	{
-		HealthBar.health -= 10.0f;
-	}
 }

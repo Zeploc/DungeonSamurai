@@ -5,12 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class NextLevel : MonoBehaviour {
 
-	private Scene CurrentScene;
+    [SerializeField] BaseEnemy[] InitialEnemyPrefabs; // Prefabs
 
-	//Array of gameobjects (Enemy prefabs)
+    Queue<BaseEnemy> Enemies;
 	// Use this for initialization
-	void Start () {
-		CurrentScene = SceneManager.GetActiveScene ();
+	void Start ()
+    {
+        Enemies = new Queue<BaseEnemy>();
+        foreach (BaseEnemy E in InitialEnemyPrefabs)
+        {
+            Enemies.Enqueue(E);
+        }
 	}
 	
 	// Update is called once per frame
@@ -19,9 +24,9 @@ public class NextLevel : MonoBehaviour {
 	}
 	public void AdvanceLevel()
 	{
-		SceneManager.LoadScene(CurrentScene.name);
 		Debug.Log ("Loaded");
-		//set new enemies
+        FindObjectOfType<GameController>().ReloadLevel();
+        FindObjectOfType<GameController>().SetNewEnemey(Enemies.Dequeue().gameObject);
 	}
 
 }

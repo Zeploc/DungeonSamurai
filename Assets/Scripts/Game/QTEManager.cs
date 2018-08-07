@@ -16,7 +16,6 @@ public class QTEManager : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        CurrentEnemyRef = FindObjectOfType<GameController>().CurrentEnemy;
         CurrentQTEs = new Queue<GameObject>();
         PlayerRef = FindObjectOfType<GameController>().PlayerRef;
     }
@@ -65,10 +64,8 @@ public class QTEManager : MonoBehaviour {
 
     public void AddQTEToQueue(string Button, float damage, string Text, int PlayerPose, int EnemyPose, bool EnemyAttack, Vector3 Position)
     {
-        Position = Camera.main.WorldToScreenPoint(Position + (PlayerRef.transform.position * 2));
-        //Debug.Log(Position);
-        GameObject NewQTE = Instantiate(QTEInstancePrefab, Position, Quaternion.identity);       
-        NewQTE.transform.SetParent(gameObject.transform, false);
+        GameObject NewQTE = Instantiate(QTEInstancePrefab, transform);
+        NewQTE.transform.position = Position; 
         NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, damage, Text, PlayerPose, EnemyPose, EnemyAttack, Position);
         CurrentQTEs.Enqueue(NewQTE);
         //Debug.Log("Added");
@@ -81,5 +78,10 @@ public class QTEManager : MonoBehaviour {
     void ActivateQTE()
     {
         CurrentQTEs.Peek().SetActive(true);
+    }
+
+    public void ApplyNewEnemy(GameObject NewEnemey)
+    {
+        CurrentEnemyRef = NewEnemey.GetComponent<BaseEnemy>();
     }
 }

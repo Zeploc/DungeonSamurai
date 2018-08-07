@@ -5,21 +5,21 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
     public Player PlayerRef;
-	public LittleEnemy CurrentEnemy; // This should be base enemy //
+	public BaseEnemy InitialEnemey; // This should be base enemy //
     public Camera CamereRef;
     public QTEManager QTEManagerRef;
 
     // Use this for initialization
     void Start ()
     {
-        //PlayerRef = FindObjectOfType<Player>();
+        SetNewEnemey(InitialEnemey.gameObject);
     }
 	
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.G))
 		{
-			CurrentEnemy.GetComponent<BaseEnemy> ().TakeDamage (10);
+            InitialEnemey.GetComponent<BaseEnemy> ().TakeDamage (10);
 		}
 
     }
@@ -31,5 +31,17 @@ public class GameController : MonoBehaviour {
 		else
 			Debug.Log ("Not valid");
         return PlayerRef;
+    }
+
+    public void SetNewEnemey(GameObject NewEnemy)
+    {
+        InitialEnemey = NewEnemy.GetComponent<BaseEnemy>();
+        PlayerRef.SetEnemy(NewEnemy);
+        QTEManagerRef.ApplyNewEnemy(NewEnemy);
+    }
+
+    public void ReloadLevel()
+    {
+        PlayerRef.ReloadPlayer();
     }
 }

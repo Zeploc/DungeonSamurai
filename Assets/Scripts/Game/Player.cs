@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    
+
+    [SerializeField] float maxHealth = 100.0f;
+    static float health;
+
     //game object for door
     GameObject Door;
 	private bool bMoveToDoor = false;
@@ -22,6 +25,9 @@ public class Player : MonoBehaviour {
     public Transform RightDodge;
     public Transform LeftParray;
     public Transform RightParray;
+
+    BaseEnemy Enemy;
+
     // Use this for initialization
     void Start ()
     {
@@ -56,10 +62,16 @@ public class Player : MonoBehaviour {
             bActionPose = false;
         }
     }
+
 	public void MoveToDoor()
 	{
 		bMoveToDoor = true;
 	}
+
+    public void SetEnemy(GameObject NewEnemy)
+    {
+        Enemy = NewEnemy.GetComponent<BaseEnemy>();
+    }
 
     public void SetAttackPose(int NewAttackPos)
     {
@@ -77,20 +89,30 @@ public class Player : MonoBehaviour {
             QTEType = Random.Range(0, 4);
             if (QTEType == 0)
             {
-                QTEManagerRef.AddQTEToQueue("LeftBumper", 1, "LB", 1, 1, true, LeftDodge.position);
+                QTEManagerRef.AddQTEToQueue("LeftBumper", 1, "LB", 1, 1, false, Enemy.LeftSlap.position);
             }
             if (QTEType == 1)
             {
-                QTEManagerRef.AddQTEToQueue("RightBumper", 1, "RB", 2, 0, true, RightDodge.position);
+                QTEManagerRef.AddQTEToQueue("RightBumper", 1, "RB", 2, 0, false, Enemy.RightSlap.position);
             }
             if (QTEType == 2)
             {
-                QTEManagerRef.AddQTEToQueue("LeftBumper", 1, "LB", 3, 0, true, LeftParray.position);
+                QTEManagerRef.AddQTEToQueue("LeftBumper", 1, "LB", 3, 0, false, Enemy.LeftAttack.position);
             }
             if (QTEType == 3)
             {
-                QTEManagerRef.AddQTEToQueue("RightBumper", 1, "RB", 2, 0, true, RightParray.position);
+                QTEManagerRef.AddQTEToQueue("RightBumper", 1, "RB", 2, 0, false, Enemy.RightAttack.position);
             }
         }
+    }
+
+    public void ReloadPlayer()
+    {
+        health = maxHealth;
+    }
+
+    public float GetHealthPercentage()
+    {
+        return health / maxHealth;
     }
 }

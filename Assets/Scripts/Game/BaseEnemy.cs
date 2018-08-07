@@ -9,10 +9,10 @@ public class BaseEnemy : MonoBehaviour {
     public float QTETimer;
     public int QTEType;
     public int iAttackCount;
-
-    // attacks?
+    
     GameController GameControllerRef;
     protected QTEManager QTEManagerRef;
+    protected Player PlayerRef;
 
     public Transform LeftSlap;
     public Transform RightSlap;
@@ -25,15 +25,13 @@ public class BaseEnemy : MonoBehaviour {
 		Health = InitialHealth;
 		GameControllerRef = FindObjectOfType<GameController> ();
         QTEManagerRef = GameControllerRef.QTEManagerRef;
+        PlayerRef = GameControllerRef.PlayerRef;
     }
 	
 	// Update is called once per frame
 	protected void Update ()
     {
-        if (QTEManagerRef)
-            Debug.Log("Is valid");
-        else
-            Debug.Log("not valid fuck");
+        CheckRef();
     }
     
 
@@ -50,5 +48,13 @@ public class BaseEnemy : MonoBehaviour {
 		}
         // Damage Effect
         // Damage frame/anim
+    }
+
+    public void CheckRef()
+    {
+        if (QTEManagerRef)
+            Debug.Log("Is valid");
+        else
+            Debug.Log("not valid fuck");
     }
 }
