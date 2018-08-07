@@ -59,7 +59,6 @@ public class QTEInstance : MonoBehaviour {
         {
             // Failed QTE
             QTEMissed();
-            
         }
         bool QTEPressed = false;
         float LeftJoystickAxis = Input.GetAxis("LeftJoystickHorizontal");
@@ -121,6 +120,11 @@ public class QTEInstance : MonoBehaviour {
     void QTEMissed()
     {
         // Missed particle effect
+        if (bEnemyAttack == true)
+        {
+            Debug.Log("Hurt");
+            PlayerRef.DamagePlayer(5);
+        }
         QTEManagerRef.RemoveQTE(gameObject);
         Destroy(gameObject);
     }

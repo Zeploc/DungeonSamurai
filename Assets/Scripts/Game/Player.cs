@@ -7,7 +7,7 @@ public class Player : MonoBehaviour {
 
     // Health
     [SerializeField] float maxHealth = 100.0f;
-    float health;
+    float health = 100.0f;
     [SerializeField] Image Healthbar;
 
     // Door
@@ -150,5 +150,14 @@ public class Player : MonoBehaviour {
     public void SetHealthBar()
     {
         Healthbar.fillAmount = health / maxHealth;
+    }
+
+    public void DamagePlayer(int Damage)
+    {
+        health -= Damage;
+        if (health <= 0)
+        {
+            Debug.Log("Help I've fallen and I can't get up");
+        }
     }
 }
