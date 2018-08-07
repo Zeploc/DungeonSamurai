@@ -14,7 +14,7 @@ public class QTEInstance : MonoBehaviour {
     QTEManager QTEManagerRef;
     BaseEnemy DamageEnemy;
     Player PlayerRef;
-    
+    GameController GameControllerRef;
 
     int iPlayerAnimVal = 0;
     int iEnemyAnimVal = 0;
@@ -30,7 +30,9 @@ public class QTEInstance : MonoBehaviour {
         PlayerRef = FindObjectOfType<GameController>().GetPlayer();
         DamageEnemy = QTEManagerRef.CurrentEnemyRef;
         gameObject.SetActive(false);
-        
+        GameControllerRef = FindObjectOfType<GameController>();
+
+
     }
 
     public void SetQTEInit(string button, float damage, string Text, int PlayerAnimVal, int EnemyAnimVal, bool EnemyAttack, GameObject ObjectPosition)
@@ -124,6 +126,10 @@ public class QTEInstance : MonoBehaviour {
         {
             Debug.Log("Hurt");
             PlayerRef.DamagePlayer(5);
+        }
+        else
+        {
+            GameControllerRef.TimeTillBombu -= 5.0f;
         }
         QTEManagerRef.RemoveQTE(gameObject);
         Destroy(gameObject);
