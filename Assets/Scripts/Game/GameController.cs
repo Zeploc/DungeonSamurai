@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour {
 	public BaseEnemy InitialEnemey; // This should be base enemy //
     public Camera CamereRef;
     public QTEManager QTEManagerRef;
-
+    public float TimeTillBombu = 1000.0f;
     // Use this for initialization
     void Start ()
     {
@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour {
 		{
             InitialEnemey.GetComponent<BaseEnemy> ().TakeDamage (10);
 		}
-
+        TimeTillBombu -= Time.deltaTime;
     }
 
     public Player GetPlayer()

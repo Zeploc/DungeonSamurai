@@ -6,7 +6,7 @@ public class Player : MonoBehaviour {
 
 
     [SerializeField] float maxHealth = 100.0f;
-    static float health;
+    static float health = 100.0f;
 
     //game object for door
     GameObject Door;
@@ -143,5 +143,14 @@ public class Player : MonoBehaviour {
     public float GetHealthPercentage()
     {
         return health / maxHealth;
+    }
+
+    public void DamagePlayer(int Damage)
+    {
+        health -= Damage;
+        if (health <= 0)
+        {
+            Debug.Log("Help I've fallen and I can't get up");
+        }
     }
 }

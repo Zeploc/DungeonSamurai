@@ -58,6 +58,11 @@ public class QTEInstance : MonoBehaviour {
         if (CurrentTime > Timer)
         {
             // Failed QTE
+            if(bEnemyAttack == true)
+            {
+                Debug.Log("Hurt");
+                PlayerRef.DamagePlayer(5);
+            }
             // damage player [PlayerRef]
             QTEManagerRef.RemoveQTE(gameObject);
             Destroy(gameObject);
