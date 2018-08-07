@@ -14,10 +14,10 @@ public class BaseEnemy : MonoBehaviour {
     protected QTEManager QTEManagerRef;
     protected Player PlayerRef;
 
-    public Transform LeftSlap;
-    public Transform RightSlap;
-    public Transform LeftAttack;
-    public Transform RightAttack;
+    public GameObject LeftSlap;
+    public GameObject RightSlap;
+    public GameObject LeftAttack;
+    public GameObject RightAttack;
 
     // Use this for initialization
     protected void Start ()

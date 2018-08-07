@@ -20,7 +20,7 @@ public class QTEInstance : MonoBehaviour {
     int iEnemyAnimVal = 0;
     bool bEnemyAttack = false;
     
-    Vector3 QTEPostition;
+    GameObject QTEObjectPostition;
 
 
     // Use this for initialization
@@ -33,14 +33,14 @@ public class QTEInstance : MonoBehaviour {
         
     }
 
-    public void SetQTEInit(string button, float damage, string Text, int PlayerAnimVal, int EnemyAnimVal, bool EnemyAttack, Vector3 Position)
+    public void SetQTEInit(string button, float damage, string Text, int PlayerAnimVal, int EnemyAnimVal, bool EnemyAttack, GameObject ObjectPosition)
     {
         QTEkey = button;
         gameObject.GetComponentInChildren<Text>().text = Text;
         iPlayerAnimVal = PlayerAnimVal;
         iEnemyAnimVal = EnemyAnimVal;
         bEnemyAttack = EnemyAttack;
-        QTEPostition = Position;
+        QTEObjectPostition = ObjectPosition;
         if (QTEkey == "LeftJoystickLeft" ||
             QTEkey == "LeftJoystickRight" ||
             QTEkey == "RightJoystickLeft" ||
@@ -53,6 +53,7 @@ public class QTEInstance : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        transform.position = QTEObjectPostition.transform.position;
         CurrentTime += Time.deltaTime;
         if (CurrentTime > Timer)
         {
@@ -95,7 +96,8 @@ public class QTEInstance : MonoBehaviour {
         // QTE deal damage to [DamageEnemy]
         DamageEnemy.TakeDamage(5);
         // Damage frame/anim player [PlayerRef] 
-        PlayerRef.SetAttackPose(iPlayerAnimVal);
+        if (bEnemyAttack) PlayerRef.SetDeffensePose(iPlayerAnimVal);
+        else PlayerRef.SetAttackPose(iPlayerAnimVal);
 
         // Remove QTE from manager:
         QTEManagerRef.RemoveQTE(gameObject);

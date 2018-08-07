@@ -62,11 +62,11 @@ public class QTEManager : MonoBehaviour {
     //    //CurrentQTEs.Enqueue(NewQTE);
     //}
 
-    public void AddQTEToQueue(string Button, float damage, string Text, int PlayerPose, int EnemyPose, bool EnemyAttack, Vector3 Position)
+    public void AddQTEToQueue(string Button, float damage, string Text, int PlayerPose, int EnemyPose, bool EnemyAttack, GameObject ObjectPosition)
     {
         GameObject NewQTE = Instantiate(QTEInstancePrefab, transform);
-        NewQTE.transform.position = Position; 
-        NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, damage, Text, PlayerPose, EnemyPose, EnemyAttack, Position);
+        NewQTE.transform.position = ObjectPosition.transform.position; 
+        NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, damage, Text, PlayerPose, EnemyPose, EnemyAttack, ObjectPosition);
         CurrentQTEs.Enqueue(NewQTE);
         //Debug.Log("Added");
     }

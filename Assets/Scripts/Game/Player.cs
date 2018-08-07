@@ -21,17 +21,22 @@ public class Player : MonoBehaviour {
 
     QTEManager QTEManagerRef;
 
-    public Transform LeftDodge;
-    public Transform RightDodge;
-    public Transform LeftParray;
-    public Transform RightParray;
+    public GameObject LeftDodge;
+    public GameObject RightDodge;
+    public GameObject LeftParray;
+    public GameObject RightParray;
 
     BaseEnemy Enemy;
+
+    bool bMoveBack = false;
+    Vector3 InitialPosition;
+    float MoveBackSpeed = 2.0f;
 
     // Use this for initialization
     void Start ()
     {
         QTEManagerRef = FindObjectOfType<QTEManager>();
+        InitialPosition = transform.position;
     }
 	
 	// Update is called once per frame
@@ -40,12 +45,20 @@ public class Player : MonoBehaviour {
         if (bMoveToDoor == true)
         {
 			transform.position = Vector2.MoveTowards (transform.position, Door.transform.position, speed * Time.deltaTime);
-			if (Vector2.Distance (transform.position, Door.transform.position) <= 2.0f)
+			if (Vector2.Distance (transform.position, Door.transform.position) <= 0.2f)
             {
 				Door.GetComponent<NextLevel> ().AdvanceLevel ();
 				bMoveToDoor = false;
 			}
 		}
+        else if (bMoveBack)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, InitialPosition, MoveBackSpeed * Time.deltaTime);
+            if (Vector2.Distance(transform.position, InitialPosition) <= 0.2f)
+            {
+                bMoveBack = false;
+            }
+        }
 
         if (ActionTimer <= FullActionTimer)
         {
@@ -67,6 +80,7 @@ public class Player : MonoBehaviour {
     public void SetEnemy(GameObject NewEnemy)
     {
         Enemy = NewEnemy.GetComponent<BaseEnemy>();
+        InitialPosition = transform.position;
     }
 
     public void SetAttackPose(int NewAttackPose)
@@ -76,7 +90,13 @@ public class Player : MonoBehaviour {
         {
             ActionTimer = 0.0f;
             bActionPose = true;
+            Vector3 Position = Enemy.transform.position;
+            Position.x -= 3.0f;
+            transform.position = Position;
+            bMoveBack = true;
+            return;
         }
+        transform.position = InitialPosition;
     }
     public void SetDeffensePose(int NewDefensePose)
     {
@@ -85,7 +105,10 @@ public class Player : MonoBehaviour {
         {
             ActionTimer = 0.0f;
             bActionPose = true;
+            return;
         }
+
+        //Vector3 Position = transform.position;
     }
 
     public void GeneratePlayerQTEAttacks()
@@ -95,19 +118,19 @@ public class Player : MonoBehaviour {
             QTEType = Random.Range(0, 4);
             if (QTEType == 0)
             {
-                QTEManagerRef.AddQTEToQueue("LeftBumper", 1, "LB", 1, 1, false, Enemy.LeftSlap.position);
+                QTEManagerRef.AddQTEToQueue("LeftBumper", 1, "LB", 1, 1, false, Enemy.LeftSlap);
             }
             if (QTEType == 1)
             {
-                QTEManagerRef.AddQTEToQueue("RightBumper", 1, "RB", 2, 0, false, Enemy.RightSlap.position);
+                QTEManagerRef.AddQTEToQueue("RightBumper", 1, "RB", 2, 0, false, Enemy.RightSlap);
             }
             if (QTEType == 2)
             {
-                QTEManagerRef.AddQTEToQueue("LeftBumper", 1, "LB", 3, 0, false, Enemy.LeftAttack.position);
+                QTEManagerRef.AddQTEToQueue("LeftBumper", 1, "LB", 3, 0, false, Enemy.LeftAttack);
             }
             if (QTEType == 3)
             {
-                QTEManagerRef.AddQTEToQueue("RightBumper", 1, "RB", 2, 0, false, Enemy.RightAttack.position);
+                QTEManagerRef.AddQTEToQueue("RightBumper", 1, "RB", 2, 0, false, Enemy.RightAttack);
             }
         }
     }
