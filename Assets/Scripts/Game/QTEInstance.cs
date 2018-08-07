@@ -9,6 +9,7 @@ public class QTEInstance : MonoBehaviour {
     public float Timer = 1.0f;
 
     string QTEkey = "Fire1"; //Overridden
+    bool JoystickInput = false;
 
     QTEManager QTEManagerRef;
     GameObject DamageEnemy;
@@ -39,6 +40,13 @@ public class QTEInstance : MonoBehaviour {
         iEnemyAnimVal = EnemyAnimVal;
         bEnemyAttack = EnemyAttack;
         QTEPostition = Position;
+        if (QTEkey == "LeftJoystickLeft" ||
+            QTEkey == "LeftJoystickRight" ||
+            QTEkey == "RightJoystickLeft" ||
+            QTEkey == "RightJoystickRight")
+        {
+            JoystickInput = true;
+        }
     }
 
     // Update is called once per frame
@@ -52,19 +60,31 @@ public class QTEInstance : MonoBehaviour {
             QTEManagerRef.RemoveQTE(gameObject);
             Destroy(gameObject);
         }
-        // QTE button pressed
-        if (Input.GetButtonDown(QTEkey))
+        bool QTEPressed = false;
+        if (JoystickInput)
+        {
+            // QTE stick moved
+            if ((QTEkey == "LeftJoystickLeft" && Input.GetAxis("LeftJoystickHorizontal") < -0.5f) ||
+                (QTEkey == "LeftJoystickRight" && Input.GetAxis("LeftJoystickHorizontal") > 0.5f) ||
+                (QTEkey == "RightJoystickLeft" && Input.GetAxis("RightJoystickHorizontal") < -0.5f) ||
+                (QTEkey == "RightJoystickRight" && Input.GetAxis("RightJoystickHorizontal") > 0.5f))
+            {
+                QTEPressed = true;
+            }
+        }
+        else
+        {
+            // QTE button pressed
+            if (Input.GetButtonDown(QTEkey))
+            {
+                QTEPressed = true;
+            }
+        }
+
+        if (QTEPressed)
         {
             QTEComplete();
             QTEManagerRef.timer = 0.0f;
-        }
-
-        if(QTEkey == "RightJoystickHorizontal")
-        {
-            if (Input.GetAxis("RightJoystickHorizontal") > 0.1f)
-            {
-                QTEComplete();
-            }
         }
     }
 

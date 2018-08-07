@@ -4,48 +4,41 @@ using UnityEngine;
 
 public class LittleEnemy : BaseEnemy
 {
-    public float QTETimer;
-    public Transform LeftDodge;
-    public Transform RightDodge;
-    public Transform LeftParry;
-    public Transform RightParry;
-    public int QTEType;
-    QTEManager QTEManagerRef;
-    public int iAttackCount;
 
     // Use this for initialization
     void Start ()
     {
-        QTEManagerRef = FindObjectOfType<QTEManager>();
+        base.Start();
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-       
+        base.Update();
 		
 	}
 
-    public void GenerateQTEAttacks()
+    public override void GenerateQTEAttacks()
     {
+        Debug.Log("Derived Attacks");
         for (int i = 0; i < iAttackCount; i++)
         {
             QTEType = Random.Range(0, 4);
             if (QTEType == 0)
             {
-                QTEManagerRef.AddQTEToQueue("LeftJoystickHorizontal", 1, "Left", 1, 1, true, LeftDodge.position);
+                QTEManagerRef.AddQTEToQueue("LeftJoystickLeft", 1, "LLeft", 1, 1, true, LeftSlap.position);
             }
             if (QTEType == 1)
             {
-                QTEManagerRef.AddQTEToQueue("RightJoystickHorizontal", 1, "Right", 2, 0, true, RightDodge.position);
+                QTEManagerRef.AddQTEToQueue("LeftJoystickRight", 1, "LRight", 2, 0, true, RightSlap.position);
             }
             if (QTEType == 2)
             {
-                QTEManagerRef.AddQTEToQueue("LeftJoystickHorizontal", 1, "Left", 3, 0, true, LeftParry.position);
+                QTEManagerRef.AddQTEToQueue("RightJoystickLeft", 1, "RLeft", 3, 0, true, LeftAttack.position);
             }
             if (QTEType == 3)
             {
-                QTEManagerRef.AddQTEToQueue("RightJoystickHorizontal", 1, "Right", 2, 0, true, RightParry.position);
+                QTEManagerRef.AddQTEToQueue("RightJoystickRight", 1, "RRight", 2, 0, true, RightAttack.position);
             }
         }
         
