@@ -9,14 +9,13 @@ public class QTEManager : MonoBehaviour {
    [SerializeField]
     GameObject QTEInstancePrefab;
     bool EnemyTurn = false;
-    BaseEnemy CurrentEnemyRef; // I'm not sure how to make this dynamic
+    public BaseEnemy CurrentEnemyRef; // I'm not sure how to make this dynamic
 
     Player PlayerRef;
 
 	// Use this for initialization
 	void Start ()
     {
-        CurrentEnemyRef = FindObjectOfType<GameController>().CurrentEnemy;
         CurrentQTEs = new Queue<GameObject>();
         PlayerRef = FindObjectOfType<GameController>().PlayerRef;
     }
@@ -63,16 +62,15 @@ public class QTEManager : MonoBehaviour {
     //    //CurrentQTEs.Enqueue(NewQTE);
     //}
 
-    public void AddQTEToQueue(string Button, float damage, string Text, int PlayerPose, int EnemyPose, bool EnemyAttack, Vector3 Position)
+    public void AddQTEToQueue(string Button, float damage, string Text, int PlayerPose, int EnemyPose, bool EnemyAttack, GameObject ObjectPosition)
     {
-        Position = Camera.main.WorldToScreenPoint(Position + (PlayerRef.transform.position * 2));
-        //Debug.Log(Position);
-        GameObject NewQTE = Instantiate(QTEInstancePrefab, Position, Quaternion.identity);       
-        NewQTE.transform.SetParent(gameObject.transform, false);
-        NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, damage, Text, PlayerPose, EnemyPose, EnemyAttack, Position);
+        GameObject NewQTE = Instantiate(QTEInstancePrefab, transform);
+        NewQTE.transform.position = ObjectPosition.transform.position; 
+        NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, damage, Text, PlayerPose, EnemyPose, EnemyAttack, ObjectPosition);
         CurrentQTEs.Enqueue(NewQTE);
         //Debug.Log("Added");
     }
+
     public void RemoveQTE(GameObject QTERef)
     {
         CurrentQTEs.Dequeue();
@@ -81,5 +79,10 @@ public class QTEManager : MonoBehaviour {
     void ActivateQTE()
     {
         CurrentQTEs.Peek().SetActive(true);
+    }
+
+    public void ApplyNewEnemy(GameObject NewEnemey)
+    {
+        CurrentEnemyRef = NewEnemey.GetComponent<BaseEnemy>();
     }
 }

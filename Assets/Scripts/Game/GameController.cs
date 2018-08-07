@@ -1,27 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
     public Player PlayerRef;
-	public LittleEnemy CurrentEnemy; // This should be base enemy //
+	public BaseEnemy InitialEnemey; // This should be base enemy //
     public Camera CamereRef;
     public QTEManager QTEManagerRef;
+    public Image EnemyHealthbar;
+
+    public float TimeTillBombu = 1000.0f;
 
     // Use this for initialization
     void Start ()
     {
-        //PlayerRef = FindObjectOfType<Player>();
+        SetNewEnemey(InitialEnemey.gameObject);
     }
 	
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.G))
 		{
-			CurrentEnemy.GetComponent<BaseEnemy> ().TakeDamage (10);
+            InitialEnemey.GetComponent<BaseEnemy> ().TakeDamage (10);
 		}
-
+        TimeTillBombu -= Time.deltaTime;
     }
 
     public Player GetPlayer()
@@ -31,5 +35,17 @@ public class GameController : MonoBehaviour {
 		else
 			Debug.Log ("Not valid");
         return PlayerRef;
+    }
+
+    public void SetNewEnemey(GameObject NewEnemy)
+    {
+        InitialEnemey = NewEnemy.GetComponent<BaseEnemy>();
+        PlayerRef.SetEnemy(NewEnemy);
+        QTEManagerRef.ApplyNewEnemy(NewEnemy);
+    }
+
+    public void ReloadLevel()
+    {
+        PlayerRef.ReloadPlayer();
     }
 }
