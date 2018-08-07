@@ -73,6 +73,7 @@ public class QTEInstance : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+		if(QTEObjectPostition != null)
         transform.position = QTEObjectPostition.transform.position;
         CurrentTime += Time.deltaTime;
         if (CurrentTime > Timer)
@@ -198,6 +199,7 @@ public class QTEInstance : MonoBehaviour {
 
         // Remove QTE from manager:
         QTEManagerRef.RemoveQTE(gameObject);
+		if(gameObject != null)
         Destroy(gameObject);
     }
     public void ActivateQTE()
