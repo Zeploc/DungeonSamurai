@@ -58,6 +58,14 @@ public class QTEInstance : MonoBehaviour {
             QTEComplete();
             QTEManagerRef.timer = 0.0f;
         }
+
+        if(QTEkey == "RightJoystickHorizontal")
+        {
+            if (Input.GetAxis("RightJoystickHorizontal") > 0.1f)
+            {
+                QTEComplete();
+            }
+        }
     }
 
     void QTEComplete()

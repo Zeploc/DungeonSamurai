@@ -33,19 +33,19 @@ public class LittleEnemy : BaseEnemy
             QTEType = Random.Range(0, 4);
             if (QTEType == 0)
             {
-                QTEManagerRef.AddQTEToQueue("Fire2", 1, "Left", 1, 1, true, LeftDodge.position);
+                QTEManagerRef.AddQTEToQueue("LeftJoystickHorizontal", 1, "Left", 1, 1, true, LeftDodge.position);
             }
             if (QTEType == 1)
             {
-                QTEManagerRef.AddQTEToQueue("Fire1", 1, "Right", 2, 0, true, RightDodge.position);
+                QTEManagerRef.AddQTEToQueue("RightJoystickHorizontal", 1, "Right", 2, 0, true, RightDodge.position);
             }
             if (QTEType == 2)
             {
-                QTEManagerRef.AddQTEToQueue("Fire2", 1, "Left", 3, 0, true, LeftParry.position);
+                QTEManagerRef.AddQTEToQueue("LeftJoystickHorizontal", 1, "Left", 3, 0, true, LeftParry.position);
             }
             if (QTEType == 3)
             {
-                QTEManagerRef.AddQTEToQueue("Fire1", 1, "Right", 2, 0, true, RightParry.position);
+                QTEManagerRef.AddQTEToQueue("RightJoystickHorizontal", 1, "Right", 2, 0, true, RightParry.position);
             }
         }
         

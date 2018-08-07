@@ -25,7 +25,7 @@ public class QTEManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        Debug.Log(CurrentQTEs.Count);
+        //Debug.Log(CurrentQTEs.Count);
         timer -= Time.deltaTime;
         if (CurrentQTEs.Count == 0 && EnemyTurn == true)
         {         

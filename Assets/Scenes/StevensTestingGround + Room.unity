@@ -137,7 +137,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 208074261}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.81, y: -2.0400002, z: 0}
+  m_LocalPosition: {x: 12.61, y: -2.0400002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1331343814}
@@ -309,7 +309,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 782170152}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.7, y: -2.0400002, z: 0}
+  m_LocalPosition: {x: 18.39, y: -2.0400002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1331343814}
@@ -343,10 +343,10 @@ MonoBehaviour:
   m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
+  m_HorizontalAxis: LeftJoystickHorizontal
+  m_VerticalAxis: LeftJoystickVertical
+  m_SubmitButton: AButton
+  m_CancelButton: BButton
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
@@ -616,7 +616,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1395498555}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.65, y: 0.44000006, z: 0}
+  m_LocalPosition: {x: 18.39, y: -2.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1331343814}
@@ -685,7 +685,6 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -727,7 +726,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1497751769}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.81, y: 0.44000006, z: 0}
+  m_LocalPosition: {x: 12.7, y: 0.44000006, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1331343814}
@@ -778,6 +777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f11c47f341d6bb54bb72a21f17356410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: 1.5
   QTEInstancePrefab: {fileID: 1957484505628034, guid: bc78d64c0a2ecb84ca46ed29684aff2d,
     type: 2}
 --- !u!1001 &1631406458
