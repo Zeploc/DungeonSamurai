@@ -23,31 +23,35 @@ public class QTEManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        //Debug.Log(CurrentQTEs.Count);
-        timer -= Time.deltaTime;
-        if (CurrentQTEs.Count == 0)
-        {         
-            if (EnemyTurn)
-            {
-                Debug.Log("Spawned enemy attacks");
+		if (PlayerRef.bMoveTowardsObject == false) 
+		{
+			//Debug.Log(CurrentQTEs.Count);
+			timer -= Time.deltaTime;
+			if (CurrentQTEs.Count == 0)
+			{         
+				if (EnemyTurn)
+				{
+					Debug.Log("Spawned enemy attacks");
 
-                CurrentEnemyRef.GenerateQTEAttacks();
-                EnemyTurn = false;
-            }
-            else if (EnemyTurn == false)
-            {
-                Debug.Log("Spawned Player attacks");
-                PlayerRef.GeneratePlayerQTEAttacks();
-                EnemyTurn = true;
-            }
-        }       
+					CurrentEnemyRef.GenerateQTEAttacks();
+					EnemyTurn = false;
+				}
+				else if (EnemyTurn == false)
+				{
+					Debug.Log("Spawned Player attacks");
+					PlayerRef.GeneratePlayerQTEAttacks();
+					EnemyTurn = true;
+				}
+			}       
 
-        if (timer <= 0)
-        {
-            if (CurrentQTEs.Count > 0) ActivateQTE();
-            timer = 1.5f;
-        }
+			if (timer <= 0)
+			{
+				if (CurrentQTEs.Count > 0) ActivateQTE();
+				timer = 1.5f;
+			}
 
+		}
+       
     }
 
     //public void CreateQTE(string Button, float damage, Vector3 Position, string Text, int PlayerPose, int EnemyPose, bool EnemyAttack)
