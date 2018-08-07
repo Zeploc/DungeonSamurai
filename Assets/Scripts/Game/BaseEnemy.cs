@@ -61,6 +61,7 @@ public class BaseEnemy : MonoBehaviour {
         {
             SetAttackPose(0);
             SetDeffensePose(0);
+            SetDamagedPose(0);
             bActionPose = false;
         }
     }
@@ -72,7 +73,7 @@ public class BaseEnemy : MonoBehaviour {
             ActionTimer = 0.0f;
             bActionPose = true;
             Vector3 Position = PlayerRef.transform.position;
-            Position.x -= 3.0f;
+            Position.x += 3.0f;
             transform.position = Position;
             bMoveBack = true;
             return;
@@ -88,8 +89,7 @@ public class BaseEnemy : MonoBehaviour {
             bActionPose = true;
             return;
         }
-
-        //Vector3 Position = transform.position;
+        
     }
     public void SetDamagedPose(int NewDamagePose)
     {
@@ -100,8 +100,7 @@ public class BaseEnemy : MonoBehaviour {
             bActionPose = true;
             return;
         }
-
-        //Vector3 Position = transform.position;
+        
     }
 
     public virtual void GenerateQTEAttacks()
@@ -117,6 +116,7 @@ public class BaseEnemy : MonoBehaviour {
             Destroy(gameObject);
             GameControllerRef.PlayerRef.MoveToDoor ();
 		}
+        SetHealthBar();
         // Damage Effect
         // Damage frame/anim
     }

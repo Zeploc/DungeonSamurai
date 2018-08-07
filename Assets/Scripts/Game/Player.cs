@@ -74,6 +74,7 @@ public class Player : MonoBehaviour {
         {
             SetAttackPose(0);
             SetDeffensePose(0);
+            SetDamagedPose(0);
             bActionPose = false;
         }
     }
@@ -108,6 +109,18 @@ public class Player : MonoBehaviour {
     {
         GetComponent<Animator>().SetInteger("DefensePose", NewDefensePose);
         if (NewDefensePose != 0)
+        {
+            ActionTimer = 0.0f;
+            bActionPose = true;
+            return;
+        }
+
+        //Vector3 Position = transform.position;
+    }
+    public void SetDamagedPose(int NewDamagePose)
+    {
+        GetComponent<Animator>().SetInteger("DamagePose", NewDamagePose);
+        if (NewDamagePose != 0)
         {
             ActionTimer = 0.0f;
             bActionPose = true;
@@ -159,5 +172,6 @@ public class Player : MonoBehaviour {
         {
             Debug.Log("Help I've fallen and I can't get up");
         }
+        SetHealthBar();
     }
 }
