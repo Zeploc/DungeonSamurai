@@ -78,7 +78,6 @@ public class QTEInstance : MonoBehaviour {
         bool QTEPressed = false;
         float LeftJoystickAxis = Input.GetAxis("LeftJoystickHorizontal");
         float RightJoystickAxis = Input.GetAxis("RightJoystickHorizontal");
-        Debug.Log("LEFT " + LeftJoystickAxis + " RIGHT " + RightJoystickAxis);
         if (JoystickInput)
         {
             if ((LeftJoystickAxis > 0.9f || LeftJoystickAxis < -0.9f || RightJoystickAxis > 0.9f || RightJoystickAxis < -0.9f) && JoystickReset)
