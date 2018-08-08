@@ -36,7 +36,7 @@ public class GameController : MonoBehaviour {
 		}
         TimeTillBombu -= Time.deltaTime;
         CountdownBar.fillAmount = (TimeTillBombu / MaxTime) * 0.92f + 0.04f;
-        Debug.Log(CountdownBar.fillAmount);
+        //Debug.Log(CountdownBar.fillAmount);
     }
 	void FixedUpdate()
 	{

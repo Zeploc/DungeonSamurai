@@ -282,7 +282,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 310014400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -340, y: 221.60278, z: 0}
+  m_LocalPosition: {x: -340, y: 218.62918, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 2084906244}
@@ -507,6 +507,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 334842549}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &660167372
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 660167373}
+  m_Layer: 0
+  m_Name: ComboDisplayLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &660167373
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 660167372}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.01, y: 3.15, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1903723916}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &664727813
 GameObject:
@@ -751,7 +779,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 796537746}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 340, y: 221.60278, z: 0}
+  m_LocalPosition: {x: 340, y: 218.62918, z: 0}
   m_LocalScale: {x: -0.5003199, y: 0.5003199, z: 0.9998747}
   m_Children:
   - {fileID: 858224247}
@@ -1260,8 +1288,6 @@ MonoBehaviour:
   QTEManagerRef: {fileID: 1570619311}
   EnemyHealthbar: {fileID: 858224249}
   TimeTillBombu: 1000
-  MaxTime: 1000
-  CountdownBar: {fileID: 1584562905}
 --- !u!4 &1285961141
 Transform:
   m_ObjectHideFlags: 0
@@ -1516,6 +1542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 1.5
+  WomboComboRef: {fileID: 0}
   QTEInstancePrefab: {fileID: 1957484505628034, guid: bc78d64c0a2ecb84ca46ed29684aff2d,
     type: 2}
   CurrentEnemyRef: {fileID: 0}
@@ -1854,10 +1881,20 @@ Prefab:
       propertyPath: m_FlipX
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114802707869406978, guid: 32146eaa4c8fc184f81415c64528598c,
+        type: 2}
+      propertyPath: ComboDisplayLocation
+      value: 
+      objectReference: {fileID: 660167372}
     m_RemovedComponents:
     - {fileID: 61367615983802422, guid: 32146eaa4c8fc184f81415c64528598c, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 32146eaa4c8fc184f81415c64528598c, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &1903723916 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4475377955829364, guid: 32146eaa4c8fc184f81415c64528598c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1903723915}
 --- !u!1 &1971683299 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1484081782724766, guid: 6b369b395bd9b544f932ba622a5086a6,
@@ -2160,7 +2197,7 @@ RectTransform:
   m_GameObject: {fileID: 2076343338}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -9}
-  m_LocalScale: {x: 0.017382277, y: 0.017382277, z: 0.017382277}
+  m_LocalScale: {x: 0.017555362, y: 0.017555362, z: 0.017555362}
   m_Children:
   - {fileID: 310014401}
   - {fileID: 796537747}
