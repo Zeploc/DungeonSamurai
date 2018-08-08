@@ -12,7 +12,6 @@ public class QTEInstance : MonoBehaviour {
     // QTE Input
     string QTEkey = "Fire1"; //Overridden
     bool JoystickInput = false;
-    bool JoystickReset = true;
 
     // References
     QTEManager QTEManagerRef;
@@ -31,14 +30,20 @@ public class QTEInstance : MonoBehaviour {
     Vector2 VecOffset;
 
     // QTE Images
-    [SerializeField] Sprite BumperImage;
-    [SerializeField] Sprite TriggerImage;
-    [SerializeField] Sprite ButtonImage;
+    [SerializeField] Sprite LeftBumperImage;
+    [SerializeField] Sprite RightBumperImage;
+    [SerializeField] Sprite LeftTriggerImage;
+    [SerializeField] Sprite RightTriggerImage;
+    [SerializeField] Sprite AButtonImage;
+    [SerializeField] Sprite BButtonImage;
     [SerializeField] Sprite StickSlider;
+    [SerializeField] Sprite LeftStickLeftCircle;
+    [SerializeField] Sprite LeftStickRightCircle;
+    [SerializeField] Sprite RightStickLeftCircle;
+    [SerializeField] Sprite RightStickRightCircle;
     [SerializeField] Image StickCircle;
     float XStickCircleDistance;
     [SerializeField] Transform StickCircleEndPosition;
-    [SerializeField] GameObject TextObject;
 
     // Use this for initialization
     void Start ()
@@ -53,11 +58,10 @@ public class QTEInstance : MonoBehaviour {
 
     }
 
-    public void SetQTEInit(string button, float damage, string Text, int PlayerAnimVal, int EnemyAnimVal, bool EnemyAttack, GameObject ObjectPosition,Vector2 Offset)
+    public void SetQTEInit(string button, int PlayerAnimVal, int EnemyAnimVal, bool EnemyAttack, GameObject ObjectPosition, Vector2 Offset)
     {
         VecOffset = Offset;
         QTEkey = button;
-        gameObject.GetComponentInChildren<Text>().text = Text;
         iPlayerAnimVal = PlayerAnimVal;
         iEnemyAnimVal = EnemyAnimVal;
         bEnemyAttack = EnemyAttack;
@@ -69,7 +73,6 @@ public class QTEInstance : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-
         transform.position = QTEObjectPostition.transform.position + (Vector3)VecOffset;
 
 		if(QTEObjectPostition != null)
@@ -81,89 +84,58 @@ public class QTEInstance : MonoBehaviour {
             if (bEnemyAttack) QTEFailed();
             else QTEMissed();
         }
-
-        bool QTEPressed = false;
-        float LeftJoystickAxis = Input.GetAxis("LeftJoystickHorizontal");
-        float RightJoystickAxis = Input.GetAxis("RightJoystickHorizontal");
-        float LeftTriggerAxis = Input.GetAxis("LeftTrigger");
-        float RightTriggerAxis = Input.GetAxis("RightTrigger");
+        
+        // If QTE is Axis Input
         if (JoystickInput)
         {
-            if ((LeftJoystickAxis > 0.9f || LeftJoystickAxis < -0.9f || RightJoystickAxis > 0.9f || RightJoystickAxis < -0.9f) && JoystickReset)
-            {
-                // QTE stick moved
-                if ((QTEkey == "LeftJoystickLeft" && LeftJoystickAxis < -0.9f) ||
-                    (QTEkey == "LeftJoystickRight" && LeftJoystickAxis > 0.9f) ||
-                    (QTEkey == "RightJoystickLeft" && RightJoystickAxis < -0.9f) ||
-                    (QTEkey == "RightJoystickRight" && RightJoystickAxis > 0.9f))
-                {
-                    QTEPressed = true;
-                    JoystickReset = false;
-                }
-                else
-                {
-                    QTEFailed();
-                }
-            }
-            else if (LeftJoystickAxis == 0.0f && RightJoystickAxis == 0.0f && LeftTriggerAxis == 0.0f && RightTriggerAxis == 0.0f)
-            {
-                JoystickReset = true;
-            }
-            else if (QTEkey == "LeftTrigger" || QTEkey == "RightTrigger")
-            {
-                if (Mathf.Abs(Input.GetAxis(QTEkey)) >= 0.9f)
-                {
-                    QTEPressed = true;
-                    JoystickReset = false;
-                }
-            }
-            //else if (JoystickReset && (LeftJoystickAxis != 0.0f || RightJoystickAxis != 0.0f || LeftTriggerAxis != 0.0f || RightTriggerAxis != 0.0f))
-            //{
-            //    QTEFailed();
-            //}
+            float LeftJoystickAxis = Input.GetAxis("LeftJoystickHorizontal");
+            float RightJoystickAxis = Input.GetAxis("RightJoystickHorizontal");
+            float LeftTriggerAxis = Mathf.Abs(Input.GetAxis("LeftTrigger"));
+            float RightTriggerAxis = Mathf.Abs(Input.GetAxis("RightTrigger"));
+
+            // Visual Element
             Vector2 NewPosition = StickCircleEndPosition.position;
-            if (QTEkey == "LeftJoystickLeft")
-                NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(LeftJoystickAxis, -1, 0)));
-            else if (QTEkey == "LeftJoystickRight")
-                NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(LeftJoystickAxis, 0, 1)));
-            else if (QTEkey == "RightJoystickLeft")
-                NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(RightJoystickAxis, -1, 0)));
+            if (QTEManagerRef.GetJoystickReset())
+            {
+                if (QTEkey == "LeftJoystickLeft")
+                    NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(LeftJoystickAxis, -1, 0)));
+                else if (QTEkey == "LeftJoystickRight")
+                    NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(LeftJoystickAxis, 0, 1)));
+                else if (QTEkey == "RightJoystickLeft")
+                    NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(RightJoystickAxis, -1, 0)));
+                else
+                    NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(RightJoystickAxis, 0, 1)));
+            }
             else
-                NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(RightJoystickAxis, 0, 1)));
+            {
+                NewPosition.x -= XStickCircleDistance;
+            }
 
             StickCircle.transform.position = NewPosition;
+        }        
+    }
+
+    public void InputPressed(string Input)
+    {
+        if (Input == QTEkey)
+        {
+            QTEComplete();
         }
         else
         {
-            if (Input.anyKeyDown)
-            {
-                // QTE button pressed
-                if (Input.GetButtonDown(QTEkey))// || Input.GetKeyDown(QTEkey) ||
-                    //(JoystickReset && (LeftJoystickAxis != 0.0f || RightJoystickAxis != 0.0f || LeftTriggerAxis != 0.0f || RightTriggerAxis != 0.0f)))
-                {
-                    QTEPressed = true;
-                }
-                else
-                {
-                    QTEFailed();
-                }
-            }
-            
+            QTEFailed();
         }
-
-        if (QTEPressed)
-        {
-            QTEComplete();
-            QTEManagerRef.timer = 0.0f;
-        }
+        QTEManagerRef.timer = 0.0f;
     }
 
-    void QTEFailed()
+    void QTEFailed() //wrong key pressed
     {
+        //Debug.Log("QTE Failed");
         // Loose time
 
         if (bEnemyAttack)
         {
+			FindObjectOfType<AudioManager>().PlaySound("PlayerHurt");
             PlayerRef.SetDamagedPose(1);
             DamageEnemy.SetAttackPose(iEnemyAnimVal);
             //Debug.Log("Hurt");
@@ -179,12 +151,13 @@ public class QTEInstance : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    void QTEMissed()
+    void QTEMissed() //Missed the button press
     {
         // Missed particle effect
         if (bEnemyAttack == true)
         {
             Debug.Log("Hurt");
+			FindObjectOfType<AudioManager>().PlaySound("PlayerHurt");
             PlayerRef.DamagePlayer(5);
 
             PlayerRef.SetDamagedPose(1);
@@ -199,7 +172,8 @@ public class QTEInstance : MonoBehaviour {
     }
 
     void QTEComplete()
-    {        
+    {
+        //Debug.Log("QTE Complete");
         StickCircle.transform.position = StickCircleEndPosition.position;
         // QTE effect
         if (bEnemyAttack)
@@ -236,29 +210,55 @@ public class QTEInstance : MonoBehaviour {
                 Vector3 Scale = transform.localScale;
                 Scale.x = -1;
                 transform.localScale = Scale;
-                Scale = TextObject.transform.localScale;
+                Scale = StickCircle.transform.localScale;
                 Scale.x = -1;
-                TextObject.transform.localScale = Scale;
+                StickCircle.transform.localScale = Scale;
             }
             GetComponent<Image>().sprite = StickSlider;
+            if (QTEkey == "LeftJoystickLeft")
+            {
+                StickCircle.sprite = LeftStickLeftCircle;
+            }
+            else if (QTEkey == "LeftJoystickRight")
+            {
+                StickCircle.sprite = LeftStickRightCircle;
+            }
+            else if (QTEkey == "RightJoystickLeft")
+            {
+                StickCircle.sprite = RightStickRightCircle;
+            }
+            else if (QTEkey == "RightJoystickRight")
+            {
+                StickCircle.sprite = RightStickRightCircle;
+            }
             StickCircle.gameObject.SetActive(true);
             JoystickInput = true;
         }
-        else if (QTEkey == "LeftBumper" || QTEkey == "RightBumper")
+        else if (QTEkey == "LeftBumper")
         {
-            GetComponent<Image>().sprite = BumperImage;
+            GetComponent<Image>().sprite = LeftBumperImage;
         }
-        else if (QTEkey == "LeftTrigger" || QTEkey == "RightTrigger")
+        else if (QTEkey == "RightBumper")
         {
-            GetComponent<Image>().sprite = TriggerImage;
+            GetComponent<Image>().sprite = RightBumperImage;
+        }
+        else if (QTEkey == "LeftTrigger")
+        {
+            GetComponent<Image>().sprite = LeftTriggerImage;
             JoystickInput = true;
-            GetComponent<RectTransform>().sizeDelta = new Vector2(50, 200);
-            return;
-            //GetComponent<RectTransform>() = NewRect;
+        }
+        else if (QTEkey == "RightTrigger")
+        {
+            GetComponent<Image>().sprite = RightTriggerImage;
+            JoystickInput = true;
+        }
+        else if (QTEkey == "AButton")
+        {
+            GetComponent<Image>().sprite = AButtonImage;
         }
         else
         {
-            GetComponent<Image>().sprite = ButtonImage;
+            GetComponent<Image>().sprite = BButtonImage; ;
         }
     }
 }

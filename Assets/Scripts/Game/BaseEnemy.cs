@@ -11,7 +11,7 @@ public class BaseEnemy : MonoBehaviour {
     public float QTETimer;
     public int QTEType;
     public int iAttackCount;
-    public Image Healthbar;
+    Image Healthbar;
 
     // Animations
     public float FullActionTimer = 0.5f;
@@ -51,11 +51,9 @@ public class BaseEnemy : MonoBehaviour {
         if (bMoveBack)
         {
             transform.position = Vector2.MoveTowards(transform.position, InitialPosition, MoveBackSpeed * Time.deltaTime);
-            Debug.Log("Moving Back");
             if (Vector2.Distance(transform.position, InitialPosition) <= 0.2f)
             {
                 bMoveBack = false;
-                Debug.Log("Moved back");
             }
         }
         if (ActionTimer <= FullActionTimer)
@@ -73,6 +71,7 @@ public class BaseEnemy : MonoBehaviour {
     public void SetAttackPose(int NewAttackPose)
     {
         GetComponent<Animator>().SetInteger("AttackPose", NewAttackPose);
+        //Debug.Log("AttackPose set to " + NewAttackPose);
         if (NewAttackPose != 0)
         {
             ActionTimer = 0.0f;
@@ -81,7 +80,6 @@ public class BaseEnemy : MonoBehaviour {
             Position.x += 3.0f;
             transform.position = Position;
             bMoveBack = true;
-            Debug.Log("Enemy Attack");
             return;
         }
         transform.position = InitialPosition;
@@ -89,6 +87,7 @@ public class BaseEnemy : MonoBehaviour {
     public void SetDeffensePose(int NewDefensePose)
     {
         GetComponent<Animator>().SetInteger("DefensePose", NewDefensePose);
+        //Debug.Log("DefensePose set to " + NewDefensePose);
         if (NewDefensePose != 0)
         {
             ActionTimer = 0.0f;
@@ -100,6 +99,7 @@ public class BaseEnemy : MonoBehaviour {
     public void SetDamagedPose(int NewDamagePose)
     {
         GetComponent<Animator>().SetInteger("DamagePose", NewDamagePose);
+        //Debug.Log("DamagePose set to " + NewDamagePose);
         if (NewDamagePose != 0)
         {
             ActionTimer = 0.0f;
@@ -117,11 +117,12 @@ public class BaseEnemy : MonoBehaviour {
     public void TakeDamage(float Damage)
     {
         Health -= Damage;
+		FindObjectOfType<AudioManager>().PlaySound("EnemyHurt");
 		if (Health <= 0)
         {
-			
+            Healthbar.transform.parent.gameObject.SetActive(false);
             Destroy(gameObject);
-            GameControllerRef.PlayerRef.MoveToDoor ();
+            GameControllerRef.PlayerRef.MoveToTargetObject();
 		}
         SetHealthBar();
         // Damage Effect
