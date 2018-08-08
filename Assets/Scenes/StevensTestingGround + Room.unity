@@ -609,6 +609,25 @@ Transform:
   m_Father: {fileID: 334842549}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &671744144 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1452413992026640, guid: 6b369b395bd9b544f932ba622a5086a6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1631406458}
+--- !u!114 &671744148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 671744144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b499eccc30993a428888637201b6137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ComboCount: 5
+  DoingACombo: 0
+  CurrentEnemy: {fileID: 0}
 --- !u!1 &743654818
 GameObject:
   m_ObjectHideFlags: 0
@@ -1288,6 +1307,8 @@ MonoBehaviour:
   QTEManagerRef: {fileID: 1570619311}
   EnemyHealthbar: {fileID: 858224249}
   TimeTillBombu: 1000
+  MaxTime: 500
+  CountdownBar: {fileID: 1584562905}
 --- !u!4 &1285961141
 Transform:
   m_ObjectHideFlags: 0

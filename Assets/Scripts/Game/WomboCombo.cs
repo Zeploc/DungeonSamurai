@@ -69,7 +69,10 @@ public class WomboCombo : MonoBehaviour {
     public void SendComboToManager()
     {
         //DoingACombo = true;
-        QTEManagerRef.CurrentQTEs.Clear();
-        QTEManagerRef.CurrentQTEs.Enqueue(ComboForWombo.Dequeue());
+        for (int i = 0; i < ComboCount; i++)
+        {
+            QTEManagerRef.CurrentQTEs.Enqueue(ComboForWombo.Dequeue());
+        }
+        
     }
 }

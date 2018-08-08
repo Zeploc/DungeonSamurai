@@ -51,22 +51,21 @@ public class QTEManager : MonoBehaviour {
 				timer = 1.5f;
 			}
 		}
-        else
+        else if(WomboComboRef.DoingACombo == true)
         {
 
             Debug.Log("You've done it");
             WomboComboRef.GenerateWombo();
+            CurrentQTEs.Clear();
             WomboComboRef.SendComboToManager();
             for (int i = 0; i < WomboComboRef.ComboCount; i++)
             {
-                if (CurrentQTEs.Count >= 1)
-                {
-                    CurrentQTEs.Dequeue().SetActive(true);                 
-                }
-
+                 Debug.Log(CurrentQTEs.Count);
+                 CurrentQTEs.Dequeue().SetActive(true);                                
             }
             WomboComboRef.DoingACombo = false;
             timer = 5.0f; // sets the time until the combo ends and the normal QTE starts again
+            Debug.Log("Help");
         }
 
     }
