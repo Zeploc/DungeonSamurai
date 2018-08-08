@@ -11,8 +11,12 @@ public class Player : MonoBehaviour {
     [SerializeField] Image Healthbar;
 
     // Door
-    GameObject Door;
-	private bool bMoveToDoor = false;
+    [SerializeField] GameObject Door;
+	public bool bMoveTowardsObject = false;
+	[SerializeField] GameObject OutSidePos;
+	[SerializeField] GameObject StartPos;
+	GameObject MoveTowardsGameObject;
+
     private int QTEType;
     [SerializeField] float speed = 4.0f;
     
@@ -45,19 +49,26 @@ public class Player : MonoBehaviour {
         InitialPosition = transform.position;
         health = maxHealth;
         SetHealthBar();
-
+		MoveTowardsGameObject = Door;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (bMoveToDoor == true)
+        if (bMoveTowardsObject == true)
         {
-			transform.position = Vector2.MoveTowards (transform.position, Door.transform.position, speed * Time.deltaTime);
-			if (Vector2.Distance (transform.position, Door.transform.position) <= 0.2f)
+			transform.position = Vector2.MoveTowards (transform.position, MoveTowardsGameObject.transform.position, speed * Time.deltaTime);
+			if (Vector2.Distance (transform.position, MoveTowardsGameObject.transform.position) <= 0.2f)
             {
-				Door.GetComponent<NextLevel> ().AdvanceLevel ();
-				bMoveToDoor = false;
+				if (MoveTowardsGameObject.GetComponent<NextLevel> ()) {
+					Door.GetComponent<NextLevel> ().AdvanceLevel ();
+				}
+				else
+				{
+					bMoveTowardsObject = false;
+					MoveTowardsGameObject = Door;
+				}
+				transform.position = Vector2.MoveTowards(transform.position,  StartPos.transform.position, speed * Time.deltaTime);
 			}
 		}
         else if (bMoveBack)
@@ -65,6 +76,7 @@ public class Player : MonoBehaviour {
             transform.position = Vector2.MoveTowards(transform.position, InitialPosition, MoveBackSpeed * Time.deltaTime);
             if (Vector2.Distance(transform.position, InitialPosition) <= 0.2f)
             {
+				Debug.Log ("Next Level");
                 bMoveBack = false;
             }
         }
@@ -88,13 +100,14 @@ public class Player : MonoBehaviour {
 
 	public void MoveToDoor()
 	{
-		bMoveToDoor = true;
+		bMoveTowardsObject = true;
 	}
 
     public void SetEnemy(GameObject NewEnemy)
     {
         Enemy = NewEnemy.GetComponent<BaseEnemy>();
         InitialPosition = transform.position;
+        WomboComboRef.CurrentEnemy = NewEnemy.GetComponent<BaseEnemy>();
     }
 
     public void SetAttackPose(int NewAttackPose)
@@ -144,19 +157,19 @@ public class Player : MonoBehaviour {
             QTEType = Random.Range(0, 4);
             if (QTEType == 0)
             {
-                QTEManagerRef.AddQTEToQueue("LeftBumper", 1, "LB", 1, 1, false, Enemy.LeftSlap);
+                QTEManagerRef.AddQTEToQueue("LeftTrigger", 1, "LT", 1, 1, false, Enemy.LeftSlap);
             }
             if (QTEType == 1)
             {
-                QTEManagerRef.AddQTEToQueue("RightBumper", 1, "RB", 2, 0, false, Enemy.RightSlap);
+                QTEManagerRef.AddQTEToQueue("RightTrigger", 1, "RT", 2, 2, false, Enemy.RightSlap);
             }
             if (QTEType == 2)
             {
-                QTEManagerRef.AddQTEToQueue("LeftBumper", 1, "LB", 3, 0, false, Enemy.LeftAttack);
+                QTEManagerRef.AddQTEToQueue("LeftBumper", 1, "LB", 3, 1, false, Enemy.LeftAttack);
             }
             if (QTEType == 3)
             {
-                QTEManagerRef.AddQTEToQueue("RightBumper", 1, "RB", 2, 0, false, Enemy.RightAttack);
+                QTEManagerRef.AddQTEToQueue("RightBumper", 1, "RB", 2, 2, false, Enemy.RightAttack);
             }
         }
     }
@@ -165,6 +178,9 @@ public class Player : MonoBehaviour {
     {
         health = maxHealth;
         SetHealthBar();
+		transform.position = OutSidePos.transform.position;
+		MoveTowardsGameObject = StartPos;
+		bMoveBack = false;
     }
 
     public void SetHealthBar()

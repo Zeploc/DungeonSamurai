@@ -9,12 +9,13 @@ public class WomboCombo : MonoBehaviour {
     int QTEType;
     public bool DoingACombo = false;
     QTEManager QTEManagerRef;
-    BaseEnemy CurrentEnemy;
+    public BaseEnemy CurrentEnemy;
     // Use this for initialization
     void Start ()
     {
-        QTEManagerRef = FindObjectOfType<QTEManager>();
-        CurrentEnemy = QTEManagerRef.CurrentEnemyRef;
+        QTEManagerRef = FindObjectOfType<GameController>().QTEManagerRef;
+        ComboForWombo = new Queue<GameObject>();
+        
     }
 	
 	// Update is called once per frame

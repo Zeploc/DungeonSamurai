@@ -17,52 +17,58 @@ public class QTEManager : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        WomboComboRef = FindObjectOfType<WomboCombo>();
         CurrentQTEs = new Queue<GameObject>();
         PlayerRef = FindObjectOfType<GameController>().PlayerRef;
+        WomboComboRef = PlayerRef.GetComponent<WomboCombo>();
     }
 	
 	// Update is called once per frame
 	void Update ()
-    {
-        if (WomboComboRef.DoingACombo != false)
-        {
-            timer -= Time.deltaTime;
-            if (CurrentQTEs.Count == 0)
-            {
-                if (EnemyTurn)
-                {
-                    Debug.Log("Spawned enemy attacks");
+    {      
+		if (PlayerRef.bMoveTowardsObject == false && WomboComboRef.DoingACombo == false) 
+		{
+			//Debug.Log(CurrentQTEs.Count);
+			timer -= Time.deltaTime;
+			if (CurrentQTEs.Count == 0)
+			{         
+				if (EnemyTurn)
+				{
+					Debug.Log("Spawned enemy attacks");
 
-                    CurrentEnemyRef.GenerateQTEAttacks();
-                    EnemyTurn = false;
-                }
-                else if (EnemyTurn == false)
-                {
-                    Debug.Log("Spawned Player attacks");
-                    PlayerRef.GeneratePlayerQTEAttacks();
-                    EnemyTurn = true;
-                }
-            }
-
+					CurrentEnemyRef.GenerateQTEAttacks();
+					EnemyTurn = false;
+				}
+				else if (EnemyTurn == false)
+				{
+					Debug.Log("Spawned Player attacks");
+					PlayerRef.GeneratePlayerQTEAttacks();
+					EnemyTurn = true;
+				}
+			}        
             if (timer <= 0)
-            {
-                if (CurrentQTEs.Count > 0) ActivateQTE();
-                timer = 1.5f;
-            }
-        }
-        
+			{
+				if (CurrentQTEs.Count > 0) ActivateQTE();
+				timer = 1.5f;
+			}
+		}
         else
         {
+
+            Debug.Log("You've done it");
             WomboComboRef.GenerateWombo();
             WomboComboRef.SendComboToManager();
             for (int i = 0; i < WomboComboRef.ComboCount; i++)
             {
-                CurrentQTEs.Dequeue();
+                if (CurrentQTEs.Count >= 1)
+                {
+                    CurrentQTEs.Dequeue().SetActive(true);                 
+                }
+
             }
             WomboComboRef.DoingACombo = false;
             timer = 5.0f; // sets the time until the combo ends and the normal QTE starts again
         }
+
     }
 
     public GameObject CreateQTE(string Button, float damage, string Text, int PlayerPose, int EnemyPose, bool EnemyAttack, GameObject ObjectPosition, Vector2 Offset = default(Vector2))

@@ -51,9 +51,11 @@ public class BaseEnemy : MonoBehaviour {
         if (bMoveBack)
         {
             transform.position = Vector2.MoveTowards(transform.position, InitialPosition, MoveBackSpeed * Time.deltaTime);
+            Debug.Log("Moving Back");
             if (Vector2.Distance(transform.position, InitialPosition) <= 0.2f)
             {
                 bMoveBack = false;
+                Debug.Log("Moved back");
             }
         }
         if (ActionTimer <= FullActionTimer)
@@ -79,6 +81,7 @@ public class BaseEnemy : MonoBehaviour {
             Position.x += 3.0f;
             transform.position = Position;
             bMoveBack = true;
+            Debug.Log("Enemy Attack");
             return;
         }
         transform.position = InitialPosition;
@@ -116,6 +119,7 @@ public class BaseEnemy : MonoBehaviour {
         Health -= Damage;
 		if (Health <= 0)
         {
+			
             Destroy(gameObject);
             GameControllerRef.PlayerRef.MoveToDoor ();
 		}
