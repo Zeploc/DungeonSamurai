@@ -152,12 +152,13 @@ public class QTEInstance : MonoBehaviour {
         }
     }
 
-    void QTEFailed()
+    void QTEFailed() //wrong key pressed
     {
         // Loose time
 
         if (bEnemyAttack)
         {
+			FindObjectOfType<AudioManager>().PlaySound("PlayerHurt");
             PlayerRef.SetDamagedPose(1);
             DamageEnemy.SetAttackPose(iEnemyAnimVal);
             //Debug.Log("Hurt");
@@ -173,12 +174,13 @@ public class QTEInstance : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    void QTEMissed()
+    void QTEMissed() //Missed the button press
     {
         // Missed particle effect
         if (bEnemyAttack == true)
         {
             Debug.Log("Hurt");
+			FindObjectOfType<AudioManager>().PlaySound("PlayerHurt");
             PlayerRef.DamagePlayer(5);
 
             PlayerRef.SetDamagedPose(1);

@@ -16,6 +16,8 @@ public class QTEManager : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+		FindObjectOfType<AudioManager>().StopSound("bgMusic");
+		FindObjectOfType<AudioManager>().PlaySound("BattleMusic");
         CurrentQTEs = new Queue<GameObject>();
         PlayerRef = FindObjectOfType<GameController>().PlayerRef;
     }
@@ -38,6 +40,7 @@ public class QTEManager : MonoBehaviour {
 				}
 				else if (EnemyTurn == false)
 				{
+					
 					Debug.Log("Spawned Player attacks");
 					PlayerRef.GeneratePlayerQTEAttacks();
 					EnemyTurn = true;

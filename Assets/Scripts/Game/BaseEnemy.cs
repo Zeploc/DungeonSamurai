@@ -114,6 +114,7 @@ public class BaseEnemy : MonoBehaviour {
     public void TakeDamage(float Damage)
     {
         Health -= Damage;
+		FindObjectOfType<AudioManager>().PlaySound("EnemyHurt");
 		if (Health <= 0)
         {
 			

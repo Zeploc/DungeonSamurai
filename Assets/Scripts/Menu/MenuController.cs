@@ -17,7 +17,10 @@ public class MenuController : MonoBehaviour {
 
     public void StartGame()
     {
-        SceneManager.LoadScene("StevensTestingGround + Room");
+		Debug.Log ("Start Game");
+		FindObjectOfType<AudioManager> ().StopSound ("bgMusic");
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
     }
 
     public void QuitGame()

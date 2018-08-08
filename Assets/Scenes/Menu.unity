@@ -146,12 +146,89 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 653855229}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.694911, y: -0.20055282, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &804721593
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4634163227480530, guid: cead60dad3b61044e8d171ccf146caab, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634163227480530, guid: cead60dad3b61044e8d171ccf146caab, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634163227480530, guid: cead60dad3b61044e8d171ccf146caab, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634163227480530, guid: cead60dad3b61044e8d171ccf146caab, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634163227480530, guid: cead60dad3b61044e8d171ccf146caab, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634163227480530, guid: cead60dad3b61044e8d171ccf146caab, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634163227480530, guid: cead60dad3b61044e8d171ccf146caab, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634163227480530, guid: cead60dad3b61044e8d171ccf146caab, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
+        type: 2}
+      propertyPath: sounds.Array.data[6].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: a33dd565c84486e43bc64535d733ce90, type: 3}
+    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
+        type: 2}
+      propertyPath: sounds.Array.data[4].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: eca01109033f958429619c631f2a48fa, type: 3}
+    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
+        type: 2}
+      propertyPath: sounds.Array.data[5].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: e372e5523ad6ec446852ca61e60bdd71, type: 3}
+    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
+        type: 2}
+      propertyPath: sounds.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 63162b7cedf0d594a9356a46f6be6f1a, type: 3}
+    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
+        type: 2}
+      propertyPath: sounds.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: f4179d9142bbe6947ae87981a4629c6d, type: 3}
+    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
+        type: 2}
+      propertyPath: sounds.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: dfa6efe7dcad6bb4f8e0d700e2b68b64, type: 3}
+    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
+        type: 2}
+      propertyPath: sounds.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8c9fc1fd04047cb4fa7aadfc96a2dc40, type: 3}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: cead60dad3b61044e8d171ccf146caab, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &897017268
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +306,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 653855230}
-        m_MethodName: StartGame
+        m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -585,7 +662,7 @@ RectTransform:
   m_GameObject: {fileID: 1507608394}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 0.00976801, y: 0.00976801, z: 0.00976801}
+  m_LocalScale: {x: 0.011659321, y: 0.011659321, z: 0.011659321}
   m_Children:
   - {fileID: 1193878211}
   - {fileID: 1241363597}
