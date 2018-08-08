@@ -13,6 +13,7 @@ public class QTEManager : MonoBehaviour {
     public BaseEnemy CurrentEnemyRef; // I'm not sure how to make this dynamic
 
     Player PlayerRef;
+    GameController GameControllerRef;
 
     // Input
     bool JoystickReset = true;
@@ -20,19 +21,22 @@ public class QTEManager : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-		FindObjectOfType<AudioManager>().StopSound("bgMusic");
-		FindObjectOfType<AudioManager>().PlaySound("BattleMusic");
         CurrentQTEs = new Queue<GameObject>();
-        PlayerRef = FindObjectOfType<GameController>().PlayerRef;
+        GameControllerRef = FindObjectOfType<GameController>();
+        PlayerRef = GameControllerRef.PlayerRef;
         WomboComboRef = PlayerRef.GetComponent<WomboCombo>();
+
+        GameControllerRef.AudioManagerRef.StopSound("bgMusic");
+        GameControllerRef.AudioManagerRef.PlaySound("BattleMusic");
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
         CheckForQTEInput();
+        
 
-        if (PlayerRef.bMoveTowardsObject == false) 
+        if (PlayerRef.bMoveTowardsObject == false && GameControllerRef.GetIsPlaying()) 
 		{
 			//Debug.Log(CurrentQTEs.Count);
 			timer -= Time.deltaTime;

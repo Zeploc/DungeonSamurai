@@ -18,6 +18,8 @@ public class Player : MonoBehaviour {
 	[SerializeField] GameObject CurrentLevelPosition;
 
     [SerializeField] GameObject DodgePosition;
+    public float TotalReviveTime = 1.0f;
+    float ReviveTime = 0.0f;
 
     private int QTEType;
     [SerializeField] float speed = 4.0f;
@@ -55,6 +57,18 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        if (ReviveTime > 0)
+        {
+            ReviveTime -= Time.deltaTime;
+            if (ReviveTime <= 0)
+            {
+                MoveTowardsGameObject = CurrentLevelPosition;
+                health = maxHealth;
+                SetHealthBar();
+                bMoveTowardsObject = true;
+                ReviveTime = 0;
+            }
+        }
         if (bMoveTowardsObject)
         {
             Vector3 NewPosition = MoveTowardsGameObject.transform.position;
@@ -85,11 +99,10 @@ public class Player : MonoBehaviour {
                 }
                 else if (MoveTowardsGameObject == FallBackPos)
                 {
-                    FindObjectOfType<GameController>().DeductKilledTime();
-                    MoveTowardsGameObject = CurrentLevelPosition;
-                    health = maxHealth;
-                    SetHealthBar();
+                    FindObjectOfType<GameController>().DeductReviveTime();
+                    ReviveTime = TotalReviveTime;
                     GetComponent<Animator>().SetInteger("DamagePose", 0);
+                    bMoveTowardsObject = false;
                 }
                 else
 				{
