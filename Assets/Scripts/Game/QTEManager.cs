@@ -13,8 +13,11 @@ public class QTEManager : MonoBehaviour {
 
     Player PlayerRef;
 
-	// Use this for initialization
-	void Start ()
+    // Input
+    bool JoystickReset = true;
+
+    // Use this for initialization
+    void Start ()
     {
         CurrentQTEs = new Queue<GameObject>();
         PlayerRef = FindObjectOfType<GameController>().PlayerRef;
@@ -23,6 +26,7 @@ public class QTEManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        CheckForQTEInput();
 		if (PlayerRef.bMoveTowardsObject == false) 
 		{
 			//Debug.Log(CurrentQTEs.Count);
@@ -88,5 +92,61 @@ public class QTEManager : MonoBehaviour {
     public void ApplyNewEnemy(GameObject NewEnemey)
     {
         CurrentEnemyRef = NewEnemey.GetComponent<BaseEnemy>();
+    }
+
+    void CheckForQTEInput()
+    {
+        float LeftJoystickAxis = Input.GetAxis("LeftJoystickHorizontal");
+        float RightJoystickAxis = Input.GetAxis("RightJoystickHorizontal");
+        float LeftTriggerAxis = Mathf.Abs(Input.GetAxis("LeftTrigger"));
+        float RightTriggerAxis = Mathf.Abs(Input.GetAxis("RightTrigger"));
+        bool LeftJoystickLeftSet = LeftJoystickAxis < -0.9f && JoystickReset;
+        bool LeftJoystickRightSet = LeftJoystickAxis > 0.9f && JoystickReset;
+        bool LeftTriggerSet = LeftTriggerAxis > 0.9f && JoystickReset;
+        bool RightTriggerSet = RightTriggerAxis > 0.9f && JoystickReset;
+
+        // Trigger Button Pressed
+        if (LeftJoystickLeftSet || LeftJoystickRightSet || LeftTriggerSet || RightTriggerSet)
+        {
+            // Axis Button pressed so waits to be released before allowing as new input
+            JoystickReset = false;
+
+            if (LeftJoystickLeftSet)
+            {
+                CurrentQTEs.Peek().GetComponent<QTEInstance>().InputPressed("LeftJoystickLeft");
+            }
+            if (LeftJoystickRightSet)
+            {
+                CurrentQTEs.Peek().GetComponent<QTEInstance>().InputPressed("LeftJoystickRight");
+            }
+            if (LeftTriggerSet)
+            {
+                CurrentQTEs.Peek().GetComponent<QTEInstance>().InputPressed("LeftTrigger");
+            }
+            if (RightTriggerSet)
+            {
+                CurrentQTEs.Peek().GetComponent<QTEInstance>().InputPressed("RightTrigger");
+            }            
+        }
+        else
+        {
+            if (LeftJoystickAxis > -0.9f && LeftJoystickAxis < 0.9f && LeftTriggerAxis < 0.9f && RightTriggerAxis < 0.9f) JoystickReset = true;
+            if (Input.GetButtonDown("AButton"))
+            {
+                CurrentQTEs.Peek().GetComponent<QTEInstance>().InputPressed("AButton");
+            }
+            else if (Input.GetButtonDown("BButton"))
+            {
+                CurrentQTEs.Peek().GetComponent<QTEInstance>().InputPressed("BButton");
+            }
+            else if (Input.GetButtonDown("LeftBumper"))
+            {
+                CurrentQTEs.Peek().GetComponent<QTEInstance>().InputPressed("LeftBumper");
+            }
+            else if (Input.GetButtonDown("RightBumper"))
+            {
+                CurrentQTEs.Peek().GetComponent<QTEInstance>().InputPressed("RightBumper");
+            }
+        }
     }
 }

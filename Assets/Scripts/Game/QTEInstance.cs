@@ -12,7 +12,6 @@ public class QTEInstance : MonoBehaviour {
     // QTE Input
     string QTEkey = "Fire1"; //Overridden
     bool JoystickInput = false;
-    bool JoystickReset = true;
 
     // References
     QTEManager QTEManagerRef;
@@ -75,46 +74,16 @@ public class QTEInstance : MonoBehaviour {
             if (bEnemyAttack) QTEFailed();
             else QTEMissed();
         }
-
-        bool QTEPressed = false;
-        float LeftJoystickAxis = Input.GetAxis("LeftJoystickHorizontal");
-        float RightJoystickAxis = Input.GetAxis("RightJoystickHorizontal");
-        float LeftTriggerAxis = Input.GetAxis("LeftTrigger");
-        float RightTriggerAxis = Input.GetAxis("RightTrigger");
+        
+        // If QTE is Axis Input
         if (JoystickInput)
         {
-            if ((LeftJoystickAxis > 0.9f || LeftJoystickAxis < -0.9f || RightJoystickAxis > 0.9f || RightJoystickAxis < -0.9f) && JoystickReset)
-            {
-                // QTE stick moved
-                if ((QTEkey == "LeftJoystickLeft" && LeftJoystickAxis < -0.9f) ||
-                    (QTEkey == "LeftJoystickRight" && LeftJoystickAxis > 0.9f) ||
-                    (QTEkey == "RightJoystickLeft" && RightJoystickAxis < -0.9f) ||
-                    (QTEkey == "RightJoystickRight" && RightJoystickAxis > 0.9f))
-                {
-                    QTEPressed = true;
-                    JoystickReset = false;
-                }
-                else
-                {
-                    QTEFailed();
-                }
-            }
-            else if (LeftJoystickAxis == 0.0f && RightJoystickAxis == 0.0f && LeftTriggerAxis == 0.0f && RightTriggerAxis == 0.0f)
-            {
-                JoystickReset = true;
-            }
-            else if (QTEkey == "LeftTrigger" || QTEkey == "RightTrigger")
-            {
-                if (Mathf.Abs(Input.GetAxis(QTEkey)) >= 0.9f)
-                {
-                    QTEPressed = true;
-                    JoystickReset = false;
-                }
-            }
-            //else if (JoystickReset && (LeftJoystickAxis != 0.0f || RightJoystickAxis != 0.0f || LeftTriggerAxis != 0.0f || RightTriggerAxis != 0.0f))
-            //{
-            //    QTEFailed();
-            //}
+            float LeftJoystickAxis = Input.GetAxis("LeftJoystickHorizontal");
+            float RightJoystickAxis = Input.GetAxis("RightJoystickHorizontal");
+            float LeftTriggerAxis = Mathf.Abs(Input.GetAxis("LeftTrigger"));
+            float RightTriggerAxis = Mathf.Abs(Input.GetAxis("RightTrigger"));
+
+            // Visual Element
             Vector2 NewPosition = StickCircleEndPosition.position;
             if (QTEkey == "LeftJoystickLeft")
                 NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(LeftJoystickAxis, -1, 0)));
@@ -126,34 +95,25 @@ public class QTEInstance : MonoBehaviour {
                 NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(RightJoystickAxis, 0, 1)));
 
             StickCircle.transform.position = NewPosition;
+        }        
+    }
+
+    public void InputPressed(string Input)
+    {
+        if (Input == QTEkey)
+        {
+            QTEComplete();
         }
         else
         {
-            if (Input.anyKeyDown)
-            {
-                // QTE button pressed
-                if (Input.GetButtonDown(QTEkey))// || Input.GetKeyDown(QTEkey) ||
-                    //(JoystickReset && (LeftJoystickAxis != 0.0f || RightJoystickAxis != 0.0f || LeftTriggerAxis != 0.0f || RightTriggerAxis != 0.0f)))
-                {
-                    QTEPressed = true;
-                }
-                else
-                {
-                    QTEFailed();
-                }
-            }
-            
+            QTEFailed();
         }
-
-        if (QTEPressed)
-        {
-            QTEComplete();
-            QTEManagerRef.timer = 0.0f;
-        }
+        QTEManagerRef.timer = 0.0f;
     }
 
     void QTEFailed()
     {
+        //Debug.Log("QTE Failed");
         // Loose time
 
         if (bEnemyAttack)
@@ -193,7 +153,8 @@ public class QTEInstance : MonoBehaviour {
     }
 
     void QTEComplete()
-    {        
+    {
+        //Debug.Log("QTE Complete");
         StickCircle.transform.position = StickCircleEndPosition.position;
         // QTE effect
         if (bEnemyAttack)

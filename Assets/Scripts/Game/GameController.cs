@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour {
 
     public float TimeTillBombu;
     public float MaxTime = 500.0f;
+    public float DecreaseSpeed = 5.0f;
 	[SerializeField] Image CountdownBar;
 
     // Use this for initialization
@@ -29,9 +30,8 @@ public class GameController : MonoBehaviour {
 			//if(InitialEnemey != null)
             InitialEnemey.GetComponent<BaseEnemy> ().TakeDamage (10);
 		}
-        TimeTillBombu -= Time.deltaTime;
+        TimeTillBombu -= Time.deltaTime * DecreaseSpeed;
         CountdownBar.fillAmount = (TimeTillBombu / MaxTime) * 0.92f + 0.04f;
-        Debug.Log(CountdownBar.fillAmount);
     }
 
     public Player GetPlayer()

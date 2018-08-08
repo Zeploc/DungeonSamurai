@@ -73,7 +73,6 @@ public class Player : MonoBehaviour {
             transform.position = Vector2.MoveTowards(transform.position, InitialPosition, MoveBackSpeed * Time.deltaTime);
             if (Vector2.Distance(transform.position, InitialPosition) <= 0.2f)
             {
-				Debug.Log ("Next Level");
                 bMoveBack = false;
             }
         }
