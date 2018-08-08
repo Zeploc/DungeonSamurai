@@ -27,6 +27,7 @@ public class QTEInstance : MonoBehaviour {
     bool bEnemyAttack = false;
     
     GameObject QTEObjectPostition;
+    Vector2 VecOffset;
 
     // QTE Images
     [SerializeField] Sprite BumperImage;
@@ -51,20 +52,25 @@ public class QTEInstance : MonoBehaviour {
 
     }
 
-    public void SetQTEInit(string button, float damage, string Text, int PlayerAnimVal, int EnemyAnimVal, bool EnemyAttack, GameObject ObjectPosition)
+    public void SetQTEInit(string button, float damage, string Text, int PlayerAnimVal, int EnemyAnimVal, bool EnemyAttack, GameObject ObjectPosition,Vector2 Offset)
     {
+        VecOffset = Offset;
         QTEkey = button;
         gameObject.GetComponentInChildren<Text>().text = Text;
         iPlayerAnimVal = PlayerAnimVal;
         iEnemyAnimVal = EnemyAnimVal;
         bEnemyAttack = EnemyAttack;
         QTEObjectPostition = ObjectPosition;
+        transform.position = QTEObjectPostition.transform.position + (Vector3)VecOffset;
         SetImage();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        transform.position = QTEObjectPostition.transform.position + (Vector3)VecOffset;
+
 		if(QTEObjectPostition != null)
         transform.position = QTEObjectPostition.transform.position;
         CurrentTime += Time.deltaTime;
@@ -111,13 +117,14 @@ public class QTEInstance : MonoBehaviour {
         QTEManagerRef.timer = 0.0f;
     }
 
-    void QTEFailed()
+    void QTEFailed() //wrong key pressed
     {
         //Debug.Log("QTE Failed");
         // Loose time
 
         if (bEnemyAttack)
         {
+			FindObjectOfType<AudioManager>().PlaySound("PlayerHurt");
             PlayerRef.SetDamagedPose(1);
             DamageEnemy.SetAttackPose(iEnemyAnimVal);
             //Debug.Log("Hurt");
@@ -133,12 +140,13 @@ public class QTEInstance : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    void QTEMissed()
+    void QTEMissed() //Missed the button press
     {
         // Missed particle effect
         if (bEnemyAttack == true)
         {
             Debug.Log("Hurt");
+			FindObjectOfType<AudioManager>().PlaySound("PlayerHurt");
             PlayerRef.DamagePlayer(5);
 
             PlayerRef.SetDamagedPose(1);

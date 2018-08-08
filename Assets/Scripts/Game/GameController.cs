@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.Audio;
 public class GameController : MonoBehaviour {
 
     public Player PlayerRef;
@@ -15,16 +15,21 @@ public class GameController : MonoBehaviour {
     public float MaxTime = 500.0f;
     public float DecreaseSpeed = 5.0f;
 	[SerializeField] Image CountdownBar;
-
+	bool isPlaying;
     // Use this for initialization
     void Start ()
     {
+		isPlaying = true;
+	
         SetNewEnemey(InitialEnemey.gameObject);
         TimeTillBombu = MaxTime;
     }
-	
+
 	// Update is called once per frame
 	void Update () {
+		
+
+
 		if (Input.GetKeyDown(KeyCode.G))
 		{
 			//if(InitialEnemey != null)
@@ -33,6 +38,10 @@ public class GameController : MonoBehaviour {
         TimeTillBombu -= Time.deltaTime * DecreaseSpeed;
         CountdownBar.fillAmount = (TimeTillBombu / MaxTime) * 0.92f + 0.04f;
     }
+	void FixedUpdate()
+	{
+		
+	}
 
     public Player GetPlayer()
     {
