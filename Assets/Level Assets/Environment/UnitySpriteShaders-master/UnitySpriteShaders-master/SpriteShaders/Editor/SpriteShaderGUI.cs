@@ -10,6 +10,8 @@ public class SpriteShaderGUI : ShaderGUI
 	private static readonly int kAlphaTestQueue = 2450;
 	private static readonly int kTransparentQueue = 3000;
 
+	//public ColorPickerHDRConfig HDRConfig;
+
 	private enum eBlendMode
 	{
 		PreMultipliedAlpha,
@@ -714,8 +716,10 @@ public class SpriteShaderGUI : ShaderGUI
 
 		if (emission && !mixedValue)
 		{
+			
+			ColorPickerHDRConfig HDRConfig = new ColorPickerHDRConfig(7, 10, 4, 10);
 			EditorGUI.BeginChangeCheck();
-			_materialEditor.TexturePropertyWithHDRColor(_emissionText, _emissionMap, _emissionColor, true);
+			_materialEditor.TexturePropertyWithHDRColor(_emissionText, _emissionMap, _emissionColor, HDRConfig, true);
 			_materialEditor.FloatProperty(_emissionPower, _emissionPowerText.text);
 			dataChanged |= EditorGUI.EndChangeCheck();
 		}
