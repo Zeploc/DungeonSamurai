@@ -11,13 +11,15 @@ public class GameController : MonoBehaviour {
     public QTEManager QTEManagerRef;
     public Image EnemyHealthbar;
 
-    public float TimeTillBombu = 1000.0f;
-	[SerializeField]public Image CountdownBar; 
+    public float TimeTillBombu;
+    public float MaxTime = 500.0f;
+	[SerializeField] Image CountdownBar;
 
     // Use this for initialization
     void Start ()
     {
         SetNewEnemey(InitialEnemey.gameObject);
+        TimeTillBombu = MaxTime;
     }
 	
 	// Update is called once per frame
@@ -28,6 +30,8 @@ public class GameController : MonoBehaviour {
             InitialEnemey.GetComponent<BaseEnemy> ().TakeDamage (10);
 		}
         TimeTillBombu -= Time.deltaTime;
+        CountdownBar.fillAmount = (TimeTillBombu / MaxTime) * 0.92f + 0.04f;
+        Debug.Log(CountdownBar.fillAmount);
     }
 
     public Player GetPlayer()

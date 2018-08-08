@@ -75,6 +75,7 @@ public class QTEInstance : MonoBehaviour {
             if (bEnemyAttack) QTEFailed();
             else QTEMissed();
         }
+
         bool QTEPressed = false;
         float LeftJoystickAxis = Input.GetAxis("LeftJoystickHorizontal");
         float RightJoystickAxis = Input.GetAxis("RightJoystickHorizontal");
@@ -110,6 +111,10 @@ public class QTEInstance : MonoBehaviour {
                     JoystickReset = false;
                 }
             }
+            //else if (JoystickReset && (LeftJoystickAxis != 0.0f || RightJoystickAxis != 0.0f || LeftTriggerAxis != 0.0f || RightTriggerAxis != 0.0f))
+            //{
+            //    QTEFailed();
+            //}
             Vector2 NewPosition = StickCircleEndPosition.position;
             if (QTEkey == "LeftJoystickLeft")
                 NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(LeftJoystickAxis, -1, 0)));
@@ -127,7 +132,8 @@ public class QTEInstance : MonoBehaviour {
             if (Input.anyKeyDown)
             {
                 // QTE button pressed
-                if (Input.GetButtonDown(QTEkey))
+                if (Input.GetButtonDown(QTEkey))// || Input.GetKeyDown(QTEkey) ||
+                    //(JoystickReset && (LeftJoystickAxis != 0.0f || RightJoystickAxis != 0.0f || LeftTriggerAxis != 0.0f || RightTriggerAxis != 0.0f)))
                 {
                     QTEPressed = true;
                 }
@@ -180,7 +186,7 @@ public class QTEInstance : MonoBehaviour {
         }
         else
         {
-            GameControllerRef.TimeTillBombu -= 5.0f;
+            GameControllerRef.TimeTillBombu -= 20.0f;
         }
         QTEManagerRef.RemoveQTE(gameObject);
         Destroy(gameObject);

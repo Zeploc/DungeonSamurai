@@ -29,11 +29,11 @@ public class LittleEnemy : BaseEnemy
             }
             if (QTEType == 1)
             {
-                QTEManagerRef.AddQTEToQueue("LeftJoystickRight", 1, "LRight", 2, 0, true, PlayerRef.RightDodge);
+                QTEManagerRef.AddQTEToQueue("LeftJoystickRight", 1, "LRight", 2, 2, true, PlayerRef.RightDodge);
             }
             if (QTEType == 2)
             {
-                QTEManagerRef.AddQTEToQueue("AButton", 1, "A", 3, 1, true, PlayerRef.LeftParray);
+                QTEManagerRef.AddQTEToQueue("AButton", 1, "A", 3, 2, true, PlayerRef.LeftParray);
             }
             if (QTEType == 3)
             {

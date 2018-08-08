@@ -153,7 +153,7 @@ public class Player : MonoBehaviour {
             }
             if (QTEType == 1)
             {
-                QTEManagerRef.AddQTEToQueue("RightTrigger", 1, "RT", 2, 1, false, Enemy.RightSlap);
+                QTEManagerRef.AddQTEToQueue("RightTrigger", 1, "RT", 2, 2, false, Enemy.RightSlap);
             }
             if (QTEType == 2)
             {
@@ -161,7 +161,7 @@ public class Player : MonoBehaviour {
             }
             if (QTEType == 3)
             {
-                QTEManagerRef.AddQTEToQueue("RightBumper", 1, "RB", 2, 1, false, Enemy.RightAttack);
+                QTEManagerRef.AddQTEToQueue("RightBumper", 1, "RB", 2, 2, false, Enemy.RightAttack);
             }
         }
     }
