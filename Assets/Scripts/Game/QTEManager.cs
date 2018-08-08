@@ -32,7 +32,7 @@ public class QTEManager : MonoBehaviour {
     {
         CheckForQTEInput();
 
-        if (PlayerRef.bMoveTowardsObject == false && WomboComboRef.DoingACombo == false) 
+        if (PlayerRef.bMoveTowardsObject == false) 
 		{
 			//Debug.Log(CurrentQTEs.Count);
 			timer -= Time.deltaTime;
@@ -59,10 +59,9 @@ public class QTEManager : MonoBehaviour {
 				timer = 1.5f;
 			}
 		}
-        else
+        else if (WomboComboRef.DoingACombo)
         {
-
-            Debug.Log("You've done it");
+            //Debug.Log("You've done it");
             WomboComboRef.GenerateWombo();
             WomboComboRef.SendComboToManager();
             for (int i = 0; i < WomboComboRef.ComboCount; i++)
@@ -79,31 +78,41 @@ public class QTEManager : MonoBehaviour {
 
     }
 
-    public GameObject CreateQTE(string Button, float damage, string Text, int PlayerPose, int EnemyPose, bool EnemyAttack, GameObject ObjectPosition, Vector2 Offset = default(Vector2))
+    public GameObject CreateQTE(string Button, int PlayerPose, int EnemyPose, bool EnemyAttack, GameObject ObjectPosition, Vector2 Offset = default(Vector2))
     {
         GameObject NewQTE = Instantiate(QTEInstancePrefab, transform);
         NewQTE.transform.position = ObjectPosition.transform.position + (Vector3)Offset;
-        NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, damage, Text, PlayerPose, EnemyPose, EnemyAttack, ObjectPosition, Offset);
+        NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, PlayerPose, EnemyPose, EnemyAttack, ObjectPosition, Offset);
         return NewQTE;
     }
 
-    public void AddQTEToQueue(string Button, float damage, string Text, int PlayerPose, int EnemyPose, bool EnemyAttack, GameObject ObjectPosition, Vector2 Offset = default(Vector2))
+    public void AddQTEToQueue(string Button, int PlayerPose, int EnemyPose, bool EnemyAttack, GameObject ObjectPosition, Vector2 Offset = default(Vector2))
     {
         GameObject NewQTE = Instantiate(QTEInstancePrefab, transform);
         NewQTE.transform.position = ObjectPosition.transform.position + (Vector3)Offset; 
-        NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, damage, Text, PlayerPose, EnemyPose, EnemyAttack, ObjectPosition,Offset);
+        NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, PlayerPose, EnemyPose, EnemyAttack, ObjectPosition,Offset);
         CurrentQTEs.Enqueue(NewQTE);
-        //Debug.Log("Added");
     }
 
     public void RemoveQTE(GameObject QTERef)
     {
-        CurrentQTEs.Dequeue();
+        if (CurrentQTEs.Count > 0) CurrentQTEs.Dequeue();
     }
 
     void ActivateQTE()
     {
         CurrentQTEs.Peek().SetActive(true);
+    }
+
+    public void ClearQTEs()
+    {
+        foreach(GameObject QTE in CurrentQTEs)
+        {
+            Destroy(QTE);
+        }
+        CurrentQTEs.Clear();
+        timer = 1.5f;
+        EnemyTurn = false;
     }
 
     public void ApplyNewEnemy(GameObject NewEnemey)

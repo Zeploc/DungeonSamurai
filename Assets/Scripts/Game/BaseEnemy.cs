@@ -11,7 +11,7 @@ public class BaseEnemy : MonoBehaviour {
     public float QTETimer;
     public int QTEType;
     public int iAttackCount;
-    public Image Healthbar;
+    Image Healthbar;
 
     // Animations
     public float FullActionTimer = 0.5f;
@@ -120,9 +120,9 @@ public class BaseEnemy : MonoBehaviour {
 		FindObjectOfType<AudioManager>().PlaySound("EnemyHurt");
 		if (Health <= 0)
         {
-			
+            Healthbar.transform.parent.gameObject.SetActive(false);
             Destroy(gameObject);
-            GameControllerRef.PlayerRef.MoveToDoor ();
+            GameControllerRef.PlayerRef.MoveToTargetObject();
 		}
         SetHealthBar();
         // Damage Effect

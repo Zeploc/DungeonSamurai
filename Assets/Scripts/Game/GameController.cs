@@ -10,12 +10,14 @@ public class GameController : MonoBehaviour {
     public Camera CamereRef;
     public QTEManager QTEManagerRef;
     public Image EnemyHealthbar;
+    [SerializeField] float XOffset;
 
     public float TimeTillBombu;
     public float MaxTime = 500.0f;
     public float DecreaseSpeed = 5.0f;
 	[SerializeField] Image CountdownBar;
 	bool isPlaying;
+
     // Use this for initialization
     void Start ()
     {
@@ -26,9 +28,15 @@ public class GameController : MonoBehaviour {
     }
 
 	// Update is called once per frame
-	void Update () {
-		
-
+	void Update ()
+    {
+        if (!PlayerRef.IsMovingInAttack())
+        {
+            Debug.Log("Not attacking, so following");
+            Vector3 CameraPosition = CamereRef.gameObject.transform.position;
+            CameraPosition.x = PlayerRef.transform.position.x + XOffset;
+            CamereRef.gameObject.transform.position = CameraPosition;
+        }
 
 		if (Input.GetKeyDown(KeyCode.G))
 		{
@@ -55,8 +63,14 @@ public class GameController : MonoBehaviour {
         QTEManagerRef.ApplyNewEnemy(NewEnemy);
     }
 
-    public void ReloadLevel()
+    public void NextLevel()
     {
         PlayerRef.ReloadPlayer();
+        QTEManagerRef.ClearQTEs();
+    }
+
+    public void DeductKilledTime()
+    {
+        TimeTillBombu -= 20.0f;
     }
 }

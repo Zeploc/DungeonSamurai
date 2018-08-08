@@ -30,14 +30,20 @@ public class QTEInstance : MonoBehaviour {
     Vector2 VecOffset;
 
     // QTE Images
-    [SerializeField] Sprite BumperImage;
-    [SerializeField] Sprite TriggerImage;
-    [SerializeField] Sprite ButtonImage;
+    [SerializeField] Sprite LeftBumperImage;
+    [SerializeField] Sprite RightBumperImage;
+    [SerializeField] Sprite LeftTriggerImage;
+    [SerializeField] Sprite RightTriggerImage;
+    [SerializeField] Sprite AButtonImage;
+    [SerializeField] Sprite BButtonImage;
     [SerializeField] Sprite StickSlider;
+    [SerializeField] Sprite LeftStickLeftCircle;
+    [SerializeField] Sprite LeftStickRightCircle;
+    [SerializeField] Sprite RightStickLeftCircle;
+    [SerializeField] Sprite RightStickRightCircle;
     [SerializeField] Image StickCircle;
     float XStickCircleDistance;
     [SerializeField] Transform StickCircleEndPosition;
-    [SerializeField] GameObject TextObject;
 
     // Use this for initialization
     void Start ()
@@ -52,11 +58,10 @@ public class QTEInstance : MonoBehaviour {
 
     }
 
-    public void SetQTEInit(string button, float damage, string Text, int PlayerAnimVal, int EnemyAnimVal, bool EnemyAttack, GameObject ObjectPosition, Vector2 Offset)
+    public void SetQTEInit(string button, int PlayerAnimVal, int EnemyAnimVal, bool EnemyAttack, GameObject ObjectPosition, Vector2 Offset)
     {
         VecOffset = Offset;
         QTEkey = button;
-        gameObject.GetComponentInChildren<Text>().text = Text;
         iPlayerAnimVal = PlayerAnimVal;
         iEnemyAnimVal = EnemyAnimVal;
         bEnemyAttack = EnemyAttack;
@@ -205,29 +210,55 @@ public class QTEInstance : MonoBehaviour {
                 Vector3 Scale = transform.localScale;
                 Scale.x = -1;
                 transform.localScale = Scale;
-                Scale = TextObject.transform.localScale;
+                Scale = StickCircle.transform.localScale;
                 Scale.x = -1;
-                TextObject.transform.localScale = Scale;
+                StickCircle.transform.localScale = Scale;
             }
             GetComponent<Image>().sprite = StickSlider;
+            if (QTEkey == "LeftJoystickLeft")
+            {
+                StickCircle.sprite = LeftStickLeftCircle;
+            }
+            else if (QTEkey == "LeftJoystickRight")
+            {
+                StickCircle.sprite = LeftStickRightCircle;
+            }
+            else if (QTEkey == "RightJoystickLeft")
+            {
+                StickCircle.sprite = RightStickRightCircle;
+            }
+            else if (QTEkey == "RightJoystickRight")
+            {
+                StickCircle.sprite = RightStickRightCircle;
+            }
             StickCircle.gameObject.SetActive(true);
             JoystickInput = true;
         }
-        else if (QTEkey == "LeftBumper" || QTEkey == "RightBumper")
+        else if (QTEkey == "LeftBumper")
         {
-            GetComponent<Image>().sprite = BumperImage;
+            GetComponent<Image>().sprite = LeftBumperImage;
         }
-        else if (QTEkey == "LeftTrigger" || QTEkey == "RightTrigger")
+        else if (QTEkey == "RightBumper")
         {
-            GetComponent<Image>().sprite = TriggerImage;
+            GetComponent<Image>().sprite = RightBumperImage;
+        }
+        else if (QTEkey == "LeftTrigger")
+        {
+            GetComponent<Image>().sprite = LeftTriggerImage;
             JoystickInput = true;
-            GetComponent<RectTransform>().sizeDelta = new Vector2(50, 200);
-            return;
-            //GetComponent<RectTransform>() = NewRect;
+        }
+        else if (QTEkey == "RightTrigger")
+        {
+            GetComponent<Image>().sprite = RightTriggerImage;
+            JoystickInput = true;
+        }
+        else if (QTEkey == "AButton")
+        {
+            GetComponent<Image>().sprite = AButtonImage;
         }
         else
         {
-            GetComponent<Image>().sprite = ButtonImage;
+            GetComponent<Image>().sprite = BButtonImage; ;
         }
     }
 }

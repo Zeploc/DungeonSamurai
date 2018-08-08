@@ -4,19 +4,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class NextLevel : MonoBehaviour {
-
-    [SerializeField] BaseEnemy[] InitialEnemyPrefabs; // Prefabs
-
-    Queue<BaseEnemy> Enemies;
+    
+    Player PlayerRef;
+    [SerializeField] GameObject FallBackPosition;
+    [SerializeField] GameObject NewNextLevelObject;
+    [SerializeField] GameObject LevelEnemy;
+    
 	// Use this for initialization
 	void Start ()
     {
-        Enemies = new Queue<BaseEnemy>();
-        foreach (BaseEnemy E in InitialEnemyPrefabs)
-        {
-            Enemies.Enqueue(E);
-        }
-	}
+        PlayerRef = FindObjectOfType<GameController>().PlayerRef;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -24,9 +22,10 @@ public class NextLevel : MonoBehaviour {
 	}
 	public void AdvanceLevel()
 	{
-		Debug.Log ("Loaded");
-        FindObjectOfType<GameController>().ReloadLevel();
-        FindObjectOfType<GameController>().SetNewEnemey(Enemies.Dequeue().gameObject);
-	}
+        GameController ControllerRef = FindObjectOfType<GameController>();
+        ControllerRef.NextLevel();
+        PlayerRef.SetNextLevel(FallBackPosition, gameObject, NewNextLevelObject);
+        ControllerRef.SetNewEnemey(LevelEnemy);
+    }
 
 }
