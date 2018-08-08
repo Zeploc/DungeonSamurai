@@ -31,6 +31,8 @@ public class Player : MonoBehaviour {
     QTEManager QTEManagerRef;
     BaseEnemy Enemy;
 
+    WomboCombo WomboComboRef;
+
     bool bMoveBack = false;
     Vector3 InitialPosition;
     float MoveBackSpeed = 2.0f;
@@ -38,6 +40,7 @@ public class Player : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        WomboComboRef = GetComponent<WomboCombo>();
         QTEManagerRef = FindObjectOfType<QTEManager>();
         InitialPosition = transform.position;
         health = maxHealth;
@@ -66,6 +69,10 @@ public class Player : MonoBehaviour {
             }
         }
 
+        if(Input.GetKeyDown(KeyCode.G))
+        {
+            WomboComboRef.DoingACombo = true;
+        }
         if (ActionTimer <= FullActionTimer)
         {
             ActionTimer += Time.deltaTime;

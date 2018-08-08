@@ -28,6 +28,7 @@ public class QTEInstance : MonoBehaviour {
     bool bEnemyAttack = false;
     
     GameObject QTEObjectPostition;
+    Vector2 VecOffset;
 
     // QTE Images
     [SerializeField] Sprite BumperImage;
@@ -52,8 +53,9 @@ public class QTEInstance : MonoBehaviour {
 
     }
 
-    public void SetQTEInit(string button, float damage, string Text, int PlayerAnimVal, int EnemyAnimVal, bool EnemyAttack, GameObject ObjectPosition)
+    public void SetQTEInit(string button, float damage, string Text, int PlayerAnimVal, int EnemyAnimVal, bool EnemyAttack, GameObject ObjectPosition,Vector2 Offset)
     {
+        VecOffset = Offset;
         QTEkey = button;
         gameObject.GetComponentInChildren<Text>().text = Text;
         iPlayerAnimVal = PlayerAnimVal;
@@ -73,7 +75,8 @@ public class QTEInstance : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        transform.position = QTEObjectPostition.transform.position;
+        
+        transform.position = QTEObjectPostition.transform.position + (Vector3)VecOffset;
         CurrentTime += Time.deltaTime;
         if (CurrentTime > Timer)
         {

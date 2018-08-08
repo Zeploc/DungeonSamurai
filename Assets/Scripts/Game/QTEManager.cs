@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class QTEManager : MonoBehaviour {
 
-    Queue<GameObject> CurrentQTEs;
+    public Queue<GameObject> CurrentQTEs;
     public float timer = 1.5f;
+    public WomboCombo WomboComboRef;
    [SerializeField]
-    GameObject QTEInstancePrefab;
+    public GameObject QTEInstancePrefab;
     bool EnemyTurn = false;
     public BaseEnemy CurrentEnemyRef; // I'm not sure how to make this dynamic
 
@@ -16,6 +17,7 @@ public class QTEManager : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        WomboComboRef = FindObjectOfType<WomboCombo>();
         CurrentQTEs = new Queue<GameObject>();
         PlayerRef = FindObjectOfType<GameController>().PlayerRef;
     }
@@ -23,50 +25,59 @@ public class QTEManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        //Debug.Log(CurrentQTEs.Count);
-        timer -= Time.deltaTime;
-        if (CurrentQTEs.Count == 0)
-        {         
-            if (EnemyTurn)
-            {
-                Debug.Log("Spawned enemy attacks");
-
-                CurrentEnemyRef.GenerateQTEAttacks();
-                EnemyTurn = false;
-            }
-            else if (EnemyTurn == false)
-            {
-                Debug.Log("Spawned Player attacks");
-                PlayerRef.GeneratePlayerQTEAttacks();
-                EnemyTurn = true;
-            }
-        }       
-
-        if (timer <= 0)
+        if (WomboComboRef.DoingACombo != false)
         {
-            if (CurrentQTEs.Count > 0) ActivateQTE();
-            timer = 1.5f;
-        }
+            timer -= Time.deltaTime;
+            if (CurrentQTEs.Count == 0)
+            {
+                if (EnemyTurn)
+                {
+                    Debug.Log("Spawned enemy attacks");
 
+                    CurrentEnemyRef.GenerateQTEAttacks();
+                    EnemyTurn = false;
+                }
+                else if (EnemyTurn == false)
+                {
+                    Debug.Log("Spawned Player attacks");
+                    PlayerRef.GeneratePlayerQTEAttacks();
+                    EnemyTurn = true;
+                }
+            }
+
+            if (timer <= 0)
+            {
+                if (CurrentQTEs.Count > 0) ActivateQTE();
+                timer = 1.5f;
+            }
+        }
+        
+        else
+        {
+            WomboComboRef.GenerateWombo();
+            WomboComboRef.SendComboToManager();
+            for (int i = 0; i < WomboComboRef.ComboCount; i++)
+            {
+                CurrentQTEs.Dequeue();
+            }
+            WomboComboRef.DoingACombo = false;
+            timer = 5.0f; // sets the time until the combo ends and the normal QTE starts again
+        }
     }
 
-    //public void CreateQTE(string Button, float damage, Vector3 Position, string Text, int PlayerPose, int EnemyPose, bool EnemyAttack)
-    //{
-    //    if (!PlayerRef) Debug.Log("Can't find player");
-    //    Position = Camera.main.WorldToScreenPoint(Position + (PlayerRef.transform.position * 2));
-    //    //Position = Vector3.zero;
-    //    Debug.Log("Position " + Position.ToString());
-    //    GameObject NewQTE = Instantiate(QTEInstancePrefab, Position, Quaternion.identity);
-    //    NewQTE.transform.SetParent(gameObject.transform, false);
-    //    NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, damage, Text, PlayerPose, EnemyPose, EnemyAttack,Position);
-    //    //CurrentQTEs.Enqueue(NewQTE);
-    //}
+    public GameObject CreateQTE(string Button, float damage, string Text, int PlayerPose, int EnemyPose, bool EnemyAttack, GameObject ObjectPosition, Vector2 Offset = default(Vector2))
+    {
+        GameObject NewQTE = Instantiate(QTEInstancePrefab, transform);
+        NewQTE.transform.position = ObjectPosition.transform.position;
+        NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, damage, Text, PlayerPose, EnemyPose, EnemyAttack, ObjectPosition, Offset);
+        return NewQTE;
+    }
 
-    public void AddQTEToQueue(string Button, float damage, string Text, int PlayerPose, int EnemyPose, bool EnemyAttack, GameObject ObjectPosition)
+    public void AddQTEToQueue(string Button, float damage, string Text, int PlayerPose, int EnemyPose, bool EnemyAttack, GameObject ObjectPosition, Vector2 Offset = default(Vector2))
     {
         GameObject NewQTE = Instantiate(QTEInstancePrefab, transform);
         NewQTE.transform.position = ObjectPosition.transform.position; 
-        NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, damage, Text, PlayerPose, EnemyPose, EnemyAttack, ObjectPosition);
+        NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, damage, Text, PlayerPose, EnemyPose, EnemyAttack, ObjectPosition,Offset);
         CurrentQTEs.Enqueue(NewQTE);
         //Debug.Log("Added");
     }

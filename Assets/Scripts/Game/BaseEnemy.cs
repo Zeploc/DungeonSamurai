@@ -30,10 +30,13 @@ public class BaseEnemy : MonoBehaviour {
     public GameObject RightSlap;
     public GameObject LeftAttack;
     public GameObject RightAttack;
+    public GameObject ComboDisplayLocation;
 
     // Use this for initialization
     protected void Start ()
     {
+        ComboDisplayLocation.transform.position = gameObject.transform.position;
+
 		Health = InitialHealth;
 		GameControllerRef = FindObjectOfType<GameController> ();
         QTEManagerRef = GameControllerRef.QTEManagerRef;
