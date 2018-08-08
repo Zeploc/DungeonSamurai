@@ -1068,6 +1068,25 @@ MonoBehaviour:
   InitialEnemyPrefabs:
   - {fileID: 114802707869406978, guid: 32146eaa4c8fc184f81415c64528598c, type: 2}
   - {fileID: 114802707869406978, guid: 32146eaa4c8fc184f81415c64528598c, type: 2}
+--- !u!1 &899069443 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1452413992026640, guid: 6b369b395bd9b544f932ba622a5086a6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1631406458}
+--- !u!114 &899069447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 899069443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b499eccc30993a428888637201b6137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ComboCount: 5
+  DoingACombo: 0
+  CurrentEnemy: {fileID: 0}
 --- !u!1 &911827627 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1184266396949114, guid: 7f002c6f943465f44bc12ef0d2b98536,
@@ -1276,6 +1295,9 @@ MonoBehaviour:
   QTEManagerRef: {fileID: 1570619311}
   EnemyHealthbar: {fileID: 858224249}
   TimeTillBombu: 1000
+  MaxTime: 500
+  DecreaseSpeed: 5
+  CountdownBar: {fileID: 1584562905}
 --- !u!4 &1285961141
 Transform:
   m_ObjectHideFlags: 0

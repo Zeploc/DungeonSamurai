@@ -52,7 +52,7 @@ public class QTEInstance : MonoBehaviour {
 
     }
 
-    public void SetQTEInit(string button, float damage, string Text, int PlayerAnimVal, int EnemyAnimVal, bool EnemyAttack, GameObject ObjectPosition,Vector2 Offset)
+    public void SetQTEInit(string button, float damage, string Text, int PlayerAnimVal, int EnemyAnimVal, bool EnemyAttack, GameObject ObjectPosition, Vector2 Offset)
     {
         VecOffset = Offset;
         QTEkey = button;
@@ -68,7 +68,6 @@ public class QTEInstance : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-
         transform.position = QTEObjectPostition.transform.position + (Vector3)VecOffset;
 
 		if(QTEObjectPostition != null)
@@ -91,14 +90,21 @@ public class QTEInstance : MonoBehaviour {
 
             // Visual Element
             Vector2 NewPosition = StickCircleEndPosition.position;
-            if (QTEkey == "LeftJoystickLeft")
-                NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(LeftJoystickAxis, -1, 0)));
-            else if (QTEkey == "LeftJoystickRight")
-                NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(LeftJoystickAxis, 0, 1)));
-            else if (QTEkey == "RightJoystickLeft")
-                NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(RightJoystickAxis, -1, 0)));
+            if (QTEManagerRef.GetJoystickReset())
+            {
+                if (QTEkey == "LeftJoystickLeft")
+                    NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(LeftJoystickAxis, -1, 0)));
+                else if (QTEkey == "LeftJoystickRight")
+                    NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(LeftJoystickAxis, 0, 1)));
+                else if (QTEkey == "RightJoystickLeft")
+                    NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(RightJoystickAxis, -1, 0)));
+                else
+                    NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(RightJoystickAxis, 0, 1)));
+            }
             else
-                NewPosition.x -= XStickCircleDistance * (1.0f - Mathf.Abs(Mathf.Clamp(RightJoystickAxis, 0, 1)));
+            {
+                NewPosition.x -= XStickCircleDistance;
+            }
 
             StickCircle.transform.position = NewPosition;
         }        

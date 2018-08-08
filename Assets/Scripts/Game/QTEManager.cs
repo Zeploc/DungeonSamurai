@@ -29,8 +29,10 @@ public class QTEManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update ()
-    {      
-		if (PlayerRef.bMoveTowardsObject == false && WomboComboRef.DoingACombo == false) 
+    {
+        CheckForQTEInput();
+
+        if (PlayerRef.bMoveTowardsObject == false && WomboComboRef.DoingACombo == false) 
 		{
 			//Debug.Log(CurrentQTEs.Count);
 			timer -= Time.deltaTime;
@@ -80,7 +82,7 @@ public class QTEManager : MonoBehaviour {
     public GameObject CreateQTE(string Button, float damage, string Text, int PlayerPose, int EnemyPose, bool EnemyAttack, GameObject ObjectPosition, Vector2 Offset = default(Vector2))
     {
         GameObject NewQTE = Instantiate(QTEInstancePrefab, transform);
-        NewQTE.transform.position = ObjectPosition.transform.position;
+        NewQTE.transform.position = ObjectPosition.transform.position + (Vector3)Offset;
         NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, damage, Text, PlayerPose, EnemyPose, EnemyAttack, ObjectPosition, Offset);
         return NewQTE;
     }
@@ -88,7 +90,7 @@ public class QTEManager : MonoBehaviour {
     public void AddQTEToQueue(string Button, float damage, string Text, int PlayerPose, int EnemyPose, bool EnemyAttack, GameObject ObjectPosition, Vector2 Offset = default(Vector2))
     {
         GameObject NewQTE = Instantiate(QTEInstancePrefab, transform);
-        NewQTE.transform.position = ObjectPosition.transform.position; 
+        NewQTE.transform.position = ObjectPosition.transform.position + (Vector3)Offset; 
         NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, damage, Text, PlayerPose, EnemyPose, EnemyAttack, ObjectPosition,Offset);
         CurrentQTEs.Enqueue(NewQTE);
         //Debug.Log("Added");
@@ -107,6 +109,11 @@ public class QTEManager : MonoBehaviour {
     public void ApplyNewEnemy(GameObject NewEnemey)
     {
         CurrentEnemyRef = NewEnemey.GetComponent<BaseEnemy>();
+    }
+
+    public bool GetJoystickReset()
+    {
+        return JoystickReset;
     }
 
     void CheckForQTEInput()
