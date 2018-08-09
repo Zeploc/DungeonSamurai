@@ -36,7 +36,32 @@ public class QTEManager : MonoBehaviour {
         CheckForQTEInput();
         
 
-        if (PlayerRef.bMoveTowardsObject == false && GameControllerRef.GetIsPlaying()) 
+        if (WomboComboRef.IsDoingCombo())
+        {
+            Debug.Log(CurrentQTEs.Count);
+
+            
+            if (timer > 0)
+            {
+                timer -= Time.deltaTime;
+                if (timer <= 0)
+                {
+                    ClearQTEs();
+                    WomboComboRef.StopCombo();
+                }
+            }
+            else if (timer <= 0)
+            {
+                ClearQTEs();
+                //Debug.Log("You've done it");
+                WomboComboRef.GenerateWombo();
+                WomboComboRef.SendComboToManager();
+                Debug.Log(CurrentQTEs.Peek().activeSelf);
+                timer = 5.0f; // sets the time until the combo ends and the normal QTE starts again
+            }
+        }
+
+        else if(PlayerRef.bMoveTowardsObject == false && GameControllerRef.GetIsPlaying()) 
 		{
 			//Debug.Log(CurrentQTEs.Count);
 			timer -= Time.deltaTime;
@@ -63,23 +88,7 @@ public class QTEManager : MonoBehaviour {
 				timer = 1.5f;
 			}
 		}
-        else if (WomboComboRef.DoingACombo)
-        {
-            //Debug.Log("You've done it");
-            WomboComboRef.GenerateWombo();
-            WomboComboRef.SendComboToManager();
-            for (int i = 0; i < WomboComboRef.ComboCount; i++)
-            {
-                if (CurrentQTEs.Count >= 1)
-                {
-                    CurrentQTEs.Dequeue().SetActive(true);                 
-                }
-
-            }
-            WomboComboRef.DoingACombo = false;
-            timer = 5.0f; // sets the time until the combo ends and the normal QTE starts again
-        }
-
+       
     }
 
     public GameObject CreateQTE(string Button, int PlayerPose, int EnemyPose, bool EnemyAttack, GameObject ObjectPosition, Vector2 Offset = default(Vector2))
@@ -87,6 +96,7 @@ public class QTEManager : MonoBehaviour {
         GameObject NewQTE = Instantiate(QTEInstancePrefab, transform);
         NewQTE.transform.position = ObjectPosition.transform.position + (Vector3)Offset;
         NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, PlayerPose, EnemyPose, EnemyAttack, ObjectPosition, Offset);
+        NewQTE.SetActive(true);
         return NewQTE;
     }
 

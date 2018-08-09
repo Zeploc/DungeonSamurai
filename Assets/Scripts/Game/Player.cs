@@ -127,7 +127,7 @@ public class Player : MonoBehaviour {
 
         if(Input.GetKeyDown(KeyCode.G))
         {
-            WomboComboRef.DoingACombo = true;
+            WomboComboRef.StartCombo();
         }
         if (ActionTimer <= FullActionTimer)
         {
