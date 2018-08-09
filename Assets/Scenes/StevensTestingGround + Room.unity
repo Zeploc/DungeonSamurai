@@ -458,7 +458,7 @@ Prefab:
     - target: {fileID: 114802707869406978, guid: 32146eaa4c8fc184f81415c64528598c,
         type: 2}
       propertyPath: InitialHealth
-      value: 30
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4939335574810150, guid: 32146eaa4c8fc184f81415c64528598c, type: 2}
       propertyPath: m_RootOrder
@@ -1655,8 +1655,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1646713873
+  m_SortingLayer: 3
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: df216c3fc3632424ca9b5f7adeee9c5e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -7256,6 +7256,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -10158,7 +10159,7 @@ Prefab:
     - target: {fileID: 114802707869406978, guid: 32146eaa4c8fc184f81415c64528598c,
         type: 2}
       propertyPath: InitialHealth
-      value: 30
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 212767891314310518, guid: 32146eaa4c8fc184f81415c64528598c,
         type: 2}
@@ -11191,8 +11192,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 200}
-  m_SizeDelta: {x: 700, y: 100}
+  m_AnchoredPosition: {x: 0, y: 135}
+  m_SizeDelta: {x: 1000, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2114802186
 MonoBehaviour:
@@ -11220,7 +11221,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 5
     m_MaxSize: 80
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0

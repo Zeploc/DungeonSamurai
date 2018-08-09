@@ -40,6 +40,7 @@ public class GameController : MonoBehaviour {
         PhaseTextImage.SetActive(false);
         AudioManagerRef = FindObjectOfType<AudioManager>();
         AudioManagerRef.PlaySound("Gunfire");
+        EndScreenRef.gameObject.SetActive(false);
     }
 
 	// Update is called once per frame
@@ -93,6 +94,9 @@ public class GameController : MonoBehaviour {
         VignetteModel.Settings VinSettings = CamereRef.GetComponent<PostProcessingBehaviour>().profile.vignette.settings;
         VinSettings.intensity = TimePercentage;
         CamereRef.GetComponent<PostProcessingBehaviour>().profile.vignette.settings = VinSettings;
+
+        if (EndScreenRef.gameObject.activeSelf) Debug.Log("End Screen Active!");
+        else Debug.Log("End Screen NOT Active!");
     }
 	void FixedUpdate()
 	{
@@ -109,7 +113,6 @@ public class GameController : MonoBehaviour {
         EndScreenRef.ShowEndScren("Safely arrived at bonkuro");
         QTEManagerRef.ClearQTEs();
         isPlaying = false;
-        if (EndScreenRef.gameObject.activeSelf) Debug.Log("End Screen Active!");
     }
 
     public Player GetPlayer()
