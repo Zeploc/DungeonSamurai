@@ -19,6 +19,8 @@ public class QTEInstance : MonoBehaviour {
     Player PlayerRef;
     GameController GameControllerRef;
 
+    [SerializeField] Color FadeToColour;
+    Color InitialColour;
 
     // Animation values
 
@@ -55,7 +57,7 @@ public class QTEInstance : MonoBehaviour {
 
         GameControllerRef = FindObjectOfType<GameController>();
         XStickCircleDistance = StickCircleEndPosition.position.x - StickCircle.transform.position.x;
-
+        InitialColour = GetComponent<Image>().color;
     }
 
     public void SetQTEInit(string button, int PlayerAnimVal, int EnemyAnimVal, bool EnemyAttack, GameObject ObjectPosition, Vector2 Offset)
@@ -73,6 +75,9 @@ public class QTEInstance : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        GetComponent<Image>().color = Color.Lerp(InitialColour, FadeToColour, CurrentTime / Timer);
+        StickCircle.color = GetComponent<Image>().color;
+
         transform.position = QTEObjectPostition.transform.position + (Vector3)VecOffset;
 
 		if(QTEObjectPostition != null)

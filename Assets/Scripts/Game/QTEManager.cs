@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class QTEManager : MonoBehaviour {
 
@@ -14,6 +15,9 @@ public class QTEManager : MonoBehaviour {
 
     Player PlayerRef;
     GameController GameControllerRef;
+
+    public float ModeTextTime = 2.0f;
+    float CurrentModeTextTime = 0.0f;
 
     // Input
     bool JoystickReset = true;
@@ -34,7 +38,12 @@ public class QTEManager : MonoBehaviour {
 	void Update ()
     {
         CheckForQTEInput();
-        
+
+        CurrentModeTextTime -= Time.deltaTime;
+        if (CurrentModeTextTime <= 0)
+        {
+            GameControllerRef.ModeText.SetActive(false);
+        }
 
         if (PlayerRef.bMoveTowardsObject == false && GameControllerRef.GetIsPlaying()) 
 		{
@@ -48,20 +57,27 @@ public class QTEManager : MonoBehaviour {
 
 					CurrentEnemyRef.GenerateQTEAttacks();
 					EnemyTurn = false;
-				}
+                    GameControllerRef.ModeText.SetActive(true);
+                    GameControllerRef.ModeText.GetComponent<Text>().text = "DEFEND";
+                }
 				else if (EnemyTurn == false)
 				{
 					
 					Debug.Log("Spawned Player attacks");
 					PlayerRef.GeneratePlayerQTEAttacks();
 					EnemyTurn = true;
-				}
-			}        
+                    GameControllerRef.ModeText.SetActive(true);
+                    GameControllerRef.ModeText.GetComponent<Text>().text = "ATTACK";
+                }
+                CurrentModeTextTime = ModeTextTime;
+            }        
             if (timer <= 0)
 			{
 				if (CurrentQTEs.Count > 0) ActivateQTE();
 				timer = 1.5f;
-			}
+                
+
+            }
 		}
         else if (WomboComboRef.DoingACombo)
         {
