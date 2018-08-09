@@ -16,6 +16,9 @@ public class Player : MonoBehaviour {
     [SerializeField] GameObject NextLevelPosition;
     [SerializeField] GameObject FallBackPos;
 	[SerializeField] GameObject CurrentLevelPosition;
+    [SerializeField] GameObject StabSlash;
+    [SerializeField] GameObject UpSlash;
+    [SerializeField] GameObject DownSlash;
 
     [SerializeField] GameObject DodgePosition;
     public float TotalReviveTime = 1.0f;
@@ -155,6 +158,11 @@ public class Player : MonoBehaviour {
     {
         bMoveTowardsObject = true;
         GetComponent<Animator>().SetBool("Walk", true);
+        if (MoveTowardsGameObject.GetComponent<EndOfGame>())
+        {
+            QTEManagerRef.ClearQTEs();
+            FindObjectOfType<BunkerScript>().OpenBunker();
+        }
     }
 
     public bool IsMovingInAttack()
@@ -171,8 +179,18 @@ public class Player : MonoBehaviour {
     public void SetAttackPose(int NewAttackPose)
     {
         GetComponent<Animator>().SetInteger("AttackPose", NewAttackPose);
+        if (NewAttackPose == 1) DownSlash.SetActive(true);
+        else if (NewAttackPose == 2) UpSlash.SetActive(true);
+        else if (NewAttackPose == 3) StabSlash.SetActive(true);
+        else
+        {
+            StabSlash.SetActive(false);
+            UpSlash.SetActive(false);
+            DownSlash.SetActive(false);
+        }
         if (NewAttackPose != 0)
         {
+
             ActionTimer = 0.0f;
             bActionPose = true;
             Vector3 Position = Enemy.transform.position;
@@ -234,7 +252,7 @@ public class Player : MonoBehaviour {
             }
             if (QTEType == 2)
             {
-                QTEManagerRef.AddQTEToQueue("LeftBumper", 3, 1, false, Enemy.LeftAttack);
+                QTEManagerRef.AddQTEToQueue("LeftBumper", 3, 3, false, Enemy.LeftAttack);
             }
             if (QTEType == 3)
             {

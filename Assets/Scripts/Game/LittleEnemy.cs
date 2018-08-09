@@ -33,7 +33,7 @@ public class LittleEnemy : BaseEnemy
             }
             if (QTEType == 2)
             {
-                QTEManagerRef.AddQTEToQueue("AButton", 1, 2, true, PlayerRef.LeftParray);
+                QTEManagerRef.AddQTEToQueue("AButton", 1, 3, true, PlayerRef.LeftParray);
             }
             if (QTEType == 3)
             {

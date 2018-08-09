@@ -145,14 +145,17 @@ public class QTEInstance : MonoBehaviour {
             
             PlayerRef.SetDamagedPose(1);
             GameControllerRef.AudioManagerRef.PlaySound("PlayerHurt");
-            DamageEnemy.SetAttackPose(iEnemyAnimVal);
+            int EnemyAttackVal = iEnemyAnimVal > 2 ? 2 : iEnemyAnimVal;
+            DamageEnemy.SetAttackPose(EnemyAttackVal);
             //Debug.Log("Hurt");
             PlayerRef.DamagePlayer(5);
         }
         else
         {
-            PlayerRef.SetAttackPose(iPlayerAnimVal);
-            DamageEnemy.SetDeffensePose(iEnemyAnimVal);
+            int PlayerAttackVal = iPlayerAnimVal > 3 ? 3 : iPlayerAnimVal;
+            PlayerRef.SetAttackPose(PlayerAttackVal);
+            int EnemyDeffenseVal = iEnemyAnimVal > 3 ? 3 : iEnemyAnimVal;
+            DamageEnemy.SetDeffensePose(EnemyDeffenseVal);
         }
 
         QTEManagerRef.RemoveQTE(gameObject);
@@ -169,7 +172,8 @@ public class QTEInstance : MonoBehaviour {
             PlayerRef.DamagePlayer(5);
             GameControllerRef.AudioManagerRef.PlaySound("PlayerHurt");
             PlayerRef.SetDamagedPose(1);
-            DamageEnemy.SetAttackPose(iEnemyAnimVal);
+            int EnemyAttackVal = iEnemyAnimVal > 2 ? 2 : iEnemyAnimVal;
+            DamageEnemy.SetAttackPose(EnemyAttackVal);
         }
         else
         {
@@ -187,15 +191,17 @@ public class QTEInstance : MonoBehaviour {
         // QTE effect
         if (bEnemyAttack)
         {
-            PlayerRef.SetDeffensePose(iPlayerAnimVal);
+            int PlayerDeffenseVal = iPlayerAnimVal > 4 ? 4 : iPlayerAnimVal;
+            PlayerRef.SetDeffensePose(PlayerDeffenseVal);
             GameControllerRef.AudioManagerRef.PlaySound("DodgeSound");
-            DamageEnemy.SetAttackPose(iEnemyAnimVal);
+            DamageEnemy.SetAttackPose(1);
         }
         else
         {
-            PlayerRef.SetAttackPose(iPlayerAnimVal);
+            int PlayerAttackVal = iPlayerAnimVal > 3 ? 3 : iPlayerAnimVal;
+            PlayerRef.SetAttackPose(PlayerAttackVal);
        
-            DamageEnemy.SetDamagedPose(iEnemyAnimVal);
+            DamageEnemy.SetDamagedPose(1);
             DamageEnemy.TakeDamage(5);
         }
 

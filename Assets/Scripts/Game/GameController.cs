@@ -13,9 +13,14 @@ public class GameController : MonoBehaviour {
     public AudioManager AudioManagerRef;
     public Image EnemyHealthbar;
     public EndScreen EndScreenRef;
-    public GameObject ModeText;
     public GameObject EndCameraPosition;
     [SerializeField] float XOffset;
+
+    public GameObject PhaseTextImage;
+    public Sprite AttackImage;
+    public Sprite DefendImage;
+
+    public GameObject Bunker;
 
     [HideInInspector] public float TimeTillBombu;
     [HideInInspector] public float MaxTime;
@@ -32,7 +37,7 @@ public class GameController : MonoBehaviour {
         SetNewEnemey(InitialEnemey.gameObject);
         TimeTillBombu = MaxTime;
         Debug.Log(MaxTime);
-        ModeText.SetActive(false);
+        PhaseTextImage.SetActive(false);
         AudioManagerRef = FindObjectOfType<AudioManager>();
         AudioManagerRef.PlaySound("Gunfire");
     }
@@ -75,7 +80,7 @@ public class GameController : MonoBehaviour {
         if (TimeTillBombu <= 0)
         {
             // Bomb gone off
-            EndScreenRef.ShowEndScren("Big boom you die");
+            EndScreenRef.ShowEndScren("You didn't make it to the bunker in time!");
             QTEManagerRef.ClearQTEs();
             isPlaying = false;
         }
@@ -128,5 +133,23 @@ public class GameController : MonoBehaviour {
     public void DeductReviveTime()
     {
         TimeTillBombu -= 20.0f;
+    }
+
+    public void ShowPhaseMessage(bool _isAttack)
+    {
+        PhaseTextImage.SetActive(true);
+        if (_isAttack)
+        {
+            PhaseTextImage.GetComponent<Image>().sprite = AttackImage;
+        }
+        else
+        {
+            PhaseTextImage.GetComponent<Image>().sprite = DefendImage;
+        }
+    }
+
+    public void HidePhaseMessage()
+    {
+        PhaseTextImage.SetActive(false);
     }
 }

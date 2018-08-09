@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QTEManager : MonoBehaviour {
-
+public class QTEManager : MonoBehaviour
+{
     public Queue<GameObject> CurrentQTEs;
     public float timer = 1.5f;
     public WomboCombo WomboComboRef;
@@ -42,7 +42,7 @@ public class QTEManager : MonoBehaviour {
         CurrentModeTextTime -= Time.deltaTime;
         if (CurrentModeTextTime <= 0)
         {
-            GameControllerRef.ModeText.SetActive(false);
+            GameControllerRef.HidePhaseMessage();
         }
 
         if (PlayerRef.bMoveTowardsObject == false && GameControllerRef.GetIsPlaying()) 
@@ -57,8 +57,7 @@ public class QTEManager : MonoBehaviour {
 
 					CurrentEnemyRef.GenerateQTEAttacks();
 					EnemyTurn = false;
-                    GameControllerRef.ModeText.SetActive(true);
-                    GameControllerRef.ModeText.GetComponent<Text>().text = "DEFEND";
+                    GameControllerRef.ShowPhaseMessage(false);
                 }
 				else if (EnemyTurn == false)
 				{
@@ -66,8 +65,7 @@ public class QTEManager : MonoBehaviour {
 					Debug.Log("Spawned Player attacks");
 					PlayerRef.GeneratePlayerQTEAttacks();
 					EnemyTurn = true;
-                    GameControllerRef.ModeText.SetActive(true);
-                    GameControllerRef.ModeText.GetComponent<Text>().text = "ATTACK";
+                    GameControllerRef.ShowPhaseMessage(true);
                 }
                 CurrentModeTextTime = ModeTextTime;
             }        
