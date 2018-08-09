@@ -19,6 +19,8 @@ public class QTEInstance : MonoBehaviour {
     Player PlayerRef;
     GameController GameControllerRef;
 
+    [SerializeField] Color FadeToColour;
+    Color InitialColour;
 
     // Animation values
 
@@ -55,7 +57,7 @@ public class QTEInstance : MonoBehaviour {
 
         GameControllerRef = FindObjectOfType<GameController>();
         XStickCircleDistance = StickCircleEndPosition.position.x - StickCircle.transform.position.x;
-
+        InitialColour = GetComponent<Image>().color;
     }
 
     public void SetQTEInit(string button, int PlayerAnimVal, int EnemyAnimVal, bool EnemyAttack, GameObject ObjectPosition, Vector2 Offset)
@@ -73,6 +75,9 @@ public class QTEInstance : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        GetComponent<Image>().color = Color.Lerp(InitialColour, FadeToColour, CurrentTime / Timer);
+        StickCircle.color = GetComponent<Image>().color;
+
         transform.position = QTEObjectPostition.transform.position + (Vector3)VecOffset;
 
 		if(QTEObjectPostition != null)
@@ -119,6 +124,7 @@ public class QTEInstance : MonoBehaviour {
     {
         if (Input == QTEkey)
         {
+            GameControllerRef.AudioManagerRef.PlaySound("PlayerAtk");
             QTEComplete();
         }
         else
@@ -135,16 +141,21 @@ public class QTEInstance : MonoBehaviour {
 
         if (bEnemyAttack)
         {
-			FindObjectOfType<AudioManager>().PlaySound("PlayerHurt");
+            GameControllerRef.AudioManagerRef.PlaySound("EnemyAtk");
+            
             PlayerRef.SetDamagedPose(1);
-            DamageEnemy.SetAttackPose(iEnemyAnimVal);
+            GameControllerRef.AudioManagerRef.PlaySound("PlayerHurt");
+            int EnemyAttackVal = iEnemyAnimVal > 2 ? 2 : iEnemyAnimVal;
+            DamageEnemy.SetAttackPose(EnemyAttackVal);
             //Debug.Log("Hurt");
             PlayerRef.DamagePlayer(5);
         }
         else
         {
-            PlayerRef.SetAttackPose(iPlayerAnimVal);
-            DamageEnemy.SetDeffensePose(iEnemyAnimVal);
+            int PlayerAttackVal = iPlayerAnimVal > 3 ? 3 : iPlayerAnimVal;
+            PlayerRef.SetAttackPose(PlayerAttackVal);
+            int EnemyDeffenseVal = iEnemyAnimVal > 3 ? 3 : iEnemyAnimVal;
+            DamageEnemy.SetDeffensePose(EnemyDeffenseVal);
         }
 
         QTEManagerRef.RemoveQTE(gameObject);
@@ -157,14 +168,16 @@ public class QTEInstance : MonoBehaviour {
         if (bEnemyAttack == true)
         {
             Debug.Log("Hurt");
-			FindObjectOfType<AudioManager>().PlaySound("PlayerHurt");
+            GameControllerRef.AudioManagerRef.PlaySound("EnemyAtk");
             PlayerRef.DamagePlayer(5);
-
+            GameControllerRef.AudioManagerRef.PlaySound("PlayerHurt");
             PlayerRef.SetDamagedPose(1);
-            DamageEnemy.SetAttackPose(iEnemyAnimVal);
+            int EnemyAttackVal = iEnemyAnimVal > 2 ? 2 : iEnemyAnimVal;
+            DamageEnemy.SetAttackPose(EnemyAttackVal);
         }
         else
         {
+            GameControllerRef.AudioManagerRef.PlaySound("Miss");
             GameControllerRef.TimeTillBombu -= 20.0f;
         }
         QTEManagerRef.RemoveQTE(gameObject);
@@ -178,13 +191,17 @@ public class QTEInstance : MonoBehaviour {
         // QTE effect
         if (bEnemyAttack)
         {
-            PlayerRef.SetDeffensePose(iPlayerAnimVal);
-            DamageEnemy.SetAttackPose(iEnemyAnimVal);
+            int PlayerDeffenseVal = iPlayerAnimVal > 4 ? 4 : iPlayerAnimVal;
+            PlayerRef.SetDeffensePose(PlayerDeffenseVal);
+            GameControllerRef.AudioManagerRef.PlaySound("DodgeSound");
+            DamageEnemy.SetAttackPose(1);
         }
         else
         {
-            PlayerRef.SetAttackPose(iPlayerAnimVal);
-            DamageEnemy.SetDamagedPose(iEnemyAnimVal);
+            int PlayerAttackVal = iPlayerAnimVal > 3 ? 3 : iPlayerAnimVal;
+            PlayerRef.SetAttackPose(PlayerAttackVal);
+       
+            DamageEnemy.SetDamagedPose(1);
             DamageEnemy.TakeDamage(5);
         }
 

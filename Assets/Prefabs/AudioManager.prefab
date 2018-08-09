@@ -53,37 +53,62 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: BattleMusic
-    clip: {fileID: 0}
-    volume: 0.4
+    clip: {fileID: 8300000, guid: dfa6efe7dcad6bb4f8e0d700e2b68b64, type: 3}
+    volume: 0.05
     pitch: 1
+    loop: 1
     source: {fileID: 0}
   - name: bgMusic
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 8c9fc1fd04047cb4fa7aadfc96a2dc40, type: 3}
     volume: 1
     pitch: 1
+    loop: 1
     source: {fileID: 0}
   - name: PlayerAtk
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 63162b7cedf0d594a9356a46f6be6f1a, type: 3}
     volume: 0.7
     pitch: 1
+    loop: 0
     source: {fileID: 0}
   - name: PlayerHurt
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: f4179d9142bbe6947ae87981a4629c6d, type: 3}
     volume: 0.7
     pitch: 1
+    loop: 0
     source: {fileID: 0}
   - name: EnemyAtk
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: eca01109033f958429619c631f2a48fa, type: 3}
     volume: 0.8
     pitch: 1
+    loop: 0
     source: {fileID: 0}
   - name: EnemyHurt
-    clip: {fileID: 0}
-    volume: 0.8
+    clip: {fileID: 8300000, guid: e372e5523ad6ec446852ca61e60bdd71, type: 3}
+    volume: 0.5
     pitch: 1
+    loop: 0
     source: {fileID: 0}
   - name: DodgeSound
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: a33dd565c84486e43bc64535d733ce90, type: 3}
     volume: 1
     pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Miss
+    clip: {fileID: 8300000, guid: 945e2fc6f6ce75445a873d2dc6e4b698, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Gunfire
+    clip: {fileID: 8300000, guid: 75953e4d46a9a01468b4c573fc426254, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Sirens
+    clip: {fileID: 8300000, guid: 43182b3be901c5246823bcdd903cb55a, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
     source: {fileID: 0}

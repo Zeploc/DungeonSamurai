@@ -117,7 +117,7 @@ public class BaseEnemy : MonoBehaviour {
     public void TakeDamage(float Damage)
     {
         Health -= Damage;
-		FindObjectOfType<AudioManager>().PlaySound("EnemyHurt");
+        GameControllerRef.AudioManagerRef.PlaySound("EnemyHurt");
 		if (Health <= 0)
         {
             Healthbar.transform.parent.gameObject.SetActive(false);

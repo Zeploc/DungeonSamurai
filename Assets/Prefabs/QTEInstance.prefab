@@ -73,6 +73,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Timer: 1
+  FadeToColour: {r: 0.9485294, g: 0.19528548, b: 0.19528548, a: 1}
   LeftBumperImage: {fileID: 21300000, guid: 446f7f6ff38f44349900a4fa9bbf938d, type: 3}
   RightBumperImage: {fileID: 21300000, guid: 7ada61f3d36860047b2f0784ed356d83, type: 3}
   LeftTriggerImage: {fileID: 21300000, guid: 7feca2a2a93a9dd4fbe0e5b305a88493, type: 3}
