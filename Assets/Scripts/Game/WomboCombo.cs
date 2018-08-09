@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class WomboCombo : MonoBehaviour {
 
-    Queue<GameObject> ComboForWombo;
+    List<GameObject> ComboForWombo;
     public int ComboCount = 5;
     int QTEType;
-    public bool DoingACombo = false;
+    bool DoingACombo = false;
     QTEManager QTEManagerRef;
     public BaseEnemy CurrentEnemy;
+
+    public float WomboQTETimer = 1.0f;
     // Use this for initialization
     void Start ()
     {
         QTEManagerRef = FindObjectOfType<GameController>().QTEManagerRef;
-        ComboForWombo = new Queue<GameObject>();
+        ComboForWombo = new List<GameObject>();
         
     }
 	
@@ -23,6 +25,22 @@ public class WomboCombo : MonoBehaviour {
     {
 		
 	}
+
+    public bool IsDoingCombo()
+    {
+        return DoingACombo;
+    }
+
+    public void StartCombo()
+    {
+        DoingACombo = true;
+        QTEManagerRef.timer = 0;
+    }
+
+    public void StopCombo()
+    {
+        DoingACombo = false;
+    }
 
     public void GenerateWombo()
     {
@@ -33,36 +51,45 @@ public class WomboCombo : MonoBehaviour {
             QTEType = Random.Range(0, 8);
             if (QTEType == 0)
             {
-                ComboForWombo.Enqueue(QTEManagerRef.CreateQTE("AButton", 1, 1, false, CurrentEnemy.ComboDisplayLocation, LocationVector));
+                ComboForWombo.Add(QTEManagerRef.CreateQTE("AButton", 1, 1, false, CurrentEnemy.ComboDisplayLocation, WomboQTETimer, LocationVector));
             }
             if (QTEType == 1)
             {
-                ComboForWombo.Enqueue(QTEManagerRef.CreateQTE("BButton", 1, 1, false, CurrentEnemy.ComboDisplayLocation, LocationVector));
+                ComboForWombo.Add(QTEManagerRef.CreateQTE("BButton", 1, 1, false, CurrentEnemy.ComboDisplayLocation, WomboQTETimer, LocationVector));
             }
             if (QTEType == 2)
             {
-                ComboForWombo.Enqueue(QTEManagerRef.CreateQTE("XButton", 1, 1, false, CurrentEnemy.ComboDisplayLocation, LocationVector));
+                ComboForWombo.Add(QTEManagerRef.CreateQTE("XButton", 1, 1, false, CurrentEnemy.ComboDisplayLocation, WomboQTETimer, LocationVector));
             }
             if (QTEType == 3)
             {
-                ComboForWombo.Enqueue(QTEManagerRef.CreateQTE("YButton", 1, 1, false, CurrentEnemy.ComboDisplayLocation, LocationVector));
+                ComboForWombo.Add(QTEManagerRef.CreateQTE("YButton", 1, 1, false, CurrentEnemy.ComboDisplayLocation, WomboQTETimer, LocationVector));
             }
             if (QTEType == 4)
             {
-                ComboForWombo.Enqueue(QTEManagerRef.CreateQTE("RightBumper", 1, 1, false, CurrentEnemy.ComboDisplayLocation, LocationVector));
+                ComboForWombo.Add(QTEManagerRef.CreateQTE("RightBumper", 1, 1, false, CurrentEnemy.ComboDisplayLocation, WomboQTETimer, LocationVector));
             }
             if (QTEType == 5)
             {
-                ComboForWombo.Enqueue(QTEManagerRef.CreateQTE("LeftBumper", 1, 1, false, CurrentEnemy.ComboDisplayLocation, LocationVector));
+                ComboForWombo.Add(QTEManagerRef.CreateQTE("LeftBumper", 1, 1, false, CurrentEnemy.ComboDisplayLocation, WomboQTETimer, LocationVector));
             }
             if (QTEType == 6)
             {
-                ComboForWombo.Enqueue(QTEManagerRef.CreateQTE("LeftTrigger", 1, 1, false, CurrentEnemy.ComboDisplayLocation, LocationVector));
+                ComboForWombo.Add(QTEManagerRef.CreateQTE("LeftTrigger", 1, 1, false, CurrentEnemy.ComboDisplayLocation, WomboQTETimer, LocationVector));
             }
             if (QTEType == 7)
             {
-                ComboForWombo.Enqueue(QTEManagerRef.CreateQTE("RightTrigger", 1, 1, false, CurrentEnemy.ComboDisplayLocation, LocationVector));
+                ComboForWombo.Add(QTEManagerRef.CreateQTE("RightTrigger", 1, 1, false, CurrentEnemy.ComboDisplayLocation, WomboQTETimer, LocationVector));
             }
+        }
+
+        foreach (GameObject QTE in ComboForWombo)
+        {
+            QTE.SetActive(true);
+        }
+        foreach (GameObject QTE in ComboForWombo)
+        {
+            Debug.Log(QTE.activeSelf);
         }
     }
 
@@ -71,8 +98,8 @@ public class WomboCombo : MonoBehaviour {
         //DoingACombo = true;
         for (int i = 0; i < ComboCount; i++)
         {
-            QTEManagerRef.CurrentQTEs.Enqueue(ComboForWombo.Dequeue());
+            QTEManagerRef.CurrentQTEs.Enqueue(ComboForWombo[i]);
         }
-        
+        ComboForWombo.Clear();
     }
 }

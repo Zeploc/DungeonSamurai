@@ -33,7 +33,7 @@ public class GameController : MonoBehaviour {
     {
 		isPlaying = true;
         TimeTillBombu = 0;
-        MaxTime = 500.0f;
+        MaxTime = 600.0f;
         SetNewEnemey(InitialEnemey.gameObject);
         TimeTillBombu = MaxTime;
         Debug.Log(MaxTime);
@@ -78,7 +78,7 @@ public class GameController : MonoBehaviour {
         //}
 
         TimeTillBombu -= Time.deltaTime * DecreaseSpeed;
-        if (TimeTillBombu <= 0)
+        if (TimeTillBombu <= 0 && isPlaying)
         {
             // Bomb gone off
             EndScreenRef.ShowEndScren("You didn't make it to the bunker in time!");
@@ -110,7 +110,8 @@ public class GameController : MonoBehaviour {
 
     public void GameComplete()
     {
-        EndScreenRef.ShowEndScren("Safely arrived at bonkuro");
+        if (!isPlaying) return;
+        EndScreenRef.ShowEndScren("Safely arrived at bunker");
         QTEManagerRef.ClearQTEs();
         isPlaying = false;
     }
