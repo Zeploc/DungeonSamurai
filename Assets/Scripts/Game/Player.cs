@@ -19,6 +19,7 @@ public class Player : MonoBehaviour {
     [SerializeField] GameObject StabSlash;
     [SerializeField] GameObject UpSlash;
     [SerializeField] GameObject DownSlash;
+    [SerializeField] GameObject BloodParticles;
 
     [SerializeField] GameObject DodgePosition;
     public float TotalReviveTime = 1.0f;
@@ -178,6 +179,7 @@ public class Player : MonoBehaviour {
 
     public void SetAttackPose(int NewAttackPose)
     {
+        BloodParticles.GetComponent<ParticleSystem>().Play();
         GetComponent<Animator>().SetInteger("AttackPose", NewAttackPose);
         if (NewAttackPose == 1) DownSlash.SetActive(true);
         else if (NewAttackPose == 2) UpSlash.SetActive(true);

@@ -44,6 +44,9 @@ public class QTEInstance : MonoBehaviour {
     [SerializeField] Sprite RightStickLeftCircle;
     [SerializeField] Sprite RightStickRightCircle;
     [SerializeField] Image StickCircle;
+    [SerializeField] GameObject SuccessPS;
+    [SerializeField] GameObject FailPS;
+
     float XStickCircleDistance;
     [SerializeField] Transform StickCircleEndPosition;
 
@@ -95,8 +98,6 @@ public class QTEInstance : MonoBehaviour {
         {
             float LeftJoystickAxis = Input.GetAxis("LeftJoystickHorizontal");
             float RightJoystickAxis = Input.GetAxis("RightJoystickHorizontal");
-            float LeftTriggerAxis = Mathf.Abs(Input.GetAxis("LeftTrigger"));
-            float RightTriggerAxis = Mathf.Abs(Input.GetAxis("RightTrigger"));
 
             // Visual Element
             Vector2 NewPosition = StickCircleEndPosition.position;
@@ -136,6 +137,7 @@ public class QTEInstance : MonoBehaviour {
 
     void QTEFailed() //wrong key pressed
     {
+        Instantiate(FailPS, transform.position, Quaternion.identity);
         //Debug.Log("QTE Failed");
         // Loose time
 
@@ -164,6 +166,7 @@ public class QTEInstance : MonoBehaviour {
 
     void QTEMissed() //Missed the button press
     {
+        Instantiate(FailPS, transform.position, Quaternion.identity);
         // Missed particle effect
         if (bEnemyAttack == true)
         {
@@ -186,6 +189,7 @@ public class QTEInstance : MonoBehaviour {
 
     void QTEComplete()
     {
+        Instantiate(SuccessPS, transform.position, Quaternion.identity);
         //Debug.Log("QTE Complete");
         StickCircle.transform.position = StickCircleEndPosition.position;
         // QTE effect

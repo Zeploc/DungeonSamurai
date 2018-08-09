@@ -90,6 +90,8 @@ MonoBehaviour:
   RightStickRightCircle: {fileID: 21300000, guid: 8477fbc4b15c02a439e5195ccc21f0dd,
     type: 3}
   StickCircle: {fileID: 114260199647894228}
+  SuccessPS: {fileID: 1183328967859550, guid: c69830e62d8e5644f93e3c7c120431f6, type: 2}
+  FailPS: {fileID: 1142995781532460, guid: ad5afcbd797707741a386d3714da93bd, type: 2}
   StickCircleEndPosition: {fileID: 224498162563571578}
 --- !u!114 &114260199647894228
 MonoBehaviour:
