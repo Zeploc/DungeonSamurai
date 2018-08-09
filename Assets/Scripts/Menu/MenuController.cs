@@ -9,7 +9,6 @@ public class MenuController : MonoBehaviour {
 
     [SerializeField] GameObject BackgroundImage;
     [SerializeField] GameObject PlayButton;
-
     public float StartX = -10;
     public float EndX = -10;
     public float PanningSpeed = 2.0f;
@@ -18,7 +17,8 @@ public class MenuController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         PlayButton.GetComponent<Button>().Select();
-
+        FindObjectOfType<AudioManager>().PlaySound("Gunfire");
+        FindObjectOfType<AudioManager>().PlaySound("Sirens");
     }
 
     // Update is called once per frame
