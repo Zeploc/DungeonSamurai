@@ -2614,11 +2614,12 @@ MonoBehaviour:
   InitialEnemey: {fileID: 2056592305}
   CamereRef: {fileID: 1417065186}
   QTEManagerRef: {fileID: 1570619311}
+  AudioManagerRef: {fileID: 0}
   EnemyHealthbar: {fileID: 858224249}
   EndScreenRef: {fileID: 433745188}
   XOffset: 4
-  TimeTillBombu: 1000
-  MaxTime: 50
+  TimeTillBombu: 0
+  MaxTime: 0
   DecreaseSpeed: 5
   CountdownBar: {fileID: 1584562905}
 --- !u!4 &1285961141
@@ -2879,7 +2880,6 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -3029,52 +3029,47 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
         type: 2}
-      propertyPath: sounds.Array.data[0].loop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
-        type: 2}
-      propertyPath: sounds.Array.data[1].loop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
-        type: 2}
-      propertyPath: sounds.Array.data[0].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: dfa6efe7dcad6bb4f8e0d700e2b68b64, type: 3}
-    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
-        type: 2}
-      propertyPath: sounds.Array.data[1].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 8c9fc1fd04047cb4fa7aadfc96a2dc40, type: 3}
-    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
-        type: 2}
-      propertyPath: sounds.Array.data[6].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: a33dd565c84486e43bc64535d733ce90, type: 3}
-    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
-        type: 2}
-      propertyPath: sounds.Array.data[4].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: eca01109033f958429619c631f2a48fa, type: 3}
-    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
-        type: 2}
-      propertyPath: sounds.Array.data[5].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: e372e5523ad6ec446852ca61e60bdd71, type: 3}
-    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
-        type: 2}
-      propertyPath: sounds.Array.data[2].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 63162b7cedf0d594a9356a46f6be6f1a, type: 3}
-    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
-        type: 2}
-      propertyPath: sounds.Array.data[3].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: f4179d9142bbe6947ae87981a4629c6d, type: 3}
-    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
-        type: 2}
       propertyPath: sounds.Array.data[0].volume
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
+        type: 2}
+      propertyPath: sounds.Array.data[2].volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
+        type: 2}
+      propertyPath: sounds.Array.data[3].volume
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
+        type: 2}
+      propertyPath: sounds.Array.data[4].volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
+        type: 2}
+      propertyPath: sounds.Array.data[5].volume
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
+        type: 2}
+      propertyPath: sounds.Array.data[6].volume
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
+        type: 2}
+      propertyPath: sounds.Array.data[7].volume
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
+        type: 2}
+      propertyPath: sounds.Array.data[8].volume
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114907121972853404, guid: cead60dad3b61044e8d171ccf146caab,
+        type: 2}
+      propertyPath: sounds.Array.data[9].volume
       value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3130,7 +3125,6 @@ MonoBehaviour:
   QTEInstancePrefab: {fileID: 1957484505628034, guid: bc78d64c0a2ecb84ca46ed29684aff2d,
     type: 2}
   CurrentEnemyRef: {fileID: 0}
-  GameControllerRef: {fileID: 1285961140}
 --- !u!1 &1580128767
 GameObject:
   m_ObjectHideFlags: 0
@@ -3291,7 +3285,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4280611071776504, guid: 6b369b395bd9b544f932ba622a5086a6, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -0.1
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4280611071776504, guid: 6b369b395bd9b544f932ba622a5086a6, type: 2}
       propertyPath: m_LocalRotation.x

@@ -15,7 +15,7 @@ public class AudioManager : MonoBehaviour {
 			Destroy (gameObject);
 			return;
 		}
-		DontDestroyOnLoad (gameObject);
+		//DontDestroyOnLoad (gameObject);
 
 		foreach (Sound i in sounds) {
 			i.source = gameObject.AddComponent<AudioSource> (); //goes through the sounds and adds component

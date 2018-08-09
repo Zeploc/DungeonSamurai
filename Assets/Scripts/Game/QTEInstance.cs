@@ -119,6 +119,7 @@ public class QTEInstance : MonoBehaviour {
     {
         if (Input == QTEkey)
         {
+            GameControllerRef.AudioManagerRef.PlaySound("PlayerAtk");
             QTEComplete();
         }
         else
@@ -135,8 +136,10 @@ public class QTEInstance : MonoBehaviour {
 
         if (bEnemyAttack)
         {
-			FindObjectOfType<AudioManager>().PlaySound("PlayerHurt");
+            GameControllerRef.AudioManagerRef.PlaySound("EnemyAtk");
+            
             PlayerRef.SetDamagedPose(1);
+            GameControllerRef.AudioManagerRef.PlaySound("PlayerHurt");
             DamageEnemy.SetAttackPose(iEnemyAnimVal);
             //Debug.Log("Hurt");
             PlayerRef.DamagePlayer(5);
@@ -157,14 +160,15 @@ public class QTEInstance : MonoBehaviour {
         if (bEnemyAttack == true)
         {
             Debug.Log("Hurt");
-			FindObjectOfType<AudioManager>().PlaySound("PlayerHurt");
+            GameControllerRef.AudioManagerRef.PlaySound("EnemyAtk");
             PlayerRef.DamagePlayer(5);
-
+            GameControllerRef.AudioManagerRef.PlaySound("PlayerHurt");
             PlayerRef.SetDamagedPose(1);
             DamageEnemy.SetAttackPose(iEnemyAnimVal);
         }
         else
         {
+            GameControllerRef.AudioManagerRef.PlaySound("Miss");
             GameControllerRef.TimeTillBombu -= 20.0f;
         }
         QTEManagerRef.RemoveQTE(gameObject);
@@ -179,11 +183,13 @@ public class QTEInstance : MonoBehaviour {
         if (bEnemyAttack)
         {
             PlayerRef.SetDeffensePose(iPlayerAnimVal);
+            GameControllerRef.AudioManagerRef.PlaySound("DodgeSound");
             DamageEnemy.SetAttackPose(iEnemyAnimVal);
         }
         else
         {
             PlayerRef.SetAttackPose(iPlayerAnimVal);
+       
             DamageEnemy.SetDamagedPose(iEnemyAnimVal);
             DamageEnemy.TakeDamage(5);
         }
