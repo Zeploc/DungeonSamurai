@@ -60,7 +60,7 @@ public class QTEInstance : MonoBehaviour {
         InitialColour = GetComponent<Image>().color;
     }
 
-    public void SetQTEInit(string button, int PlayerAnimVal, int EnemyAnimVal, bool EnemyAttack, GameObject ObjectPosition, Vector2 Offset)
+    public void SetQTEInit(string button, int PlayerAnimVal, int EnemyAnimVal, bool EnemyAttack, GameObject ObjectPosition, Vector2 Offset, float QTETime)
     {
         VecOffset = Offset;
         QTEkey = button;
@@ -70,6 +70,7 @@ public class QTEInstance : MonoBehaviour {
         QTEObjectPostition = ObjectPosition;
         transform.position = QTEObjectPostition.transform.position + (Vector3)VecOffset;
         SetImage();
+        Timer = QTETime;
     }
 
     // Update is called once per frame
@@ -148,7 +149,7 @@ public class QTEInstance : MonoBehaviour {
             int EnemyAttackVal = iEnemyAnimVal > 2 ? 2 : iEnemyAnimVal;
             DamageEnemy.SetAttackPose(EnemyAttackVal);
             //Debug.Log("Hurt");
-            PlayerRef.DamagePlayer(5);
+            PlayerRef.DamagePlayer(10);
         }
         else
         {

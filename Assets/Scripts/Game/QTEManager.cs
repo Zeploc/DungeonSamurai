@@ -105,20 +105,20 @@ public class QTEManager : MonoBehaviour
        
     }
 
-    public GameObject CreateQTE(string Button, int PlayerPose, int EnemyPose, bool EnemyAttack, GameObject ObjectPosition, Vector2 Offset = default(Vector2))
+    public GameObject CreateQTE(string Button, int PlayerPose, int EnemyPose, bool EnemyAttack, GameObject ObjectPosition, float QTETime, Vector2 Offset = default(Vector2))
     {
         GameObject NewQTE = Instantiate(QTEInstancePrefab, transform);
         NewQTE.transform.position = ObjectPosition.transform.position + (Vector3)Offset;
-        NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, PlayerPose, EnemyPose, EnemyAttack, ObjectPosition, Offset);
+        NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, PlayerPose, EnemyPose, EnemyAttack, ObjectPosition, Offset, QTETime);
         NewQTE.SetActive(true);
         return NewQTE;
     }
 
-    public void AddQTEToQueue(string Button, int PlayerPose, int EnemyPose, bool EnemyAttack, GameObject ObjectPosition, Vector2 Offset = default(Vector2))
+    public void AddQTEToQueue(string Button, int PlayerPose, int EnemyPose, bool EnemyAttack, GameObject ObjectPosition, float QTETime, Vector2 Offset = default(Vector2))
     {
         GameObject NewQTE = Instantiate(QTEInstancePrefab, transform);
         NewQTE.transform.position = ObjectPosition.transform.position + (Vector3)Offset; 
-        NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, PlayerPose, EnemyPose, EnemyAttack, ObjectPosition,Offset);
+        NewQTE.GetComponent<QTEInstance>().SetQTEInit(Button, PlayerPose, EnemyPose, EnemyAttack, ObjectPosition, Offset, QTETime);
         CurrentQTEs.Enqueue(NewQTE);
     }
 

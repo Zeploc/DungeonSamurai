@@ -244,19 +244,19 @@ public class Player : MonoBehaviour {
             QTEType = Random.Range(0, 4);
             if (QTEType == 0)
             {
-                QTEManagerRef.AddQTEToQueue("LeftTrigger", 1, 1, false, Enemy.LeftSlap);
+                QTEManagerRef.AddQTEToQueue("LeftTrigger", 1, 1, false, Enemy.LeftSlap, 1.0f);
             }
             if (QTEType == 1)
             {
-                QTEManagerRef.AddQTEToQueue("RightTrigger", 2, 2, false, Enemy.RightSlap);
+                QTEManagerRef.AddQTEToQueue("RightTrigger", 2, 2, false, Enemy.RightSlap, 1.0f);
             }
             if (QTEType == 2)
             {
-                QTEManagerRef.AddQTEToQueue("LeftBumper", 3, 3, false, Enemy.LeftAttack);
+                QTEManagerRef.AddQTEToQueue("LeftBumper", 3, 3, false, Enemy.LeftAttack, 1.0f);
             }
             if (QTEType == 3)
             {
-                QTEManagerRef.AddQTEToQueue("RightBumper", 2, 2, false, Enemy.RightAttack);
+                QTEManagerRef.AddQTEToQueue("RightBumper", 2, 2, false, Enemy.RightAttack, 1.0f);
             }
         }
     }

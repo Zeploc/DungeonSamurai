@@ -10,6 +10,8 @@ public class WomboCombo : MonoBehaviour {
     bool DoingACombo = false;
     QTEManager QTEManagerRef;
     public BaseEnemy CurrentEnemy;
+
+    public float WomboQTETimer = 1.0f;
     // Use this for initialization
     void Start ()
     {
@@ -49,35 +51,35 @@ public class WomboCombo : MonoBehaviour {
             QTEType = Random.Range(0, 8);
             if (QTEType == 0)
             {
-                ComboForWombo.Add(QTEManagerRef.CreateQTE("AButton", 1, 1, false, CurrentEnemy.ComboDisplayLocation, LocationVector));
+                ComboForWombo.Add(QTEManagerRef.CreateQTE("AButton", 1, 1, false, CurrentEnemy.ComboDisplayLocation, WomboQTETimer, LocationVector));
             }
             if (QTEType == 1)
             {
-                ComboForWombo.Add(QTEManagerRef.CreateQTE("BButton", 1, 1, false, CurrentEnemy.ComboDisplayLocation, LocationVector));
+                ComboForWombo.Add(QTEManagerRef.CreateQTE("BButton", 1, 1, false, CurrentEnemy.ComboDisplayLocation, WomboQTETimer, LocationVector));
             }
             if (QTEType == 2)
             {
-                ComboForWombo.Add(QTEManagerRef.CreateQTE("XButton", 1, 1, false, CurrentEnemy.ComboDisplayLocation, LocationVector));
+                ComboForWombo.Add(QTEManagerRef.CreateQTE("XButton", 1, 1, false, CurrentEnemy.ComboDisplayLocation, WomboQTETimer, LocationVector));
             }
             if (QTEType == 3)
             {
-                ComboForWombo.Add(QTEManagerRef.CreateQTE("YButton", 1, 1, false, CurrentEnemy.ComboDisplayLocation, LocationVector));
+                ComboForWombo.Add(QTEManagerRef.CreateQTE("YButton", 1, 1, false, CurrentEnemy.ComboDisplayLocation, WomboQTETimer, LocationVector));
             }
             if (QTEType == 4)
             {
-                ComboForWombo.Add(QTEManagerRef.CreateQTE("RightBumper", 1, 1, false, CurrentEnemy.ComboDisplayLocation, LocationVector));
+                ComboForWombo.Add(QTEManagerRef.CreateQTE("RightBumper", 1, 1, false, CurrentEnemy.ComboDisplayLocation, WomboQTETimer, LocationVector));
             }
             if (QTEType == 5)
             {
-                ComboForWombo.Add(QTEManagerRef.CreateQTE("LeftBumper", 1, 1, false, CurrentEnemy.ComboDisplayLocation, LocationVector));
+                ComboForWombo.Add(QTEManagerRef.CreateQTE("LeftBumper", 1, 1, false, CurrentEnemy.ComboDisplayLocation, WomboQTETimer, LocationVector));
             }
             if (QTEType == 6)
             {
-                ComboForWombo.Add(QTEManagerRef.CreateQTE("LeftTrigger", 1, 1, false, CurrentEnemy.ComboDisplayLocation, LocationVector));
+                ComboForWombo.Add(QTEManagerRef.CreateQTE("LeftTrigger", 1, 1, false, CurrentEnemy.ComboDisplayLocation, WomboQTETimer, LocationVector));
             }
             if (QTEType == 7)
             {
-                ComboForWombo.Add(QTEManagerRef.CreateQTE("RightTrigger", 1, 1, false, CurrentEnemy.ComboDisplayLocation, LocationVector));
+                ComboForWombo.Add(QTEManagerRef.CreateQTE("RightTrigger", 1, 1, false, CurrentEnemy.ComboDisplayLocation, WomboQTETimer, LocationVector));
             }
         }
 

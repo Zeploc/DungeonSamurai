@@ -25,19 +25,19 @@ public class LittleEnemy : BaseEnemy
             QTEType = Random.Range(0, 4);
             if (QTEType == 0)
             {
-                QTEManagerRef.AddQTEToQueue("LeftJoystickLeft", 3, 1, true, PlayerRef.LeftDodge);
+                QTEManagerRef.AddQTEToQueue("LeftJoystickLeft", 3, 1, true, PlayerRef.LeftDodge, QTETimer);
             }
             if (QTEType == 1)
             {
-                QTEManagerRef.AddQTEToQueue("LeftJoystickRight", 4, 2, true, PlayerRef.RightDodge);
+                QTEManagerRef.AddQTEToQueue("LeftJoystickRight", 4, 2, true, PlayerRef.RightDodge, QTETimer);
             }
             if (QTEType == 2)
             {
-                QTEManagerRef.AddQTEToQueue("AButton", 1, 3, true, PlayerRef.LeftParray);
+                QTEManagerRef.AddQTEToQueue("AButton", 1, 3, true, PlayerRef.LeftParray, QTETimer);
             }
             if (QTEType == 3)
             {
-                QTEManagerRef.AddQTEToQueue("BButton", 2, 1, true, PlayerRef.RightParray);
+                QTEManagerRef.AddQTEToQueue("BButton", 2, 1, true, PlayerRef.RightParray, QTETimer);
             }
         }
         
