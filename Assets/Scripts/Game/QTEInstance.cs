@@ -159,6 +159,7 @@ public class QTEInstance : MonoBehaviour {
             PlayerRef.SetAttackPose(PlayerAttackVal);
             int EnemyDeffenseVal = iEnemyAnimVal > 3 ? 3 : iEnemyAnimVal;
             DamageEnemy.SetDeffensePose(EnemyDeffenseVal);
+            GameControllerRef.AudioManagerRef.PlaySound("Block");
         }
 
         QTEManagerRef.RemoveQTE(gameObject);
@@ -204,7 +205,7 @@ public class QTEInstance : MonoBehaviour {
         else
         {
             int PlayerAttackVal = iPlayerAnimVal > 3 ? 3 : iPlayerAnimVal;
-            PlayerRef.SetAttackPose(PlayerAttackVal);
+            PlayerRef.SetAttackPose(PlayerAttackVal, true);
        
             DamageEnemy.SetDamagedPose(1);
             DamageEnemy.TakeDamage(5);

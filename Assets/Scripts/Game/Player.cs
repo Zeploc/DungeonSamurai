@@ -177,19 +177,21 @@ public class Player : MonoBehaviour {
         WomboComboRef.CurrentEnemy = NewEnemy.GetComponent<BaseEnemy>();
     }
 
-    public void SetAttackPose(int NewAttackPose)
+    public void SetAttackPose(int NewAttackPose, bool WithBlood = default(bool))
     {
-        BloodParticles.GetComponent<ParticleSystem>().Play();
-        GetComponent<Animator>().SetInteger("AttackPose", NewAttackPose);
-        if (NewAttackPose == 1) DownSlash.SetActive(true);
-        else if (NewAttackPose == 2) UpSlash.SetActive(true);
-        else if (NewAttackPose == 3) StabSlash.SetActive(true);
-        else
+        StabSlash.SetActive(false);
+        UpSlash.SetActive(false);
+        DownSlash.SetActive(false);
+        if (WithBlood)
         {
-            StabSlash.SetActive(false);
-            UpSlash.SetActive(false);
-            DownSlash.SetActive(false);
+            BloodParticles.GetComponent<ParticleSystem>().Stop();
+            BloodParticles.GetComponent<ParticleSystem>().Play();
+            if (NewAttackPose == 1) DownSlash.SetActive(true);
+            else if (NewAttackPose == 2) UpSlash.SetActive(true);
+            else if (NewAttackPose == 3) StabSlash.SetActive(true);
         }
+        GetComponent<Animator>().SetInteger("AttackPose", NewAttackPose);
+        
         if (NewAttackPose != 0)
         {
 
@@ -284,7 +286,9 @@ public class Player : MonoBehaviour {
             Debug.Log("Help I've fallen and I can't get up");
             MoveTowardsGameObject = FallBackPos;
             bMoveTowardsObject = true;
-            GetComponent<Animator>().SetInteger("DamagePose", 1);
+            GetComponent<Animator>().SetInteger("DamagePose", 0);
+            GetComponent<Animator>().SetBool("Walk", true);
+            QTEManagerRef.ClearQTEs();
         }
         SetHealthBar();
     }

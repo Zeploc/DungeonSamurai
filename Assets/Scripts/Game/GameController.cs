@@ -39,7 +39,7 @@ public class GameController : MonoBehaviour {
         Debug.Log(MaxTime);
         PhaseTextImage.SetActive(false);
         AudioManagerRef = FindObjectOfType<AudioManager>();
-        AudioManagerRef.PlaySound("Gunfire");
+        //AudioManagerRef.PlaySound("Gunfire");
         EndScreenRef.gameObject.SetActive(false);
     }
 
@@ -136,7 +136,7 @@ public class GameController : MonoBehaviour {
 
     public void DeductReviveTime()
     {
-        TimeTillBombu -= 20.0f;
+        TimeTillBombu -= 50.0f;
     }
 
     public void ShowPhaseMessage(bool _isAttack)
